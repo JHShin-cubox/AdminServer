@@ -1,0 +1,197 @@
+@charset "utf-8";
+/* MEMBER CSS */
+
+
+/*로그인*/
+ /**** pc ****/
+@media only all and (min-width:1025px) {
+.login_wrap{width: 100%; float:left; height: 100vh;  background: url("../images/member/login_bg_large.jpg")no-repeat center center; background-size:cover;   display: flex;  justify-content: center;  align-items: center; }
+.login_wrap .login_inbox{width: 550px!important; float:left; height:679px; border-radius: 14px; box-shadow:0px 0px 40px 70px rgba(26,26,26,0.43); overflow: hidden;  }
+.login_wrap .login_inbox>div.login_bg{width: 100%; float:left; background: url("../images/member/login_bg_small.jpg")no-repeat right center; height: 100%;}
+.login_wrap .login_inbox>div.item_group{width: 100%; float:left;height: 100%;   display: flex; flex-direction: column; background-color: #fff; padding: 45px 85px 78px 85px;}  
+}
+/**** pc2 ****/
+@media all and (max-width:1280px) and (min-width:1025px) {
+	.login_wrap{width: 100%; float:left; height: 100vh;  background: url("../images/member/login_bg_large.jpg")no-repeat center center; background-size:cover;   display: flex;  justify-content: center;  align-items: center; padding-right: 0px}
+}
+/**** 모바일 ****/
+@media only all and (max-width:1024px) {
+.login_wrap{width: 100%; float:left; height: 100vh;  background: url("../images/member/login_bg_large.jpg")no-repeat right center; background-size:cover;   display: flex;  justify-content: center;  align-items: flex-start; padding: 20px}
+.login_wrap .login_inbox{width: 100%!important; float:left; height:auto; border-radius: 10px; box-shadow:0px 0px 40px 40px rgba(26,26,26,0.43);  overflow: hidden; }
+.login_wrap .login_inbox>div.login_bg{width: 100%; float:left; background: url("../images/member/login_bg_small.jpg")no-repeat right center; height: 100%;}
+.login_wrap .login_inbox>div.item_group{width: 100%; float:left;height: 100%;   display: flex; flex-direction: column; background-color: #fff; padding:30px;}  
+}
+  
+    
+
+.login_logo1 { width: 100%; text-align: center ; float: left;   display: flex;  justify-content: flex-end; align-items: center; margin-bottom: 20px}
+.login_logo2 { width: 100%; text-align: center ; float: left;   display: flex; justify-content: flex-start; align-items: center; margin-bottom: 16px}
+
+
+.title_type1 { font-size: 16px; font-family: 'Noto Sans KR'; font-weight:600;  margin-bottom: 20px; }
+.title_type2 { font-size: 24px; font-family: 'Noto Sans KR'; font-weight:600; padding-bottom: 30px; border-bottom: 1px solid #cccccc; margin-bottom: 34px;}
+
+
+.member_set {font-family: 'Noto Sans KR'; font-size: 14px; font-weight: 600;  float:left; width:100%; }
+.member_set .title { float:left; width:100%;height: 20px}
+.member_set .textfd_wrap{ float:left; width: 100%;  align-items: center; position: relative  }
+.member_set .textfd_wrap input {width:100%; position: relative; height: 47px; padding: 0 16px 0 62px; line-height: 47px; color: #333; font-size:14px; font-weight:400; font-family: 'Noto Sans KR'; background-color:#fff; border-radius: 4px!important; }
+.member_set .textfd_wrap .icon1{position: absolute; left: 15px; top: 13px; width: 30px; height: 30px;  z-index: 999; }
+.member_set .textfd_wrap .icon1:before{content: "\ea0e";    font-family: unicons-line; font-size: 28px; color: #333}
+
+.member_set .textfd_wrap .icon2{position: absolute; left: 15px; top: 13px; width: 30px; height: 30px;  z-index: 999; }
+.member_set .textfd_wrap .icon2:before{content: "\e857";    font-family: unicons-line; font-size: 28px; color: #333}
+
+
+
+.member_btnbox { float:left; width:100%; grid-template-columns: auto 100px;  display: grid; grid-gap: 10px }
+
+.item_input_bg1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='20'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Cpath d='M16 18v-2a4 4 0 0 0-4-4H4a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='8' cy='4' r='4'/%3E%3C/g%3E%3C/svg%3E");
+background-repeat: no-repeat no-repeat;
+background-position: 25px 12px;
+box-sizing: border-box;background-size: 30px}
+
+.item_input_bg2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg data-name='Layer 5'%3E%3Cpath d='M9,28H23a3,3,0,0,0,3-3V17a3,3,0,0,0-3-3H12V10a4,4,0,0,1,8,0,1,1,0,0,0,2,0,6,6,0,0,0-12,0v4H9a3,3,0,0,0-3,3v8A3,3,0,0,0,9,28ZM8,17a1,1,0,0,1,1-1H23a1,1,0,0,1,1,1v8a1,1,0,0,1-1,1H9a1,1,0,0,1-1-1Z'/%3E%3Cpath d='M15,21.72V23a1,1,0,0,0,2,0V21.72A2,2,0,0,0,18,20a2,2,0,0,0-4,0A2,2,0,0,0,15,21.72Z'/%3E%3C/g%3E%3C/svg%3E");
+background-repeat: no-repeat no-repeat;
+background-position: 20px 7px;
+background-size: 9%; box-sizing: border-box;}
+
+
+.item_group .txbox { margin-top: 20px; width: 100%;float: left; margin-bottom: 10px; font-size: 13px;text-align: left; display: flex; align-items: center; flex-direction: row; }
+.item_group .txbox2 { width: 100%;float: left; margin-bottom: 10px; font-size: 13px;text-align: left; display: flex; align-items: center; flex-direction: row;} 
+
+
+.item_group .btn { width: 100%; height: 53px; line-height: 53px; float:left; padding:0px 20px; box-sizing: border-box; color: #fff; font-size: 14px; font-weight:500; font-family: 'Noto Sans KR';position: relative ; margin-bottom: 20px; border-radius: 4px; background-color: #026893; margin-top: 38px; transition: all 0.3s; box-shadow: 3px 3px 25px rgb(138 183 205 / 60%); cursor: pointer; }  
+.item_group .btn:hover { background-color: #05577a; box-shadow: 3px 3px 25px rgb(138 183 205 / 80%);}
+
+
+
+.item_group .sbtn_box { float:left; width:100%; display: flex; justify-content: space-between;
+    align-items: center;}
+.item_group .sbtn_box .btn_wrap { float:left;  display: flex; flex-direction: row; justify-content: flex-end; align-items: center; font-size: 12px; font-weight:500; font-family: 'Noto Sans KR'; gap:15px; }
+.item_group .sbtn_box .btn_wrap a { color: #000000; text-decoration: none; }
+.item_group .sbtn_box .btn_wrap a:hover { color: #000000; text-decoration: underline; }
+
+
+
+.item_group .sbtn_box .btn_com_register {color:#fff!important; background-color:#333; padding: 7px 16px 7px 10px; border-radius: 50px; font-weight: 600; font-size: 12px; font-size: 'Noto Sans KR', sans-serif; text-decoration: none; cursor: pointer; transition: 0.3s ease all;}
+.item_group .sbtn_box .btn_com_register:hover { background-color: #000000; }
+.item_group .sbtn_box .btn_com_register::before {display:inline-block; width:20px; height:20px; padding:0;  margin-left:2px; content: "\e9c3"; font-size: 17px; font-family: unicons-line; color: #fff;}
+
+
+
+
+/* 로그인 방식 : tab  */
+.db_tab_bar{ float: left; width:100%; height: 40px; margin-top: 20px; margin-bottom: 20px; border-bottom: 1px solid #ccc; position: relative;  display: flex; flex-direction: column; justify-content: flex-end;}
+/**** pc ****/
+@media only all and (min-width:1025px) {.db_tab_bar ul{ width: 100%; height: 39px;  display: grid; grid-template-columns: 1fr 1fr 1fr; grid-column-gap: 30px;}
+}
+/**** pc2 ****/
+@media all and (max-width:1280px) and (min-width:1025px) {
+}
+/**** 모바일 ****/
+@media only all and (max-width:1024px) {.db_tab_bar ul{ width: 100%; height: 39px;  display: grid; grid-template-columns: 1fr 1fr 1fr; grid-column-gap: 0px;}
+
+}
+
+
+.db_tab_bar ul li{  height: 40px; float:left;  padding: 9px 12px!important; font-size: 15px; font-weight: 700!important; color: #888888;  margin: 0 0px 10px 0; cursor: pointer;  background-color:transparent; font-family: 'Noto Sans KR'; font-weight: 500; border-bottom: 2px solid transparent; vertical-align: top; display: flex; line-height: 1.2; flex-direction: row; align-items: flex-end; justify-content: space-evenly;
+  transition: all 0.2s;
+-moz-transition: all 0.2s; /* Firefox 4 */
+-webkit-transition: all 0.2s; /* Safari and Chrome */
+-o-transition: all 0.2s; /* Opera */  }
+
+
+
+.db_tab_bar ul li:hover{cursor: pointer;background-color:transparent; color: #888888; border-bottom: 2px solid transparent; transition: all 0.2s ease-out;}
+
+.db_tab_bar ul li.active{ width: auto; height: 40px; padding: 9px 12px!important; color: #000;  position: relative;  background-color: #fff; border-bottom: 2px solid #000;  }
+/*----------------------------------------------------------------*/
+
+
+/*로그인페이지-얼굴인식 탭*/
+.lgn_txtbox { float: left; width:100%; height: 174px!important; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.lgn_txtbox .bg_img { width: 100%; height: 80px; background: url("../images/member/face-id.png")no-repeat center center; background-size:80px 80px; margin-bottom: 20px; }
+.lgn_txtbox .text_style1 { width:100%; float:left; text-align: center; font-size: 16px; font-weight: 600; color: #333; line-height: 160%;}
+
+/*로그인페이지-QR코드 탭*/
+.lgn_txtbox .time_wrap { width:100%; float:left; display: flex; flex-direction: row; justify-content: center; align-items: center; grid-gap: 30px; }
+
+.lgn_txtbox .time_wrap .text_style2 { width:auto; float:left; text-align: center; font-size: 14px; font-weight: 600; color: #333; line-height: 160%;}
+.lgn_txtbox .time_wrap .text_style2 em { color: #d10442; }
+
+.lgn_txtbox .time_wrap .btn_renewal i {display:inline-block; font-size: 20px; color: #333; }
+
+.lgn_txtbox .qr_img { width: 100%; height: 100px;  background-size:80px 80px; margin-bottom: 20px; display: flex; flex-direction: row; justify-content: center;}
+.lgn_txtbox .qr_img img { width: 100px; height: 100px;}
+
+.qr_text1 {float:left; width: 100%; height: 53px; float:left; box-sizing: border-box; font-size: 16px; font-weight: 600; color: #333; line-height: 160%; font-family: 'Noto Sans KR'; position: relative ; margin-bottom: 20px; margin-top: 38px; text-align: center; }  
+.qr_text1 em { font-size: 13px; font-weight: 500; color: #777; }  
+
+
+/*로그인페이지-얼굴인식 모달창*/
+.pic_wrapper { float: left; width: 100%;  position: relative; }
+.pic_wrapper .pic_box{ float: left; width:100%; }
+.pic_wrapper .pic_box img { width:100%; height: auto; float: left; border-radius: 20px; }
+
+.pic_wrapper .btn_wrap{ float: left; width:100%; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-column-gap: 10px;  margin-top: 30px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*비밀번호 변경*/
+
+.member_set .textfd_wrap2 { float:left; width: 100%; display: flex; flex-direction: row; align-items: center; margin-bottom: 8px; }
+.member_set .textfd_wrap2 input {width:100%; position: relative; height: 47px; padding: 0 16px 0 16px; line-height: 47px; color: #333; font-size:14px; font-weight:400; font-family: 'Noto Sans KR'; background-color:#fff; border-radius: 4px!important;  }
+
+
+.item_group .btn2 { width: 100%; height: 53px; line-height: 53px; float:left; padding:0px 20px; box-sizing: border-box; color: #fff; font-size: 14px; font-weight:500; font-family: 'Noto Sans KR';  margin-bottom: 18px; border-radius: 4px; background-color: #026893; margin-top: 30px; transition: all 0.3s; box-shadow: 3px 3px 25px rgb(138 183 205 / 60%); cursor: pointer;}  
+.item_group .btn2:hover { background-color: #05577a; }  
+
+.item_group .btn3 { width: 100%; height: 53px; line-height: 53px; float:left; padding:0px 20px; box-sizing: border-box; color: #fff; font-size: 14px; font-weight:500; font-family: 'Noto Sans KR';  margin-bottom: 18px; border-radius: 4px; background-color: #666; margin-top: 30px; transition: all 0.3s; box-shadow: 3px 3px 25px rgba(51,51,51,0.2); cursor: pointer; cursor: pointer; text-align: center}  
+.item_group .btn3:hover { background-color: #333; }  
+
+
+.item_group .btn_wrap2 { float:left; width: 100%; display: flex; flex-direction: row; justify-content: center; align-items: center; font-size: 12px; font-weight:500; font-family: 'Noto Sans KR'; gap:50px; }
+
+.txtBtn_pw_policy { color: #000000; text-decoration: underline; padding: 2px 4px; background-color: #fff; font-size: 12px; font-weight: 500; font-family: 'Noto Sans KR'; cursor: pointer; }
+
+/**** pc ****/
+@media only all and (min-width:1025px) {
+.pwd_wrap{width: 100%; float:left; height: 100vh;  display: flex;  justify-content: center;  align-items: center; background: url("../images/member/login_bg_large.jpg")no-repeat center center}
+  
+.pwd_inbox {width: 500px!important; float:left; height:695px; border: 1px solid #ccc; border-radius: 14px; box-shadow:0px 0px 20px 0px rgba(0,0,0,0.08);  overflow: hidden; background-color: #ffffff; padding: 50px;  }
+}
+/**** pc2 ****/
+@media all and (max-width:1280px) and (min-width:1025px) {
+}
+/**** 모바일 ****/
+@media only all and (max-width:1024px) {
+.pwd_wrap{width: 100%; float:left; height: 100vh;  display: flex;  justify-content: center;  align-items: flex-start; background: url("../images/member/login_bg_large.jpg")no-repeat center center}
+  
+.pwd_inbox {width: 500px!important; float:left; height:695px; border: 1px solid #ccc; border-radius: 0px; box-shadow:0px 0px 20px 0px rgba(0,0,0,0.08);  overflow: hidden; background-color: #ffffff; padding: 50px; display: flex;}
+}
+
+.loginCheck{
+    color: red;
+    margin-top: 10px;
+}
+  
+
+
+

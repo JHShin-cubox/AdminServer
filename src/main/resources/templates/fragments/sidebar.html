@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- 왼쪽메뉴 스크립트 -->
+    <script src="/static/js/leftmenu/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/leftmenu/jquery.navgoco.js"></script>
+    <!-- //왼쪽메뉴 스크립트 -->
+</head>
+<body>
+<div th:fragment="sidebar">
+    <script>
+        //반응형 기준
+        var windowWidth = window.matchMedia("screen and (max-width: 1300px)");
+        if (windowWidth.matches) document.write("<div id='quick'> ");
+        else {
+            document.write("<div id='quick' ");
+            if(Bum == "01"){document.write("class='quick_open'");};
+            if(Bum == "02"){document.write("class='quick_open'");};
+            if(Bum == "03"){document.write("class='quick_open'");};
+            if(Bum == "04"){document.write("class='quick_open'");};
+            if(Bum == "05"){document.write("class='quick_open'");};
+            if(Bum == "06"){document.write("class='quick_open'");};
+            document.write(">");
+        }
+    </script>
+    <script>
+        //메인일때
+        if(Bum == "00"){document.write("<div  class='quick_vicon1 main  quick_close_btn'></div><div  class='quick_vicon2 main quick_open_btn'></div>");
+
+        } else {
+            //메인이 아닐때
+            document.write("<div  class='quick_vicon1  quick_close_btn'></div><div  class='quick_vicon2  quick_open_btn'></div>");
+        }
+    </script>
+    <div class="quickbg_box">
+        <div class="bg1"></div>
+    </div>
+    <div class="quick_top">
+        <a href="/" title="메인" class="quick_top1"><i class="uil uil-estate"></i></a>
+    </div>
+    <div class="quick_menu">
+        <div class="b_icon">
+            <div class="topicon ani1">
+                <div class="design_dot1"></div>
+                <div class="design_dot2"></div>
+                <div class="design_dot3"></div>
+                <div class="design_dot4"></div>
+                <div class="design_dot5"></div>
+                <div class="icon">
+                    <script>
+                        if(Bum == "00"){document.write("<img src='/static/images/svg_icon/menuicon00.svg' alt=''/>");};
+                        if(Bum == "01"){document.write("<img src='/static/images/svg_icon/menuicon01.svg' alt=''/>");};
+                        if(Bum == "02"){document.write("<img src='/static/images/svg_icon/menuicon02.svg' alt=''/>");};
+                        if(Bum == "03"){document.write("<img src='/static/images/svg_icon/menuicon03.svg' alt=''/>");};
+                        if(Bum == "04"){document.write("<img src='/static/images/svg_icon/menuicon04.svg' alt=''/>");};
+                        if(Bum == "05"){document.write("<img src='/static/images/svg_icon/menuicon05.svg' alt=''/>");};
+                    </script>
+                </div>
+            </div>
+        </div>
+        <ul class="nav" id="demo1" >
+            <th:block th:if="${userRole}=='ADMIN'">
+            <script>if(Bum == "01"){document.write("<li class='open'>");}else { document.write("<li>");}</script>
+
+            <a href="#" class="icon_id1">
+                <div class="icon nav_icon ">
+                    <div class="imgbox"><img src="/static/images/svg_icon/menuicon01.svg" alt=""/></div>
+                </div>
+                장비 관리
+            </a>
+            <ul class="menu2">
+                </script>
+                <script>if(pageum == "010101"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum010101_link);
+                document.write(">");
+                document.write(Mtitle0101);
+                document.write("</a></li>");
+                </script>
+
+                <script>if(pageum == "010201"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum010201_link);
+                document.write(">");
+                document.write(Mtitle0102);
+                document.write("</a></li>");
+                </script>
+            </ul>
+            </th:block>
+            </li>
+            <script>if(Bum == "02"){document.write("<li class='open'>");}else { document.write("<li>");}</script>
+            <a href="#"  class="icon_id2">
+                <div class="icon nav_icon">
+                    <div class="imgbox"><img src="/static/images/svg_icon/menuicon02.svg" alt=""/></div>
+                </div>
+                이력 관리</a>
+            <ul class="menu2">
+                <script>if(pageum == "020101"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum020101_link);
+                document.write(">");
+                document.write(Mtitle0201);
+                document.write("</a></li>");
+                </script>
+                <script>if(pageum == "020201"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum020201_link);
+                document.write(">");
+                document.write(Mtitle0202);
+                document.write("</a></li>");
+                </script>
+                <script>if(pageum == "020301"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum020301_link);
+                document.write(">");
+                document.write(Mtitle0203);
+                document.write("</a></li>");
+                </script>
+                <script>if(pageum == "020401"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum020401_link);
+                document.write(">");
+                document.write(Mtitle0204);
+                document.write("</a></li>");
+                </script>
+                <script>if(pageum == "020501"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum020501_link);
+                document.write(">");
+                document.write(Mtitle0205);
+                document.write("</a></li>");
+                </script>
+            </ul>
+            </li>
+            <script>if(Bum == "03"){document.write("<li class='open'>");}else { document.write("<li>");}</script><a href="#"  class="icon_id3">
+            <div class="icon nav_icon">
+                <div class="imgbox"><img src="/static/images/svg_icon/menuicon03.svg" alt=""/></div>
+            </div>
+            통계 관리</a>
+            <ul class="menu2">
+                <script>if(pageum == "030101"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum030101_link);
+                document.write(">");
+                document.write(Mtitle0301);
+                document.write("</a></li>");
+                </script>
+            </ul>
+            </li>
+
+
+            </li>
+            <th:block th:if="${userRole}=='ADMIN'">
+            <script>if(Bum == "05"){document.write("<li class='open'>");}else { document.write("<li>");}</script><a href="#"  class="icon_id5">
+            <div class="icon nav_icon">
+                <div class="imgbox"><img src="/static/images/svg_icon/menuicon05.svg" alt=""/></div>
+            </div>
+            운영 관리</a>
+            <ul class="menu2">
+                <script>if(pageum == "050101"){document.write("<li class='on'>");}else { document.write("<li>");}
+                document.write("<a href=");
+                document.write(Pageum050101_link);
+                document.write(">");
+                document.write(Mtitle0501);
+                document.write("</a></li>");
+                </script>
+            </ul>
+            </th:block>
+            </li>
+        </ul>
+    </div>
+
+</div>
+</div>
+</body>
+</html>

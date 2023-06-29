@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>통합관리 시스템</title>
+</head>
+<body>
+<header th:fragment="header" class="main">
+    <div id="quick_btn_mobile"><i class="uil uil-bars" ></i></div>
+    <div id="quick_btn_mobile2"><i class="uil uil-arrow-left"></i></div>
+
+    <div id="header">
+        <div class="inner">  <script> document.write("<a  href=");
+        document.write(Pageum000000_link);
+        document.write(" class=logo><img src='/static/images/common/logo3.png' style='width: 252px;' alt='통합관리 시스템'/></a>");</script>
+            <div class="time title_time" th:text="${#calendars.format(#calendars.createNow(),'yyyy년 MM월 dd일 HH시 mm분 ss초')}"></div>
+            <div class="g_area">
+                <div class="memberinfobox">
+                    <div class="member_info">
+                        [[${userId}]]<br>
+                        <em>[[${userName}]]</em>
+                    </div>
+                    <div class="btn_logout" onclick="apiLogout()"><i class="uil uil-signout"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+</html>

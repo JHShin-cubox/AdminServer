@@ -1,0 +1,9 @@
+.accordion_style {width:100%;}
+.accordion_style .acc_wrap:last-child {border-bottom:1px solid #ccc}
+.accordion_style .acc_wrap .acc_title {position:relative; width:100%; padding:15px 0px; margin:0; border-top:1px solid #ccc; background:none; color:#333333; font-size:16px; text-align:left; cursor:pointer; font-family: 'Noto Sans KR' ,sans-serif;}
+.accordion_style .acc_wrap .acc_title span {position:relative;}
+.accordion_style .acc_wrap .acc_title:hover {background-color:#f7f7f7}
+.accordion_style .acc_wrap .acc_title::after {content:''; position:absolute; top:20px; right:16px; width:24px; height:24px; background:url(../images/common/guide/controls-arrow-down-default@2x.png) no-repeat 0 0; background-size:100%;}
+.accordion_style .acc_wrap .acc_title.active::after {background:url(../images/common/guide/controls-arrow-up-activated@2x.png) no-repeat 0 0; background-size:100%;}
+.accordion_style .acc_wrap .acc_pannel {display:none; margin:0 0px; padding:0px; border-top:1px solid #ccc; color:#333; font-size:16px; line-height:26px;}
+.accordion_style.type01 .acc_wrap .acc_pannel {color:#666; font-size:14px; font-weight:300; line-height:24px}

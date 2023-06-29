@@ -1,0 +1,97 @@
+@charset "utf-8";
+
+
+/*달력 공통*/
+.datepicker_box{width: 100%; float: left;  display: grid;  grid-template-columns: 1fr 1fr; column-gap: 10px;}
+.datepicker_box>input{width: 100%; float: left; position: relative; background: url(../../images/svg_icon/calender.svg)no-repeat calc(100% - 10px) center!important;  background-size: 20px!important;}
+.datepicker_box>div{width: 100%;  line-height: var(--h-com); text-align: center!important }
+
+
+/**** 서브타이틀 공통 ****/
+/**** pc ****/
+@media only all and (min-width:1025px) {
+.title_area{width: 100%; float: left;font-family: 'Noto Sans KR';font-size: 16px; font-weight: 400; color: #666; display: flex; flex-direction: row; align-items: baseline; position: relative; margin-bottom: 30px}
+	
+.title_area .page_route{width: auto; float: left;position: absolute; right: 20px; top: 10px; padding-left: 25px;  font-size: 15px; color: #999}
+.title_area .page_route:before{content: "\eca5";    font-family: unicons-line; color: #333;font-size: 18px; position: absolute; left: 0PX; top: 0PX}
+.title_area .page_route em{ font-family: 'Noto Sans KR', sans-serif;  color: #000 ; font-weight: 600; font-size: 16px}
+	
+.title_area>em{width: auto; float: left; font-family: 'Noto Sans KR'; font-size: 36px; font-weight: 700; color: #000; margin-right: 10px}  
+.title_area>.bmenu{float: left;font-family: 'Noto Sans KR'; font-size: 16px; font-weight: 400; color: #000;  margin-right: 20PX } 
+.title_area>.mmenu{float: left;font-family: 'Noto Sans KR'; font-size: 36px; font-weight: 700;color: #000;  margin-right: 20PX} 
+	
+}
+/**** pc2 ****/
+@media all and (max-width:1280px) and (min-width:1025px) {
+}
+/**** 모바일 ****/
+@media only all and (max-width:1024px) {
+.title_area{width: 100%; float: left;font-family: 'Noto Sans KR';font-size: 14px; font-weight: 400; color: #666; display: flex; flex-direction: column; align-items: flex-start;position: relative; }
+  
+.title_area .page_route{width: auto; float: left; padding-left: 25px;  font-size: 12px; color: #999; display: flex; flex-direction: row; align-items: center; position: relative;; margin-bottom: 20px}
+.title_area .page_route:before{content: "\eca5"; font-family: unicons-line; color: #333;font-size: 18px; position: absolute; left: 0PX; top: 7PX;  }
+.title_area .page_route em{ float: left; font-family: 'Noto Sans KR', sans-serif;  color: #000 ; font-weight: 600; font-size: 12px}  
+  
+.title_area em{width: auto; float: left; font-family: 'Noto Sans KR'; font-size: 18px; font-weight: 700; color: #000; margin-right: 10px; margin-top: 7px; margin-bottom: 5px;} .title_area>.bmenu{float: left;font-family: 'Noto Sans KR'; font-size: 14px; font-weight: 400; color: #000;  margin-right: 20PX; order: 1 ; display: none} 
+.title_area>.mmenu{float: left;font-family: 'Noto Sans KR'; font-size: 20px; font-weight: 700;color: #000;  margin-right: 20PX; order:2 ; margin-bottom: 20px} 
+	
+}
+
+
+
+/**** 박스 공통 ****/ 
+/**** pc ****/
+@media only all and (min-width:1025px) {	
+.subbox { float:left; width:100%; height:auto;  margin-bottom: 30px!important; }
+}
+/**** pc2 ****/
+@media all and (max-width:1280px) and (min-width:1025px) {
+}
+/**** 모바일 ****/
+@media only all and (max-width:1024px) {
+.subbox { float:left; width:100%; height:auto; background-color: #ffffff; border-radius: 10px;border: 1px solid #d4d4e3; padding: 16px; box-shadow:0px 0px 20px 0px rgba(0,0,0,0.08); margin-bottom: 50px!important; box-sizing: border-box; } 	
+	
+}
+  
+  
+
+/**** pc ****/
+@media only all and (min-width:1025px) {
+.com_titlebox{ height:auto; width: 100%; float: left; position: relative; display: flex; align-items: center; padding: 15px 0px 20px; line-height: 130% }
+.com_titlebox .title_tx{font-family: 'Noto Sans KR', sans-serif;  color: #000 ; font-weight: 600; font-size:20px; padding-left: 35px; }
+.com_titlebox .title_tx:before{content: "\eb6e"; font-family: unicons-solid; position: absolute; left: 0px; top: 16px; font-size: 30px; color: #333 }
+  
+/*.com_titlebox .btnBox_num3{position: absolute; right:0px; top:0px;  display: flex;flex-direction: row;  grid-gap: 5px; }
+*/
+
+
+.com_titlebox.line_b{  border-bottom: 3px solid #000}
+.com_titlebox.mb{  margin-bottom: 20px}
+.com_titlebox.pb{  padding-bottom: 25px}
+
+}
+/**** pc2 ****/
+@media all and (max-width:1280px) and (min-width:1025px) {
+}
+/**** 모바일 ****/
+@media only all and (max-width:1024px) {
+.com_titlebox{ height:auto; width: 100%; float: left; position: relative;     display: flex;   align-items: center;  padding: 10px 0px 10px; line-height: 130% }
+.com_titlebox .title_tx{float: left; width:100%; font-family: 'Noto Sans KR', sans-serif;  color: #000 ; font-weight: 600; font-size:18px; padding-left:30px; }
+
+.com_titlebox .title_tx:before{content: "\eb6e"; font-family: unicons-solid; position: absolute; left: 0px; top:10px; font-size: 26px; color: #333}
+  
+/*.com_titlebox .btnBox_num3{float: left; width:100%; position: absolute; right:0px; top:55px;  display: flex;flex-direction: row; grid-gap: 5px; }*/
+
+
+
+.com_titlebox.line_b{  border-bottom: 3px solid #000}
+.com_titlebox.mb{  margin-bottom: 20px}
+.com_titlebox.pb{  padding-bottom: 25px}
+
+}
+
+
+
+
+
+  

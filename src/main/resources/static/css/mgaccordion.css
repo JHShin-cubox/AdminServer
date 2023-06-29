@@ -1,0 +1,74 @@
+.my-nav{width: 100%;float: left}
+.my-nav li{width: 100%;float: left; }
+
+
+.mg-accordion, .mg-accordion ul{
+	list-style-type: none;
+}
+.mg-accordion .submenu{
+	display: none;
+}
+.my-menu, .mg-flat{
+	width: 100%;
+}
+.justify-items-evenly{
+	justify-content: space-evenly;
+}
+
+.mg-flat {width: 100%; float: left; border-top: 1px solid #ccc}
+.mg-flat li{width: 100%; float: left; }
+
+.mg-flat li.dropdown{
+	margin-left: 0px;position: relative
+}
+.mg-flat{position: relative
+}
+
+.mg-flat span.toggler{width: 30px; height: 30px; background: url("../../images/svg_icon/tree_folder_open.svg")no-repeat center center; background-size: 100%;  position: absolute; left: 20px; top: 10px; z-index: 2
+}
+
+.mg-flat span.toggler:before{content: "";    font-family: unicons-line; height: 50%; top: 27px; position: absolute; left: 15px; width: 1px ;  height: 13px; float: left; ; z-index: 0; border-left: dashed 1px #333
+}
+
+
+.mg-flat a{ 
+	text-decoration: none;
+	display: block;color: #333; padding: 5px 0px 5px;
+}
+.mg-flat li.dropdown a{
+	border-bottom:1px solid #ccc;
+	background: #fff; padding: 5px 0px 5px;
+}
+
+.mg-flat .submenu li a{ padding-left:0px; color: #333; 	background: #f3f4f7; position: relative; line-height: 30px; padding: 5px 0px 10px;
+
+}
+
+
+.mg-flat .submenu li a .dot_icon{ width: 5px; height: 5px;border-radius: 100%; background-color: #333;  position: absolute; left:33px; top: 15px; z-index: 2; position: relative}
+.mg-flat .submenu li a .dot_icon:before{ width: 30px; height:1px;position: absolute; left: 0px; top: 1.5px; z-index: 2; border-top: 1px dashed #333;content: "";    }
+
+
+
+
+
+.mg-flat .submenu li a:before{content: "";    font-family: unicons-line; height: 100%; top: 0px; position: absolute; left: 35px; width: 1px ;   float: left; ; z-index: 0; border-left: dashed 1px #333
+}
+
+
+.mg-flat .submenu li:last-child a:before{content: "";    font-family: unicons-line; height: 50%; top: 0px; position: absolute; left: 35px; width: 1px ;   float: left; ; z-index: 0; border-left: dashed 1px #333
+}
+
+
+
+a.openItem{
+	background: #fff!important;
+	color: #fff;
+}
+.openItem span{
+opacity:1
+}
+.toggler{
+	transition: all 1s;opacity: 0
+}
+

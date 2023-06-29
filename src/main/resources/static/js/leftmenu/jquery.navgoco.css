@@ -1,0 +1,137 @@
+.nav, .nav ul, .nav li {
+	list-style: none;
+}
+
+.nav ul {
+	padding: 0;
+	margin: 0 0 0 0px;
+}
+
+.nav {
+	padding: 0px;
+	margin: 0px;
+}
+
+.nav > li {
+	margin: 0px 0 !important; 
+}
+
+.nav > li {
+	padding: 10px 0px 0px 80px;
+}
+.nav > li li {
+	padding: 0px;
+}
+.nav a {
+	color: #fff;
+	display: block;
+	outline: none;
+	text-decoration: none; position: relative; font-weight: 500;  padding-left: 20px!important; 
+}
+.nav a .icon{width: 80px; float: left;
+	color: #fff!important; position: absolute; left: -80px; top: 5px;   display: flex;  justify-content: center;  align-items: center;
+}
+.nav a .icon i{
+	color: #fff!important;font-size: 28px; width: 40px; height: 40px; border-radius: 100%;  display: flex;  justify-content: center;  align-items: center;
+}
+.nav a .icon .imgbox{
+color: #fff!important;font-size: 28px; width: 40px; height: 40px; border-radius: 100%;  display: flex;  justify-content: center;  align-items: center;
+}
+.nav a .icon .imgbox img{
+	 width: 25px; 
+}
+
+
+
+.nav li.open > a > .caret {
+	float: right;
+	width:13px;
+	height: 13px;
+	display: inline-block;
+	vertical-align: top; margin-right: 0px; margin-top: 18px;
+ content: "\eb19";    font-family: unicons-line;
+}
+
+.nav li.open > a:hover > .caret {
+	border-bottom-color: #fff;
+}
+
+.nav a:hover, .nav li.open > a {
+color: #3186a3; font-weight: 700
+}
+
+.nav>a:hover {
+	color: #3186a3;
+}
+.nav  li.open  a{background-color: #1b1e25; position: relative
+}
+
+.nav li.open > a:before{content: "\eb3a";    font-family: unicons-line; position: absolute;right: 10px; top: 0px;font-size: 16px
+}
+.nav  li.open  ul{background-color: #1b1e25; padding-bottom: 10px
+}
+.nav  li.opene>a{	color: #3186a3!important; }
+
+.nav  li.open a .icon i{background-color: #418ab5; }
+
+.nav  li.open a .icon .imgbox{
+background-color: #418ab5;
+}
+.nav  li.open a .icon .imgbox img{
+	 width: 25px; 
+}
+
+.nav >li>a {
+	font-size: 12px;
+	line-height:30px;
+	padding: 3px 0px 0px 20px!important;
+}
+ul.menu2 li a{
+	font-size: 12px;
+	line-height: 30px;
+padding-left:0px; color: #999!important; 
+}
+
+
+ul.menu2>li.down>a:after{ content: "\eb3a";    font-family: unicons-line;  position: absolute;right: 15px; top: 0px; color: #999; font-size: 20px}
+
+
+
+
+ul.menu2 li a:hover{
+color: #fff!important
+}
+
+ul.menu3 li a{
+font-size: 11px;
+	line-height: 25px;
+padding-left:120px; color: #666!important;    letter-spacing: -0.2px; position: relative
+}
+
+ul.menu2 li a.menu_on{ font-size: 12px;
+	line-height: 35px;
+	 background-color: #5384d0;
+}
+
+ul.menu2>li.open>a{ color: #fff!important; }
+ul.menu2>li.open>a:after{ color: #fff!important; }
+
+ li a.menu_on .ar_icon{ position: absolute; right: 30px; top: 10px;    background:#fff;
+    width :0px;
+    height:0PX;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #f1f1f1; transform:rotate(45deg)
+}
+
+
+.nav > li > a {
+	font-size: 14px;
+	line-height: 40px;
+	padding: 10px 10px 5px 100px;color: #fff; box-sizing: border-box
+}
+
+.nav > li > a:hover {color:#418ab5; box-sizing: border-box; 
+}
+
+ul.menu2 li.on a{color: #fff!important; 
+}

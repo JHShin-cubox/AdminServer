@@ -1,0 +1,219 @@
+
+@charset "utf-8";
+
+.line_grey {float: left; width: 100%; height: 1px; background-color: #cccccc; margin-top: 30px; }
+.bottom_btn_wrap_type1 { float: left; width:100%; margin-top: 30px; display: flex; flex-direction: row; justify-content: flex-end; grid-column-gap: 5px;padding-bottom: 30px }
+
+
+
+
+/**** pc ****/
+@media only all and (min-width:1025px) {
+	/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999999999999999999999999999999999999999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(14,16,19,0.7);
+  padding-top: 50px;    
+}
+
+  
+  
+/* TitleBar */
+.modal_titlebar {width:100%; float:left; position: absolute; left: 0; top:0; height: 50px; color: #fff;
+background-color : #e9e9e9;
+
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#176780+0,4296b2+100 */
+background: #176780; /* Old browsers */
+background: -moz-linear-gradient(left,  #176780 0%, #4296b2 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #176780 0%,#4296b2 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #176780 0%,#4296b2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#176780', endColorstr='#4296b2',GradientType=1 ); /* IE6-9 */
+}
+  
+  
+.modal-content { height: 100%; 
+  width: 100%; /* Could be more or less, depending on screen size */; 
+  position: relative; display: flex; justify-content: center; align-items: center; }
+.modal-content_in{   width: 100%;background-color: #ffffff; float: left;   height: auto;  position: relative;  padding:80px 30px 30px 30px; }
+  
+  
+  
+.modal-content_in .modal_title {font-size: 18px; font-weight: 600; font-family: 'Noto Sans KR'; color: #fff; padding-bottom: 24px; position: absolute; left:30px; top:18px; }
+.modal-content_in .modal_title .title_s{ margin-left: 14px; font-size: 12px; font-weight: 600; font-family: 'Noto Sans KR'; color: #666666; padding-bottom: 24px;}
+.modal-content_in .modal_close{position: absolute; right: 20px; top:12px;  cursor: pointer}
+.modal-content_in .modal_close i{font-size: 30px;transition: 0.3s ease all; color: #fff}
+.modal-content_in .modal_close:hover i{font-size: 30px; color:#000}
+  
+  
+  
+}
+/**** pc2 ****/
+@media all and (max-width:1280px) and (min-width:1025px) {
+}
+/**** 모바일 ****/
+@media only all and (max-width:1024px) {
+	/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999999999999999999999999999999999999999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(14,16,19,0.7);
+  padding-top: 0px;    overflow-y: auto; overflow-x: hidden
+}
+
+/* TitleBar */
+.modal_titlebar {width:100%; float:left; position: absolute; left: 0; top:0; height: 50px; color: #fff;
+background-color : #e9e9e9;
+
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#176780+0,4296b2+100 */
+background: #176780; /* Old browsers */
+background: -moz-linear-gradient(left,  #176780 0%, #4296b2 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #176780 0%,#4296b2 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #176780 0%,#4296b2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#176780', endColorstr='#4296b2',GradientType=1 ); /* IE6-9 */
+}
+  
+
+.modal-content { height: 100%; width: 100%;  display: flex; flex-direction: row; justify-content: space-between; }
+.modal-content_in{ width: 100%;background-color: #ffffff; float: left;   height:100%;  position: relative;  padding:80px 20px 20px 20px !important;  overflow-y: auto; overflow-x: hidden}
+  
+
+  
+.modal-content_in .modal_title {font-size: 16px; font-weight: 400; font-family: 'Noto Sans KR'; color: #fff; padding-bottom: 24px; position: absolute; left:20px; top:18px; }
+.modal-content_in .modal_title .title_s{ margin-left: 14px; font-size: 12px; font-weight: 600; font-family: 'Noto Sans KR'; color: #666666; padding-bottom: 24px;}
+.modal-content_in .modal_close{position: absolute; right: 20px; top:15px;  cursor: pointer}
+.modal-content_in .modal_close i{font-size: 20px;transition: 0.3s ease all; color: #fff}
+.modal-content_in .modal_close:hover i{color:#000}
+  
+  
+}
+
+
+
+
+
+
+
+
+
+.w_450{ width:450px; float: left}
+.w_520{ width:520px; float: left}
+.w_780{ width:780px!important; float: left}
+.w_1200{ width:1200px; float: left}
+.w_90vw { width: 90vw; float:left}
+
+.modal_cnt_wrap { float:left; width:100%; box-sizing: border-box; padding: 30px 0px; display: flex; flex-direction: column; align-items: center;}
+.modal_img01 {float: left; width: 100%; height: 100px; margin-bottom: 10px; background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='레이어_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill-rule:evenodd;clip-rule:evenodd;fill:%23F7981D;%7D%0A%3C/style%3E%3Cpath class='st0' d='M12,1C9.8,1,8,2.8,8,5c0,0.9,0.3,1.8,0.9,2.5c-1.5,0.7-2.5,2-2.8,3.6C4.3,11.5,3,13.1,3,15 c0,0.9,0.3,1.8,0.9,2.5C2.2,18.3,1,20,1,22c0,1.3,2,1.3,2,0c0-1.6,1.3-3,3-3c0,0,0,0,0.1,0h2c1.6,0,3,1.3,3,2.9c0,0,0,0,0,0.1 c0,1.3,2,1.3,2,0c0-1.6,1.3-3,2.9-3c0,0,0,0,0.1,0h2c1.6,0,3,1.3,3,2.9c0,0,0,0,0,0.1c0,1.3,2,1.3,2,0c0-2-1.2-3.7-2.9-4.5 c0.6-0.7,0.9-1.6,0.9-2.5c0-1.9-1.3-3.5-3.1-3.9c-0.3-1.6-1.3-2.9-2.8-3.6C15.7,6.8,16,5.9,16,5C16,2.8,14.2,1,12,1z M12,3 c1.1,0,2,0.9,2,2s-0.9,2-2,2c-1.1,0-2-0.9-2-2c0,0,0,0,0,0C10,3.9,10.9,3,12,3z M11,9h2c1.4,0,2.5,0.9,2.9,2.2 c-1.7,0.5-2.9,2-2.9,3.8c0,0.9,0.3,1.8,0.9,2.5c-0.7,0.4-1.4,0.9-1.9,1.5c-0.5-0.7-1.1-1.2-1.9-1.6c0.5-0.7,0.9-1.5,0.9-2.5 c0-1.8-1.2-3.3-2.9-3.8C8.5,9.9,9.7,9,11,9z M7,13c1.1,0,2,0.9,2,2s-0.9,2-2,2s-2-0.9-2-2S5.9,13,7,13z M17,13c1.1,0,2,0.9,2,2 s-0.9,2-2,2c-1.1,0-2-0.9-2-2S15.9,13,17,13z'/%3E%3C/svg%3E%0A");
+background-repeat: no-repeat no-repeat;
+background-position: center center;
+background-size: 20%;}
+
+.modal_img02 {  width: 40vw;  height: 500px;  margin: 0 10px; object-fit: contain}
+
+
+/*모달 텍스트 타입*/
+.modal_cnt_tit {font-size: 24px; font-weight: 600; font-family: 'Noto Sans KR'; color: #000000; margin-bottom: 15px; }
+.modal_cnt_text_type1 {font-size: 14px; font-weight: 400; font-family: 'Noto Sans KR'; color: #333333; line-height:1.5; }
+.modal_cnt_text_type2 {font-size: 14px; font-weight: 400; font-family: 'Noto Sans KR'; color: #ee6900; line-height:1.5;}
+.modal_cnt_text_type3 {font-size: 12px; font-weight: 400; font-family: 'Noto Sans KR'; color: #777777; line-height:1.5;}
+/**/
+
+
+/* The Modal Close Button (x) */
+.close { position: absolute; right: 35px; top: 15px; font-size: 40px; font-weight: bold; color: #f1f1f1; }
+.close:hover,
+.close:focus { color: #f44336; cursor: pointer; }
+
+/* Clear floats */
+.clearfix::after { content: ""; clear: both; display: table; }
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .deletebtn {
+     width: 100%;
+  }
+}
+
+
+/* 비밀번호 변경 - 리스트 */
+.bul_list .dot_arr {display:block; margin-bottom:6px; padding-left:10px; background:url('../../images/common/ico_dot.png') no-repeat 0 8px; color:#555; line-height:1.5;}
+.bul_list .dot_arr.em { background-image: none!important; color:#ee6900; }
+
+.box_txt_type1 { float:left; width: 100%; margin: 0 10px; padding: 20px; background-color:#eee; box-sizing: border-box; line-height:1.5; border-radius: 5px;}
+/**/
+
+
+
+
+/* The Modal (background) */
+.alert_bg{
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(14,16,19,0.7);
+  padding-top: 50px;    
+}
+
+/* alert*/
+.alert-content { height: 100%;  
+  width: 100%; /* Could be more or less, depending on screen size */; 
+  position: relative; display: flex; justify-content: center; align-items: center; }
+
+.alert-content .alert_in{width: 300px;float: left; padding: 40PX 20px; border-radius: 20px; background-color: #fff;    display: flex;  justify-content: center;  align-items: center;flex-direction: column; }
+
+ .alert_in .icon_info{width:100%;float: left; text-align: center ; margin: 20PX 0PX}
+ .alert_in .icon_info i{color: #666; font-size: 70px;}
+
+
+ .alert_in .tx_info{width:100%;float: left; text-align: center; font-size: 15px; color: #333; margin-bottom: 20px}
+
+ .alert_in .btnbox{width:100%;float: left;  display: flex;  justify-content: center;  align-items: center;flex-direction: row; grid-gap: 5px}
+
+
+
+
+
+
+
+
+
+
+
+
+/*모달 본문 스타일*/
+
+.modal_subtitle { color: #000000; font-family: 'Noto Sans KR'; font-size:16px; font-weight:600; position: relative;}
+.modal_subtitle::before {display:inline-block; width:20px; height:20px; padding:0;  margin-right:5px; content: "\eb6e"; font-size: 20px; font-family: unicons-line; color: #000;}
+
+.modal_subtitle2 { color: #777777; font-family: 'Noto Sans KR'; font-size:16px; font-weight:600; position: relative;}
+
+.face_pic_box { float: left; width: 100%; height: 300px; padding: 16px; background: url("../../images/common/bg_face-id.png")no-repeat center center; background-size: 30%; border: 1px solid #eee; border-radius: 10px; margin-bottom: 30px; }
+
+
+
+
+
+
+
+
+
+
+
+

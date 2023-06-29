@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>통합 관리시스템</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/all.css?v=20230130" media="all">
+    <!--fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!--공통 js-->
+    <script src="/static/js/ui.js" charset="utf-8"></script>
+    <!--메뉴관련-->
+    <script src="/static/js/sitetitle.js" type="text/javascript"></script>
+    <!--swiper-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <!--아이콘-->
+    <!--mqtt-->
+    <script type="text/javascript" src="/static/js/func.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <script type="text/javascript" src="/static/js/mqttConfig.js"></script>
+    <script type="text/javascript" src="/static/js/Moment.js"></script>
+    <!--mqtt-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release-pro/v4.0.0/css/solid.css?key=0b042860-cc91-11ea-ab4a-0242ac140003">
+    <!--left menu -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="/static/js/leftmenu/jquery.navgoco.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/js/leftmenu/jquery.navgoco.css" media="screen" />
+    <script type="text/javascript" id="demo1-javascript">
+        $(document).ready(function() {
+            $("#demo1").navgoco({
+                caret: '<span class="caret"></span>',
+                accordion: true,
+                openClass: 'open',
+                save: true,
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+        });
+    </script>
+</head>
+<body class="css_v1">
+<div id="jump_menu">
+    <h1>건너뛰기 메뉴</h1>
+    <ul>
+        <li><a href="#header">주메뉴 바로가기</a></li>
+        <li><a href="#body_area">본문 바로가기</a></li>
+    </ul>
+</div>
+<header th:replace="fragments/header::header"></header>
+<div th:replace="fragments/sidebar::sidebar"></div>
+<div layout:fragment="content"></div>
+<!--//right -->
+
+</body>
+</html>

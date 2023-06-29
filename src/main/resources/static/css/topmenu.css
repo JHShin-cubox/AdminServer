@@ -1,0 +1,91 @@
+
+
+nav { }
+
+nav ul {
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  position: relative;
+
+}
+nav ul li a {
+  color: #fff;
+  display: block;
+  font-size: 13px;
+  padding: 15px 14px;
+  transition: 0.3s linear;
+}
+nav>ul>li>a {
+	
+  text-decoration: none;  width:auto;line-height: 70px;  height: 70px; position: relative; font-size:15px;font-weight: 500; color: #333; font-family: 'Noto Sans KR', sans-serif;  cursor: pointer; transition: all 0.5s;
+-moz-transition: all 0.5s; /* Firefox 4 */
+-webkit-transition: all 0.5s; /* Safari and Chrome */
+-o-transition: all 0.5s; /* Opera */  box-sizing: border-box;
+  transition: 0.3s linear; padding: 0px 70px 0px 30px
+}
+
+
+header.large nav>ul>li>a {
+	
+  text-decoration: none;  width:auto;line-height: 70px;  height: 70px; position: relative; font-size:15px;font-weight: 500; color: #333; font-family: 'Noto Sans KR', sans-serif;  cursor: pointer; transition: all 0.5s;
+-moz-transition: all 0.5s; /* Firefox 4 */
+-webkit-transition: all 0.5s; /* Safari and Chrome */
+-o-transition: all 0.5s; /* Opera */  box-sizing: border-box;
+  transition: 0.3s linear; padding: 0px 50px 0px 30px
+}
+header.large nav>ul>li:hover>a {color: var(--div-color1)}
+
+header.small nav>ul>li>a {
+	
+  text-decoration: none;  width:auto;line-height: 50px;  height: 50px; position: relative; font-size:15px;font-weight: 500; color: #333; font-family: 'Noto Sans KR', sans-serif;  cursor: pointer; transition: all 0.5s;
+-moz-transition: all 0.5s; /* Firefox 4 */
+-webkit-transition: all 0.5s; /* Safari and Chrome */
+-o-transition: all 0.5s; /* Opera */  box-sizing: border-box;
+  transition: 0.3s linear; padding: 0px 50px 0px 30px
+}
+header.small nav>ul>li:hover>a {color: var(--div-color1)}
+
+
+nav>ul>li>a i{width: 30px; height: 30px; line-height: 30px;  position: absolute; left: 0px; top: 50%; margin-top: -15px; font-size: 25px;color: #333; transition: all 0.5s;
+-moz-transition: all 0.5s; /* Firefox 4 */
+-webkit-transition: all 0.5s; /* Safari and Chrome */
+-o-transition: all 0.5s; /* Opera */ 
+}
+
+nav>ul>li:hover>a {color: var(--div-color1); 
+}
+
+nav>ul>li:hover>a i{color: var(--div-color1)
+}
+
+
+nav ul li:hover {  }
+
+
+nav>ul>li>ul {
+  display: none;
+  position: absolute;
+  width: 180px; border-radius: 0px 0px 6px 6px; overflow: hidden
+}
+
+nav ul li ul li {
+  border-top: 1px solid #444;
+  display: block;color: #fff!important
+}
+
+nav ul li ul li:first-child { border-top: none; }
+
+nav>ul>li>ul>li>a {
+  background: #373737;
+  display: block;
+  padding: 10px 14px; color: #fff!important
+}
+
+nav ul li ul li a:hover { background: #000;color: var(--div-color1)!important }
+
+nav .fa.fa-angle-down { margin-left: 6px; }

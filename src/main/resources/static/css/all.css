@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+@import url(/static/css/main.css);
+
+@import url(/static/css/common/font.css?v1);
+@import url(/static/css/common/icon_line.css);
+@import url(/static/css/common/icon_solid.css);
+@import url(/static/css/common/basics.css);
+@import url(/static/css/common/component.css);
+@import url(/static/css/common/select.css);
+@import url(/static/css/common/modal.css);
+@import url(/static/css/common/grid.css);
+@import url(/static/css/common/swiper_conf.css);
+
+
+@import url(/static/css/common/accorion.css);
+@import url(/static/css/layout.css);
+@import url(/static/css/icon.css);
+@import url(/static/css/table.css);
+@import url(/static/css/topmenu.css);
+
+
+/*스크롤테이블 */
+@import url(/static/css/tablescroller.css);
+
+@import url(/static/css/btn.css);
+@import url(/static/css/member.css);
+@import url(/static/css/contents/cont_common.css);
+@import url(/static/css/contents/cont_main.css);
+@import url(/static/css/contents/cont_sub.css);
+
+
+
+
+:root {
+    --div-color1:#3c95b1;
+    --div-color1-hover:#f7741d;
+
+    --div-color2:#43424e;
+    --div-color2-hover:#333;
+	
+	  --div-color3:#006ecd;
+    --div-color3-hover:#006ecd;
+
+	
+	  --div-color4:#EC4D3D;
+    --div-color3-hover:#CC392A;
+
+	
+    --f-com: 13px;
+    --h-com: 40px;
+    
+    
+   
+}

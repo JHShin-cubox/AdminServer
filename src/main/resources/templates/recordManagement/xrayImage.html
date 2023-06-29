@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div layout:fragment="content" id="body_area_in">
+    <!--달력 js-->
+    <script src="/static/js/Calenda/dcalendar.picker.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/js/Calenda/dcalendar.picker.css" media="all">
+
+    <!--단말기관리 : 1.단말기 승인처리-->
+    <!--검색박스-->
+    <div class="srch_wrapper ">
+        <div class="srch_wrapper_grid">
+            <div class="srchCnt">
+                <div class="srchCnt_grid1">
+                    <div class="search_set"></div>
+                    <div class="search_set"></div>
+                    <div class="search_set">
+                        <div class="title">촬영일</div>
+                        <div class="datepicker_box">
+                            <input type="text"  id="date_start" class="form-control">
+                            <input type="text" id="date_end" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <!--구분선-->
+
+            </div>
+            <div class="searchBtn_grid">
+                <button type="button" class="searchBtn area_btn">검색</button>
+                <button type="button" class="redoBtn area_btn">초기화</button>
+            </div>
+        </div>
+    </div>
+    <!--//검색박스-->
+
+    <div class="subbox">
+        <!--타이틀-->
+        <div class="com_titlebox2 line_b mb"> </div>
+        <!--//타이틀-->
+
+        <!--테이블상단-->
+        <div class="table_top_wrapper">
+            <!-- 전체 게시글 카운트-->
+            <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>9</em> / <em>30</em></span> </div>
+            <!-- //전체 게시글 카운트-->
+            <!--버튼-->
+            <div class="btnBox_num2">
+            </div>
+            <!--//버튼-->
+        </div>
+        <!--//테이블상단-->
+
+        <!--테이블리스트-->
+        <div class="tableList_wrap">
+            <div class="table_com table_st4">
+                <div class="tb_h">
+                    <div class="th">
+
+                    </div>
+                </div>
+                <!--구분선-->
+
+                <div class="tb_d_wrap img_wrap">
+                    <th:block th:each="imageList : ${lists}" th:if="${totalCount>0}">
+                        <div class="image_container">
+                            <li class="img_list" th:value="${imageList.luggageId}" onclick="modalChange(this); document.getElementById('user-Modal01').style.display='block'">
+                                <img src="/image/3d.png">
+                                <img id="vImg01" th:src="'/image/'+${imageList.name}">
+                            </li>
+                            <p class="text-center">촬영일시 : [[${#dates.format(imageList.regDate, 'yyyy년 MM월 dd일 HH:mm:ss')}]]</p>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${totalCount==0}">
+                        <div class="tb_d no_data">
+                            <p>조회 목록이 없습니다.</p>
+                        </div>
+                    </th:block>
+                </div>
+                <!--//테이블-->
+                <!--<form action="/record/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="image">
+                    <input type="submit" value="제출">
+                </form>-->
+            </div>
+        </div>
+        <!--//테이블리스트-->
+
+        <!-- Pagination html -->
+        <!-- PC 일때 페이징 -->
+        <div class="pc_view" th:with="start=${(lists.number/maxPage)*maxPage + 1}, end=(${(lists.totalPages == 0) ? 1 : (start + (maxPage -1) < lists.totalPages ? start + (maxPage -1) : lists.totalPages)})">
+            <div class="common_pagination pc_view">
+                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
+                <div>
+                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                </div>
+                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
+                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
+            </div>
+        </div>
+        <!-- //PC 일때 페이징 -->
+
+        <!-- 모바일 일때 페이징 -->
+        <div class="mobile_view">
+            <div class="common_pagination">
+                <a href="#self" class="first disabled">FIRST</a>
+                <a href="#self" class="front disabled"></a>
+                <div> <a href="#self" class="active">11</a> <a href="#self">12</a> <a href="#self">13</a> </div>
+                <a href="#self" class="back"></a>
+                <a href="#self" class="last">LAST</a>
+            </div>
+        </div>
+        <!-- //모바일 일때 페이징 -->
+        <!-- //Pagination html -->
+
+        <div id="user-Modal01" class="modal">
+            <div class="modal-content" >
+                <div class="modal-content_in w_90vw">
+                    <div class="modal_titlebar"></div>
+                    <div class="modal_close" onclick="document.getElementById('user-Modal01').style.display='none'"><i class="uil uil-multiply"></i></div>
+                    <div class="modal_title">이미지 상세보기</div>
+                    <div class="cont_wrap text-center mb_30">
+                            <img id="3dImage" class="modal_img02" src="/image/3d.png">
+                        <div class="modal_img02" style="display: inline-block">
+                            <img id="2dImage" class="modal_img02" src="/image/123.png">
+                            <div class="swiper mySwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide"><img src="image/123.png"></div>
+                                    <div class="swiper-slide"></div>
+                                    <div class="swiper-slide"></div>
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="tb_list_com2 tbt tb_list_st1">
+                            <div class="tr">
+                                <div class="th">촬영 일시</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목1 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tb_list_com2 tbt tb_list_st1">
+                            <div class="tr">
+                                <div class="th">판독자</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목2 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="tb_list_com2 tb_list_st1">
+                            <div class="tr">
+                                <div class="th">X-Ray ID</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목3 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tb_list_com2 tb_list_st1">
+                            <div class="tr">
+                                <div class="th">수하물 통과여부</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목4 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="tb_list_com2 tb_list_st1">
+                            <div class="tr">
+                                <div class="th">장비 모델명</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목5 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tb_list_com2 tb_list_st1">
+                            <div class="tr">
+                                <div class="th">탐지 물품</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목6 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="tb_list_com2 tb_list_st1">
+                            <div class="tr">
+                                <div class="th">상태</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목7 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tb_list_com2 tb_list_st1">
+                            <div class="tr">
+                                <div class="th">자동판독 여부</div>
+                                <div class="td">
+                                    <div>
+                                        <span>항목8 value</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--//모달-->
+
+    </div>
+    <!--swiper-->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 1,    // 슬라이드 사이 여백
+            slidesPerView : 5, // 한 슬라이드에 보여줄 갯수
+            centeredSlides: true,
+            loop : false,   // 슬라이드 반복 여부
+
+            // 슬라이드 반복 시 마지막 슬라이드에서 다음 슬라이드가 보여지지 않는 현상 수정
+
+            navigation: {   // 버튼
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+    </script>
+    <!--중복 js - 레이아웃(layout.html) 하단에 선언되어있음. 페이지 적용시 삭제-->
+    <!--달력 -->
+    <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+    <script>
+        $('#date_start').dcalendarpicker();
+        $('#date_end').dcalendarpicker();
+    </script>
+
+    <!--모달-->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("delete-Modal01");
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function modalChange(val){
+            const Image2D = $(val).children().eq(1).attr("src");
+            $('#2dImage').attr("src",Image2D)
+            $('.swiper-wrapper').empty();
+            $.ajax({
+                url: "/record/xraySubImage",
+                method: "post",
+                data:{"luggageId" : $(val).val()},
+                success: function (data){
+                    let swiperWrap = $('.swiper-wrapper');
+                    let image;
+                    $.each(data, function(index, item){
+
+                        let imageUrl = '/image/' + item.name;
+                        let imageDiv = $('<div>').addClass('swiper-slide');
+                        if(index == 0)
+                            image = $('<img>').addClass('sImg').attr('src', imageUrl).css('border', '3px solid #73a7e9').click(function() {
+                                changeImg(this);
+                            });
+                        else image = $('<img>').addClass('sImg').attr('src', imageUrl).click(function() {
+                            changeImg(this);
+                        });
+                        imageDiv.append(image);
+                        swiperWrap.append(imageDiv);
+                        swiper.update();
+                    })
+                },
+                error: function (err){
+                    console.log("실패");
+                }
+            })
+
+        }
+        function changeImg(val){
+            const cImage = $(val).attr("src");
+            $('#2dImage').attr('src',cImage);
+            $('.sImg').css('border','none');
+            $(val).css('border','3px solid #73a7e9');
+        }
+    </script>
+</div>
+</html>

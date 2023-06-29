@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div layout:fragment="content" id="body_area_in">
+    <!--달력 js-->
+    <script src="/static/js/Calenda/dcalendar.picker.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/js/Calenda/dcalendar.picker.css" media="all">
+
+    <!--단말기관리 : 1.단말기 승인처리-->
+    <!--검색박스-->
+    <div class="srch_wrapper ">
+        <div class="srch_wrapper_grid">
+            <div class="srchCnt">
+                <div class="srchCnt_grid1">
+                    <div class="search_set"></div>
+                    <div class="search_set"></div>
+                    <div class="search_set">
+                        <div class="textfd_wrap ">
+                            <input type="text" placeholder="아이디 or 이름을 입력해주세요" >
+                        </div>
+                    </div>
+                </div>
+                <!--구분선-->
+
+            </div>
+            <div class="searchBtn_grid">
+                <button type="button" class="searchBtn area_btn">검색</button>
+                <button type="button" class="redoBtn area_btn">초기화</button>
+            </div>
+        </div>
+    </div>
+    <!--//검색박스-->
+
+    <div class="subbox">
+        <!--타이틀-->
+        <div class="com_titlebox2 line_b mb"> </div>
+        <!--//타이틀-->
+
+        <!--테이블상단-->
+        <div class="table_top_wrapper">
+            <!--            <div class="boardfd_wrap">-->
+            <!--                <select class="w_100p">-->
+            <!--                    <option>10</option>-->
+            <!--                    <option>20</option>-->
+            <!--                    <option>30</option>-->
+            <!--                </select>-->
+            <!--            </div>-->
+            <!-- 전체 게시글 카운트-->
+            <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>[[${nowPage}]]</em> / <em>[[${deviceLists.totalPages}]]</em></span> </div>
+            <!-- //전체 게시글 카운트-->
+            <!--버튼-->
+
+            <!--//버튼-->
+        </div>
+        <!--//테이블상단-->
+
+        <!--테이블리스트-->
+        <div class="tableList_wrap ">
+            <div class="table_com table_st4">
+                <div class="tb_h">
+                    <div class="th">고유ID</div>
+                    <div class="th">모델명</div>
+                    <div class="th">위치</div>
+                    <div class="th">상태</div>
+                    <div class="th">운용시간</div>
+                    <div class="th">고유IP</div>
+                </div>
+                <!--구분선-->
+
+                <div class="tb_d_wrap img_wrap">
+                    <th:block th:each="deviceList : ${deviceLists}" th:if="${totalCount>0}">
+                        <div class="tb_d">
+                            <div class="td"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${deviceList.deviceId}]]</a></div>
+                            <div class="td">[[${deviceList.name}]]</div>
+                            <div class="td">[[${deviceList.location}]]</div>
+                            <div class="td" th:if="${deviceList.isOn}=='true' and ${deviceList.status} == 'start'">가동</div>
+                            <div class="td" th:if="${deviceList.isOn}=='true' and ${deviceList.status} == 'end'">일시정지</div>
+                            <div class="td" th:if="${deviceList.isOn}=='false'">전원 꺼짐</div>
+                            <div class="td">운영시간 값</div>
+                            <div class="td">[[${deviceList.deviceIp}]]</div>
+                            <input type="hidden" th:value="${deviceList.id}">
+                        </div>
+                    </th:block>
+                    <th:block th:if="${totalCount==0}">
+                        <div class="tb_d no_data">
+                            <p>조회 목록이 없습니다.</p>
+                        </div>
+                    </th:block>
+                </div>
+                <!--//테이블-->
+            </div>
+        </div>
+        <!--//테이블리스트-->
+
+        <!-- Pagination html -->
+        <!-- PC 일때 페이징 -->
+        <div class="pc_view" th:with="start=${(deviceLists.number/maxPage)*maxPage + 1}, end=(${(deviceLists.totalPages == 0) ? 1 : (start + (maxPage -1) < deviceLists.totalPages ? start + (maxPage -1) : deviceLists.totalPages)})">
+            <div class="common_pagination pc_view">
+                <a th:href="'/operation/userList?page='+${start-1}+'&pageum=050101'" th:classappend="${deviceLists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="@{'/operation/userList?page=' + ${deviceLists.number-1}+'&pageum=050101'}" th:classappend="${deviceLists.first}? 'disabled'"  class="front"></a>
+                <div>
+                    <a th:href="@{'/operation/userList?page=' + ${page-1}+'&pageum=050101'}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${deviceLists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                </div>
+                <a th:href="@{'/operation/userList?page=' + ${deviceLists.number+1}+'&pageum=050101'}" th:classappend="${deviceLists.last}? 'disabled'" class="back"></a>
+                <a th:href="'/operation/userList?page='+${end-1}+'&pageum=050101'" th:classappend="${deviceLists.last}? 'disabled'" class="last">NEXT</a>
+            </div>
+        </div>
+        <!-- //PC 일때 페이징 -->
+
+        <!-- 모바일 일때 페이징 -->
+        <div class="mobile_view">
+            <div class="common_pagination">
+                <a href="#self" class="first disabled">FIRST</a>
+                <a href="#self" class="front disabled"></a>
+                <div> <a href="#self" class="active">11</a> <a href="#self">12</a> <a href="#self">13</a> </div>
+                <a href="#self" class="back"></a>
+                <a href="#self" class="last">LAST</a>
+            </div>
+        </div>
+        <!-- //모바일 일때 페이징 -->
+        <!-- //Pagination html -->
+
+        <!--모달- 삭제사유입력-->
+        <form id="modalForm" action="/equip/modify/xray" method="post" th:object="${deviceInfoDTO}">
+            <div id="user-Modal01" class="modal">
+                <div class="modal-content" >
+                    <div class="modal-content_in w_520">
+                        <div class="modal_titlebar"></div>
+                        <div class="modal_close" onclick="document.getElementById('user-Modal01').style.display='none'"><i class="uil uil-multiply"></i></div>
+                        <div class="modal_title">장비 수정</div>
+                        <div class="cont_wrap">
+                            <div class="tb_list_com tb_list_st1 mb_30">
+                                <div class="tr">
+                                    <div class="th">고유 ID</div>
+                                    <div class="td">
+                                        <span id="deviceId">고유 ID 값</span>
+                                        <input type="hidden" id="deId" name="id">
+                                    </div>
+                                </div>
+                                <div class="tr">
+                                    <div class="th">종류</div>
+                                    <div class="td">
+                                        <span>Viewer</span>
+                                        <input type="hidden" name="type" value="viewer">
+                                    </div>
+                                </div>
+                                <div class="tr">
+                                    <div class="th">모델명</div>
+                                    <div class="td">
+                                        <input id="modelName" name="name" type="text" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="tr">
+                                    <div class="th">위치</div>
+                                    <div class="td">
+                                        <input id="location" name="location" type="text" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="tr">
+                                    <div class="th">상태</div>
+                                    <div class="td">
+                                        <span id="status">상태 값</span>
+                                    </div>
+                                </div>
+                                <div class="tr">
+                                    <div class="th">운용시간</div>
+                                    <div class="td">
+                                        <span id="runningTime">운용시간 값</span>
+                                    </div>
+                                </div>
+                                <div class="tr">
+                                    <div class="th">고유IP</div>
+                                    <div class="td">
+                                        <span id="deviceIp">고유IP 값</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom_btn_wrap_type1">
+                            <button type="submit" class="btn_save">수정</button>
+                            <button type="button" onclick="document.getElementById('user-Modal01').style.display='none'" class="btn_cancel">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--//모달-->
+
+    </div>
+
+    <!--중복 js - 레이아웃(layout.html) 하단에 선언되어있음. 페이지 적용시 삭제-->
+    <!--달력 -->
+    <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+    <script>
+        $('#date_start').dcalendarpicker();
+        $('#date_end').dcalendarpicker();
+    </script>
+
+    <!--모달-->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("delete-Modal01");
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        function changeModify(val){
+            const parentDiv = $(val).parent().parent().children();
+
+            $('#deviceId').text($(val).text());
+            $('#name').val(parentDiv.eq(1).text());
+            $('#modelName').val(parentDiv.eq(1).text());
+            $('#location').val(parentDiv.eq(2).text());
+            $('#status').text(parentDiv.eq(3).text());
+            $('#runningTime').text(parentDiv.eq(4).text());
+            $('#deviceIp').text(parentDiv.eq(5).text());
+            $('#deId').val(parentDiv.eq(6).val());
+        }
+    </script>
+</div>
+</html>

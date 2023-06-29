@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adminserver.mapper.RecordManagementMapper">
+
+    <select id="getXrayImages" resultType="com.adminserver.dto.XrayImageDTO" >
+        SELECT
+            id, name, luggage_id, reg_date
+        FROM xray_images
+        GROUP BY luggage_id HAVING luggage_id IS NOT NULL
+    </select>
+
+    <select id="getXrayImagesCount" resultType="java.lang.Integer" >
+        SELECT COUNT(sub.bcount) AS count FROM(SELECT count(*) as bcount
+        FROM xray_images
+        GROUP BY luggage_id HAVING luggage_id IS NOT NULL) sub;
+    </select>
+
+    <select id="getXraySubImages" resultType="com.adminserver.dto.XrayImageDTO" >
+        SELECT
+            id, name, luggage_id, reg_date
+        FROM xray_images
+        WHERE luggage_id = #{luggageId}
+    </select>
+
+    <select id="duplicateCheck" resultType="java.lang.String">
+        SELECT name from xray_images limit 1
+    </select>
+    
+    <insert id="createImage" parameterType="java.lang.String">
+        INSERT INTO xray_images ( name, reg_date) VALUES (#{imageName}, now())
+    </insert>
+
+    <select id="getXrayPowerLog" resultType="com.adminserver.dto.DevicePowerDTO">
+        SELECT
+            A.id as id, A.xray_id as device_id, if(A.is_on,'true','false') as is_on,
+            B.name as device_name, A.reg_date as reg_date
+        FROM xray_power_state_log A
+        JOIN xray_info B ON A.xray_id = B.id
+        ORDER BY A.reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+    <select id="getXrayPowerLogCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM xray_power_state_log A JOIN xray_info B ON A.xray_id = B.id
+    </select>
+
+    <select id="getViewerPowerLog" resultType="com.adminserver.dto.DevicePowerDTO">
+        SELECT
+            A.id as id, A.viewer_id as device_id, if(A.is_on,'true','false') as is_on,
+            B.name as device_name, A.reg_date as reg_date
+        FROM viewer_power_state_log A
+        JOIN viewer_info B ON A.viewer_id = B.id
+        ORDER BY A.reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+    <select id="getViewerPowerLogCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM viewer_power_state_log A JOIN viewer_info B ON A.viewer_id = B.id
+    </select>
+
+    <insert id="insertLoginHistory" parameterType="com.adminserver.dto.LoginHistoryDTO">
+        INSERT INTO login_history ( user_id, ip, reg_date ) VALUES (#{userId}, #{ip}, now())
+    </insert>
+
+    <insert id="insertActionHistory" parameterType="com.adminserver.dto.ActionHistoryDTO">
+        INSERT INTO action_history ( main_menu, sub_menu, user_id, type, reg_date ) VALUES (#{mainMenu}, #{subMenu}, #{userId}, #{type}, now())
+    </insert>
+
+    <select id="getLoginLog" resultType="com.adminserver.dto.LoginHistoryDTO">
+        SELECT user_id, ip, reg_date
+        FROM login_history
+        <where>
+            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd == null and dateEnd.isEmpty())">AND reg_date >= #{dateStart}</if>
+            <if test="(dateStart == null and dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date &lt;= #{dateEnd}</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
+        </where>
+        ORDER BY reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="getLoginLogCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM login_history
+        <where>
+            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd == null and dateEnd.isEmpty())">AND reg_date >= #{dateStart}</if>
+            <if test="(dateStart == null and dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date &lt;= #{dateEnd}</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
+        </where>
+    </select>
+
+    <select id="getActionLog" resultType="com.adminserver.dto.ActionHistoryDTO">
+        SELECT user_id, main_menu, sub_menu, type, reg_date
+        FROM action_history
+        <where>
+            <if test="(dateStart != null and dateStart != '') and (dateEnd != null and dateEnd != '')">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="dateStart != '' and dateEnd == ''">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart == '' and dateEnd != ''">AND reg_date &lt;= #{dateEnd}</if>
+            <if test="searchCategory == 'id'">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="searchCategory == 'main'">AND main_menu LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="searchCategory == 'sub'">AND sub_menu LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="searchCategory == 'type'">AND type LIKE CONCAT('%', #{searchText}, '%')</if>
+        </where>
+        ORDER BY reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="getActionLogCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM action_history
+        <where>
+            <if test="(dateStart != null and dateStart != '') and (dateEnd != null and dateEnd != '')">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="dateStart != '' and dateEnd == ''">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart == '' and dateEnd != ''">AND reg_date &lt;= #{dateEnd}</if>
+            <if test="searchCategory == 'id'">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="searchCategory == 'main'">AND main_menu LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="searchCategory == 'sub'">AND sub_menu LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="searchCategory == 'type'">AND type LIKE CONCAT('%', #{searchText}, '%')</if>
+        </where>
+    </select>
+
+
+</mapper>

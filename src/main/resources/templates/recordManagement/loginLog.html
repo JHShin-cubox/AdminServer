@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div layout:fragment="content" id="body_area_in">
+    <!--달력 js-->
+    <script src="/static/js/Calenda/dcalendar.picker.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/js/Calenda/dcalendar.picker.css" media="all">
+
+    <!--단말기관리 : 1.단말기 승인처리-->
+    <!--검색박스-->
+    <form id="search_form" action="/record/login" method="get" th:object="${searchDto}">
+    <div class="srch_wrapper ">
+        <div class="srch_wrapper_grid">
+            <div class="srchCnt">
+                <div class="srchCnt_grid1">
+                    <div class="search_set"></div>
+                    <div class="search_set">
+                        <div class="datepicker_box">
+                            <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control" th:value="${searchDto.getDateStart()}" autocomplete="off">
+                            <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control" th:value="${searchDto.getDateEnd()}" autocomplete="off">
+                        </div>
+                    </div>
+                    <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+                    <script>
+                        $('#date_start').dcalendarpicker();
+                        $('#date_end').dcalendarpicker();
+                    </script>
+                    <div class="search_set">
+                        <div class="textfd_wrap ">
+                            <input type="hidden" id="searchCategory" value="Y">
+                            <input name="pageum" type="hidden" value="020401">
+                            <input type="text" id="searchText" name="searchText" placeholder="아이디를 입력해주세요" th:value="${searchDto.getSearchText()}">
+                        </div>
+                    </div>
+                </div>
+                <!--구분선-->
+
+            </div>
+            <div class="searchBtn_grid">
+                <button type="button" onclick="search_valid('noType')" class="searchBtn area_btn">검색</button>
+                <button type="button" onclick="location.href='/record/action?pageum=020401'" class="redoBtn area_btn">초기화</button>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!--//검색박스-->
+
+    <div class="subbox">
+        <!--타이틀-->
+        <div class="com_titlebox2 line_b mb"> </div>
+        <!--//타이틀-->
+
+        <!--테이블상단-->
+        <div class="table_top_wrapper">
+            <!-- 전체 게시글 카운트-->
+            <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>[[${nowPage}]]</em> / <em>[[${lists.totalPages}]]</em></span> </div>
+            <!-- //전체 게시글 카운트-->
+            <!--버튼-->
+
+            <!--//버튼-->
+        </div>
+        <!--//테이블상단-->
+
+        <!--테이블리스트-->
+        <div class="tableList_wrap ">
+            <div class="table_com table_st23">
+                <div class="tb_h">
+                    <div class="th">아이디</div>
+                    <div class="th">IP</div>
+                    <div class="th">로그인 시간</div>
+                </div>
+                <!--구분선-->
+
+                <div class="tb_d_wrap img_wrap">
+                    <th:block th:each="list : ${lists}" th:if="${totalCount>0}">
+                        <div class="tb_d">
+                            <div class="td">[[${list.userId}]]</div>
+                            <div class="td">[[${list.ip}]]</div>
+                            <div class="td">[[${list.regDate}]]</div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${totalCount==0}">
+                        <div class="tb_d no_data">
+                            <p>조회 목록이 없습니다.</p>
+                        </div>
+                    </th:block>
+                </div>
+                <!--//테이블-->
+            </div>
+        </div>
+        <!--//테이블리스트-->
+
+        <!-- Pagination html -->
+        <!-- PC 일때 페이징 -->
+        <div class="pc_view" th:with="start=${(lists.number/maxPage)*maxPage + 1}, end=(${(lists.totalPages == 0) ? 1 : (start + (maxPage -1) < lists.totalPages ? start + (maxPage -1) : lists.totalPages)})">
+            <div class="common_pagination pc_view">
+                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
+                <div>
+                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                </div>
+                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
+                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
+            </div>
+        </div>
+        <!-- //PC 일때 페이징 -->
+
+        <!-- 모바일 일때 페이징 -->
+        <div class="mobile_view">
+            <div class="common_pagination">
+                <a href="#self" class="first disabled">FIRST</a>
+                <a href="#self" class="front disabled"></a>
+                <div> <a href="#self" class="active">11</a> <a href="#self">12</a> <a href="#self">13</a> </div>
+                <a href="#self" class="back"></a>
+                <a href="#self" class="last">LAST</a>
+            </div>
+        </div>
+        <!-- //모바일 일때 페이징 -->
+        <!-- //Pagination html -->
+    </div>
+
+    <!--중복 js - 레이아웃(layout.html) 하단에 선언되어있음. 페이지 적용시 삭제-->
+    <!--달력 -->
+    <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+    <script>
+        $('#date_start').dcalendarpicker();
+        $('#date_end').dcalendarpicker();
+    </script>
+</div>
+</html>
