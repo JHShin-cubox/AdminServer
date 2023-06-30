@@ -7,8 +7,19 @@
     <select id="getUserList" resultType="com.adminserver.dto.UserInfoDTO" >
         SELECT
             user_id, name, role, department, rank, phone, email, reg_date, modified_date
-
         FROM users
+        <where>
+            <if test="searchText != null and !searchText.isEmpty()">AND (user_id LIKE CONCAT('%', #{searchText}, '%') or name LIKE CONCAT('%', #{searchText}, '%'))</if>
+        </where>
+        ORDER BY reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="getUserCount" resultType="java.lang.Integer" >
+        SELECT count(*) as count  FROM users
+        <where>
+            <if test="searchText != null and !searchText.isEmpty()">AND (user_id LIKE CONCAT('%', #{searchText}, '%') or name LIKE CONCAT('%', #{searchText}, '%'))</if>
+        </where>
     </select>
 
     <select id="getUserName" resultType="java.lang.String">
@@ -19,9 +30,6 @@
         SELECT role from users where user_id = #{userId}
     </select>
 
-    <select id="getUserCount" resultType="java.lang.Integer" >
-        SELECT count(*) as count  FROM users
-    </select>
 
     <insert id="creteUser" parameterType="com.adminserver.dto.UserInfoDTO">
         INSERT INTO users

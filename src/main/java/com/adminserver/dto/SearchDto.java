@@ -11,7 +11,7 @@ public class SearchDto {
     private String searchDateType;
     private String searchBy;
     private String searchQuery = "";
-    private String searchCheck;
+    private String searchRadio = "";
     private String searchCategory;
     private String searchText = "";
     private String dateStart = "";

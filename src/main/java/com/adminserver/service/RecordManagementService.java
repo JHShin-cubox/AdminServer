@@ -20,38 +20,33 @@ public class RecordManagementService {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<XrayImageDTO> list = recordManagementMapper.getXrayImages(searchDto);
-        int totalCount = recordManagementMapper.getXrayImagesCount(searchDto);
-        return new PageImpl<>(list, pageable, totalCount);
+        return new PageImpl<>(list, pageable, list.size());
     }
 
     public Page<DevicePowerDTO> getXrayPowerLog(Pageable pageable, SearchDto searchDto) {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<DevicePowerDTO> list = recordManagementMapper.getXrayPowerLog(searchDto);
-        int totalCount = recordManagementMapper.getXrayPowerLogCount(searchDto);
-        return new PageImpl<>(list, pageable, totalCount);
+        return new PageImpl<>(list, pageable, list.size());
     }
     public Page<DevicePowerDTO> getViewerPowerLog(Pageable pageable, SearchDto searchDto) {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<DevicePowerDTO> list = recordManagementMapper.getViewerPowerLog(searchDto);
-        int totalCount = recordManagementMapper.getViewerPowerLogCount(searchDto);
-        return new PageImpl<>(list, pageable, totalCount);
+        return new PageImpl<>(list, pageable, list.size());
     }
 
     public Page<LoginHistoryDTO> getLoginLog(Pageable pageable, SearchDto searchDto) {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<LoginHistoryDTO> list = recordManagementMapper.getLoginLog(searchDto);
-        int totalCount = recordManagementMapper.getLoginLogCount(searchDto);
-        return new PageImpl<>(list, pageable, totalCount);
+        return new PageImpl<>(list, pageable, list.size());
     }
     public Page<ActionHistoryDTO> getActionLog(Pageable pageable, SearchDto searchDto) {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<ActionHistoryDTO> list = recordManagementMapper.getActionLog(searchDto);
-        int totalCount = recordManagementMapper.getActionLogCount(searchDto);
-        return new PageImpl<>(list, pageable, totalCount);
+        return new PageImpl<>(list, pageable, list.size());
     }
 
     public List<XrayImageDTO> getXraySubList(String luggageId){

@@ -9,6 +9,7 @@
 
   <!--단말기관리 : 1.단말기 승인처리-->
   <!--검색박스-->
+  <form id="search_form" action="/statistics/xray" method="get" th:object="${searchDto}">
   <div class="srch_wrapper ">
     <div class="srch_wrapper_grid">
       <div class="srchCnt">
@@ -16,20 +17,28 @@
           <div class="search_set"></div>
           <div class="search_set"></div>
           <div class="search_set">
-            <div class="textfd_wrap ">
-              <input type="text" placeholder="아이디 or 이름을 입력해주세요" >
+            <div class="datepicker_box">
+              <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control" th:value="${searchDto.getDateStart()}" autocomplete="off">
+              <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control" th:value="${searchDto.getDateEnd()}" autocomplete="off">
             </div>
+            <input name="pageum" type="hidden" value="030101">
           </div>
+          <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+          <script>
+            $('#date_start').dcalendarpicker();
+            $('#date_end').dcalendarpicker();
+          </script>
         </div>
         <!--구분선-->
 
       </div>
       <div class="searchBtn_grid">
-        <button type="button" class="searchBtn area_btn">검색</button>
-        <button type="button" class="redoBtn area_btn">초기화</button>
+        <button type="button" onclick="search_valid('noType')" class="searchBtn area_btn">검색</button>
+        <button type="button" onclick="location.href='/statistics/xray?pageum=030101'" class="redoBtn area_btn">초기화</button>
       </div>
     </div>
   </div>
+  </form>
   <div class="statics_wrapper">
     <div class="statics_number">
       <div>
@@ -88,6 +97,7 @@
   <!--달력 -->
   <script src="/static/js/Calenda/dcalendar.picker.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
   <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function() {
       let chartNum = 10;
@@ -98,12 +108,10 @@
 
         totalNum += Number($('#c'+i).val())
       }
-      console.log(totalNum);
       for(let i = 1; i<= chartNum; i++){
         chartData.push(($('#c'+i).val()/totalNum*100).toFixed(2))
         chartLabel.push($('#n'+i).text())
       }
-      console.log(chartData);
       new Chart(document.getElementById("pie1"), {
         type: "pie",
         data: {
@@ -115,18 +123,16 @@
         },
         options:{
           plugins:{
-            legend: {
-              display: false
-            },
-            pieceLabel: {
-              mode:"label",
-              fontSize: 11,
-              fontStyle: 'bold'
-            },
-
+            legend:false,
+            datalabels: {
+              color:'black',
+              formatter: function(value, context) {
+                return context.chart.data.labels[context.dataIndex]+'\n'+value + '%';
+              }
+            }
           }
-        }
-
+        },
+        plugins: [ChartDataLabels]
       });
     });
   </script>

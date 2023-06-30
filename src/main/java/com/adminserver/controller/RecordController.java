@@ -47,13 +47,6 @@ public class RecordController {
         model.addAttribute("maxPage", maxPage);
         model.addAttribute("totalCount",totalCount );
         model.addAttribute("searchDto",searchDto);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("이력관리")
-                .subMenu("X-Ray 이미지 이력")
-                .type("조회")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
         return "recordManagement/xrayImage";
     }
 
@@ -78,13 +71,6 @@ public class RecordController {
         model.addAttribute("maxPage", maxPage);
         model.addAttribute("totalCount",totalCount );
         model.addAttribute("searchDto",searchDto);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("이력관리")
-                .subMenu("X-Ray 전원 이력")
-                .type("조회")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
         return "recordManagement/xrayPowerLog";
     }
 
@@ -103,14 +89,7 @@ public class RecordController {
         model.addAttribute("maxPage", maxPage);
         model.addAttribute("totalCount",totalCount );
         model.addAttribute("searchDto",searchDto);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("이력관리")
-                .subMenu("Viewer 전원 이력")
-                .type("조회")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
-        return "recordManagement/xrayPowerLog";
+        return "recordManagement/viewerPowerLog";
     }
 
     @GetMapping("login")
@@ -128,14 +107,6 @@ public class RecordController {
         model.addAttribute("maxPage", maxPage);
         model.addAttribute("totalCount",totalCount );
         model.addAttribute("searchDto",searchDto);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("이력관리")
-                .subMenu("로그인 이력")
-                .type("조회")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
-        System.out.println(request.getParameter("pageum"));
         return "recordManagement/loginLog";
     }
     @GetMapping("action")
@@ -153,14 +124,28 @@ public class RecordController {
         model.addAttribute("maxPage", maxPage);
         model.addAttribute("totalCount",totalCount );
         model.addAttribute("searchDto",searchDto);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("이력관리")
-                .subMenu("활동 이력")
-                .type("조회")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
         return "recordManagement/actionLog";
+    }
+
+    @PostMapping("action")
+    @ResponseBody
+    public String insertActionHistory(HttpServletRequest request){
+            String mainMenu = request.getParameter("main");
+            String subMenu = request.getParameter("sub");
+            String actionType = request.getParameter("type");
+            try {
+                ActionHistoryDTO history = ActionHistoryDTO.builder()
+                        .mainMenu(mainMenu)
+                        .subMenu(subMenu)
+                        .type(actionType)
+                        .userId(request.getAttribute("userId").toString())
+                        .build();
+                recordManagementService.insertActionHistory(history);
+                return "success";
+            } catch (Exception e){
+                e.printStackTrace();
+                return "failed";
+            }
     }
 
     @ResponseBody
@@ -185,5 +170,4 @@ public class RecordController {
             return "uploadFail";
         }
     }
-
 }

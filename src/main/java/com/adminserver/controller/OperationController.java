@@ -3,6 +3,7 @@ package com.adminserver.controller;
 
 import com.adminserver.dto.ActionHistoryDTO;
 import com.adminserver.dto.ResponseDTO;
+import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.service.OperationManagementService;
 import com.adminserver.service.RecordManagementService;
@@ -35,29 +36,22 @@ public class OperationController {
     private final RecordManagementService recordManagementService;
 
     @GetMapping("userList")
-    public String userList(Optional<Integer> page, Model model, HttpServletRequest request){
+    public String userList(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
         int maxPage = 10;
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
-        Page<UserInfoDTO> userLists =  operationManagementService.getUserList(page, pageable);
-        Integer totalCount = operationManagementService.getUserCount();
+        Page<UserInfoDTO> list =  operationManagementService.getUserList(pageable, searchDto);
+        Integer totalCount = operationManagementService.getUserCount(searchDto);
         Integer nowPage;
-        if(page.isEmpty()){
-            nowPage  = 0;
-        } else {
-            nowPage = page.get();
-        }
-        model.addAttribute("userLists", userLists);
-        model.addAttribute("nowPage", nowPage+1);
+        if(page.isEmpty()) nowPage  = 0;
+        else nowPage = page.get();
+        model.addAttribute("pageum",request.getParameter("pageum"));
+        model.addAttribute("uri",request.getRequestURI());
+        model.addAttribute("lists", list);
         model.addAttribute("maxPage", maxPage);
         model.addAttribute("totalCount",totalCount );
+        model.addAttribute("searchDto",searchDto);
+        model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("userInfoDTO", new UserInfoDTO());
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("운영관리")
-                .subMenu("사용자 관리")
-                .type("조회")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
         return "operationManagement/userList";
     }
 
@@ -74,13 +68,6 @@ public class OperationController {
                 .role(userInfoDTO.getRole())
                 .build();
             operationManagementService.createUser(user);
-            ActionHistoryDTO history = ActionHistoryDTO.builder()
-                    .mainMenu("운영관리")
-                    .subMenu("사용자 관리")
-                    .type("등록")
-                    .userId(request.getAttribute("userId").toString())
-                    .build();
-        recordManagementService.insertActionHistory(history);
         return "redirect:userList?pageum=050101";
     }
     @PostMapping("userModify")
@@ -96,14 +83,6 @@ public class OperationController {
                 .role("USER")
                 .build();
         operationManagementService.updateUser(user);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("운영관리")
-                .subMenu("사용자 관리")
-                .type("수정")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-
-        recordManagementService.insertActionHistory(history);
         return "redirect:userList?pageum=050101";
     }
 
@@ -119,13 +98,6 @@ public class OperationController {
     @PostMapping("userDelete")
     public String deleteUser(@RequestParam("userId") String userId, HttpServletRequest request){
         operationManagementService.deleteUser(userId);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("운영관리")
-                .subMenu("사용자 관리")
-                .type("삭제")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
         return "redirect:userList?pageum=050101";
     }
     @GetMapping("signout")

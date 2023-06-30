@@ -1,5 +1,6 @@
 package com.adminserver.service;
 
+import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.mapper.OperationManagementMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,15 +18,14 @@ import java.util.Optional;
 public class OperationManagementService {
     private final OperationManagementMapper managementMapper;
 
-    public Page<UserInfoDTO> getUserList(Optional<Integer> page, Pageable pageable) {
-        List<UserInfoDTO> userList = managementMapper.getUserList();
-
-        int start = Math.toIntExact(pageable.getOffset());
-        int end = Math.min((start + pageable.getPageSize()),userList.size());
-        return new PageImpl<>(userList.subList(start, end), pageable, userList.size());
+    public Page<UserInfoDTO> getUserList(Pageable pageable, SearchDto searchDto) {
+        searchDto.setOffset(pageable.getOffset());
+        searchDto.setPageSize(pageable.getPageSize());
+        List<UserInfoDTO> list = managementMapper.getUserList(searchDto);
+        return new PageImpl<>(list, pageable, list.size());
     }
-    public Integer getUserCount(){
-        return managementMapper.getUserCount();
+    public Integer getUserCount(SearchDto searchDto){
+        return managementMapper.getUserCount(searchDto);
     }
 
     public String getUserName(String userId){ return managementMapper.getUserName(userId);}

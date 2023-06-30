@@ -128,6 +128,50 @@ function search_valid(){
     $('#search_form').submit();
 }
 
+function apiEquipModify() {
+    let xhr = new XMLHttpRequest();
+    let url = "http://172.16.150.21:8090/api/managementSystem/equipment_management";
+    let data = {
+        "name": $('#modelName').val(),
+        "location": $('#location').val(),
+        "type": $('#deviceType').val(),
+        "id": $('#deId').val()
+    };
+    let json = JSON.stringify(data);
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            let response = JSON.parse(xhr.responseText);
+            console.log("API 요청에 성공했습니다.");
+            location.reload();
+        }
+        else{
+            console.error("API 요청에 실패했습니다. 상태 코드: " + xhr.status);
+        }
+    }
+    xhr.send(json);
+}
+
+function insertActionLog(main,sub,type){
+    $.ajax({
+        url:"/record/action",
+        method:"POST",
+        data:{
+            'main':main,
+            'sub':sub,
+            'type':type
+        },
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(err) {
+            console.log(err);
+        }
+
+    })
+}
+
 setInterval(function() {
     var currentTime = moment().format('YYYY년 MM월 DD일 HH시 mm분 ss초');
     $('.title_time').children().html(currentTime);

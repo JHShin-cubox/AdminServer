@@ -13,6 +13,11 @@
             score,
             round(100. * count(*) / sum(count(*)) over (), 2) AS percentage
         FROM xray_analyze_statistics
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+        </where>
         GROUP BY label_id
         ORDER BY percentage DESC;
     </select>
@@ -26,11 +31,21 @@
             score,
             round(100. * count(*) / sum(count(*)) over (), 2) AS percentage
         FROM xray_analyze_statistics
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+        </where>
         GROUP BY label_id
         ORDER BY percentage DESC limit 10;
     </select>
 
     <select id="getXrayStatisticsCount" resultType="java.lang.Integer">
         SELECT count(*) FROM xray_analyze_statistics
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+        </where>
     </select>
 </mapper>

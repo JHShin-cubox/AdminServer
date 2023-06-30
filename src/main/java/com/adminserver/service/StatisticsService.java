@@ -1,5 +1,6 @@
 package com.adminserver.service;
 
+import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.dto.XrayStatisticDTO;
 import com.adminserver.mapper.OperationManagementMapper;
@@ -19,17 +20,17 @@ import java.util.Optional;
 public class StatisticsService {
     private final StatisticsMapper statisticsMapper;
 
-    public List<XrayStatisticDTO> getXrayStatisticsList() {
-        List<XrayStatisticDTO> list = statisticsMapper.getXrayStatistic();
+    public List<XrayStatisticDTO> getXrayStatisticsList(SearchDto searchDto) {
+        List<XrayStatisticDTO> list = statisticsMapper.getXrayStatistic(searchDto);
         return list;
     }
 
-    public List<XrayStatisticDTO> getXrayChart(){
-        List<XrayStatisticDTO> chartList = statisticsMapper.getXrayChart();
+    public List<XrayStatisticDTO> getXrayChart(SearchDto searchDto){
+        List<XrayStatisticDTO> chartList = statisticsMapper.getXrayChart(searchDto);
         return chartList;
     }
-    public Integer getXrayStatisticsCount(){
-        return statisticsMapper.getXrayStatisticsCount();
+    public Integer getXrayStatisticsCount(SearchDto searchDto){
+        return statisticsMapper.getXrayStatisticsCount(searchDto);
     }
 
 }

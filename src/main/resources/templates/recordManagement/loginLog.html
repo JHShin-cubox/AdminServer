@@ -31,7 +31,7 @@
                         <div class="textfd_wrap ">
                             <input type="hidden" id="searchCategory" value="Y">
                             <input name="pageum" type="hidden" value="020401">
-                            <input type="text" id="searchText" name="searchText" placeholder="아이디를 입력해주세요" th:value="${searchDto.getSearchText()}">
+                            <input type="text" id="searchText" name="searchText" placeholder="아이디를 입력해주세요" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid('noType')">
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="searchBtn_grid">
                 <button type="button" onclick="search_valid('noType')" class="searchBtn area_btn">검색</button>
-                <button type="button" onclick="location.href='/record/action?pageum=020401'" class="redoBtn area_btn">초기화</button>
+                <button type="button" onclick="location.href='/record/login?pageum=020401'" class="redoBtn area_btn">초기화</button>
             </div>
         </div>
     </div>

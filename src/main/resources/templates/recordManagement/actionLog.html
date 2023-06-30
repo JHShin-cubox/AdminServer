@@ -35,7 +35,7 @@
                                 <option th:selected="${searchDto.getSearchCategory()=='sub'}" value="sub">서브메뉴</option>
                                 <option th:selected="${searchDto.getSearchCategory()=='type'}" value="type">분류</option>
                             </select>
-                            <input id="searchText" name="searchText" type="text" th:value="${searchDto.getSearchText()}">
+                            <input id="searchText" name="searchText" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()">
                             <input name="pageum" type="hidden" value="020501">
                     </div>
                 </div>

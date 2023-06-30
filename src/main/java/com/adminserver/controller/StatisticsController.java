@@ -2,6 +2,7 @@ package com.adminserver.controller;
 
 
 import com.adminserver.dto.ActionHistoryDTO;
+import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.dto.XrayStatisticDTO;
 import com.adminserver.security.TokenProvider;
@@ -31,21 +32,13 @@ public class StatisticsController {
     private final RecordManagementService recordManagementService;
 
     @GetMapping("xray")
-    public String userList(HttpServletRequest request, Model model){
-        List<XrayStatisticDTO> lists =  statisticsService.getXrayStatisticsList();
-        List<XrayStatisticDTO> chartLists =  statisticsService.getXrayChart();
-        Integer totalCount = statisticsService.getXrayStatisticsCount();
+    public String userList(HttpServletRequest request, Model model, SearchDto searchDto){
+        List<XrayStatisticDTO> lists =  statisticsService.getXrayStatisticsList(searchDto);
+        List<XrayStatisticDTO> chartLists =  statisticsService.getXrayChart(searchDto);
+        Integer totalCount = statisticsService.getXrayStatisticsCount(searchDto);
         model.addAttribute("statisticLists", lists);
         model.addAttribute("chartLists", chartLists);
         model.addAttribute("totalCount", totalCount);
-        ActionHistoryDTO history = ActionHistoryDTO.builder()
-                .mainMenu("통계관리")
-                .subMenu("X-Ray 자동판독 통계")
-                .type("조회")
-                .userId(request.getAttribute("userId").toString())
-                .build();
-        recordManagementService.insertActionHistory(history);
-//        recordManagementService.insertActionHistory(history);
         return "statistics/xray";
     }
 }

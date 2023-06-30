@@ -2,6 +2,7 @@ package com.adminserver.service;
 
 import com.adminserver.dto.DeviceDTO;
 import com.adminserver.dto.EquipmentDTO;
+import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.mapper.EquipmentMapper;
 import com.adminserver.mapper.OperationManagementMapper;
@@ -19,27 +20,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EquipmentService {
     private final EquipmentMapper equipmentMapper;
-    public Integer getXrayCount(){
-        return equipmentMapper.getXrayCount();
+    public Integer getXrayCount(SearchDto searchDto){
+        return equipmentMapper.getXrayCount(searchDto);
+    }
+    public Page<EquipmentDTO> getXrayList(Pageable pageable, SearchDto searchDto) {
+        searchDto.setOffset(pageable.getOffset());
+        searchDto.setPageSize(pageable.getPageSize());
+        List<EquipmentDTO> list = equipmentMapper.getXrayList(searchDto);
+        return new PageImpl<>(list, pageable, list.size());
     }
 
-    public Page<EquipmentDTO> getXrayList(Optional<Integer> page, Pageable pageable) {
-        List<EquipmentDTO> xrayList = equipmentMapper.getXrayList();
-        int start = Math.toIntExact(pageable.getOffset());
-        int end = Math.min((start + pageable.getPageSize()),xrayList.size());
-        return new PageImpl<>(xrayList.subList(start, end), pageable, xrayList.size());
+    public Integer getViewerCount(SearchDto searchDto){
+        return equipmentMapper.getViewerCount(searchDto);
     }
 
-    public Integer getViewerCount(){
-        return equipmentMapper.getViewerCount();
+    public Page<EquipmentDTO> getViewerList(Pageable pageable, SearchDto searchDto) {
+        searchDto.setOffset(pageable.getOffset());
+        searchDto.setPageSize(pageable.getPageSize());
+        List<EquipmentDTO> list = equipmentMapper.getViewerList(searchDto);
+        return new PageImpl<>(list, pageable, list.size());
     }
-
-    public Page<EquipmentDTO> getViewerList(Optional<Integer> page, Pageable pageable) {
-        List<EquipmentDTO> viewerList = equipmentMapper.getViewerList();
-        int start = Math.toIntExact(pageable.getOffset());
-        int end = Math.min((start + pageable.getPageSize()),viewerList.size());
-        return new PageImpl<>(viewerList.subList(start, end), pageable, viewerList.size());
-    }
-    public void modifyViewer(EquipmentDTO equipmentDTO){equipmentMapper.modifyViewer(equipmentDTO); }
-    public void modifyXray(EquipmentDTO equipmentDTO){equipmentMapper.modifyXray(equipmentDTO); }
 }

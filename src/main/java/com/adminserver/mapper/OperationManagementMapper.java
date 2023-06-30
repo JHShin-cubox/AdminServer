@@ -1,5 +1,6 @@
 package com.adminserver.mapper;
 
+import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -8,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface OperationManagementMapper {
-    List<UserInfoDTO> getUserList();
+    List<UserInfoDTO> getUserList(SearchDto searchDto);
 
-    Integer getUserCount();
+    Integer getUserCount(SearchDto searchDto);
 
     String getUserName(@Param("userId") String userId);
 

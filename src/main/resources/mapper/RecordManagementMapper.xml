@@ -8,12 +8,23 @@
         SELECT
             id, name, luggage_id, reg_date
         FROM xray_images
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+        </where>
         GROUP BY luggage_id HAVING luggage_id IS NOT NULL
+        LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
     <select id="getXrayImagesCount" resultType="java.lang.Integer" >
         SELECT COUNT(sub.bcount) AS count FROM(SELECT count(*) as bcount
         FROM xray_images
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+        </where>
         GROUP BY luggage_id HAVING luggage_id IS NOT NULL) sub;
     </select>
 
@@ -38,11 +49,27 @@
             B.name as device_name, A.reg_date as reg_date
         FROM xray_power_state_log A
         JOIN xray_info B ON A.xray_id = B.id
+        <where>
+            <if test="searchRadio == 'true'">AND A.is_on = true</if>
+            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
+        </where>
         ORDER BY A.reg_date DESC
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
     <select id="getXrayPowerLogCount" resultType="java.lang.Integer">
         SELECT count(*) FROM xray_power_state_log A JOIN xray_info B ON A.xray_id = B.id
+        <where>
+            <if test="searchRadio == 'true'">AND A.is_on = true</if>
+            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
+        </where>
     </select>
 
     <select id="getViewerPowerLog" resultType="com.adminserver.dto.DevicePowerDTO">
@@ -51,11 +78,27 @@
             B.name as device_name, A.reg_date as reg_date
         FROM viewer_power_state_log A
         JOIN viewer_info B ON A.viewer_id = B.id
+        <where>
+            <if test="searchRadio == 'true'">AND A.is_on = true</if>
+            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
+        </where>
         ORDER BY A.reg_date DESC
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
     <select id="getViewerPowerLogCount" resultType="java.lang.Integer">
         SELECT count(*) FROM viewer_power_state_log A JOIN viewer_info B ON A.viewer_id = B.id
+        <where>
+            <if test="searchRadio == 'true'">AND A.is_on = true</if>
+            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
+        </where>
     </select>
 
     <insert id="insertLoginHistory" parameterType="com.adminserver.dto.LoginHistoryDTO">
@@ -70,10 +113,10 @@
         SELECT user_id, ip, reg_date
         FROM login_history
         <where>
-            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
-            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd == null and dateEnd.isEmpty())">AND reg_date >= #{dateStart}</if>
-            <if test="(dateStart == null and dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date &lt;= #{dateEnd}</if>
-            <if test="searchText != null and !searchText.isEmpty()">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
+           <if test="searchText != null and !searchText.isEmpty()">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
         ORDER BY reg_date DESC
         LIMIT #{pageSize} OFFSET #{offset}
@@ -82,10 +125,10 @@
     <select id="getLoginLogCount" resultType="java.lang.Integer">
         SELECT count(*) FROM login_history
         <where>
-            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
-            <if test="(dateStart != null and !dateStart.isEmpty()) and (dateEnd == null and dateEnd.isEmpty())">AND reg_date >= #{dateStart}</if>
-            <if test="(dateStart == null and dateStart.isEmpty()) and (dateEnd != null and !dateEnd.isEmpty())">AND reg_date &lt;= #{dateEnd}</if>
             <if test="searchText != null and !searchText.isEmpty()">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
     </select>
 
@@ -93,13 +136,13 @@
         SELECT user_id, main_menu, sub_menu, type, reg_date
         FROM action_history
         <where>
-            <if test="(dateStart != null and dateStart != '') and (dateEnd != null and dateEnd != '')">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
-            <if test="dateStart != '' and dateEnd == ''">AND reg_date >= #{dateStart}</if>
-            <if test="dateStart == '' and dateEnd != ''">AND reg_date &lt;= #{dateEnd}</if>
             <if test="searchCategory == 'id'">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="searchCategory == 'main'">AND main_menu LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="searchCategory == 'sub'">AND sub_menu LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="searchCategory == 'type'">AND type LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
         ORDER BY reg_date DESC
         LIMIT #{pageSize} OFFSET #{offset}
@@ -108,13 +151,13 @@
     <select id="getActionLogCount" resultType="java.lang.Integer">
         SELECT count(*) FROM action_history
         <where>
-            <if test="(dateStart != null and dateStart != '') and (dateEnd != null and dateEnd != '')">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
-            <if test="dateStart != '' and dateEnd == ''">AND reg_date >= #{dateStart}</if>
-            <if test="dateStart == '' and dateEnd != ''">AND reg_date &lt;= #{dateEnd}</if>
             <if test="searchCategory == 'id'">AND user_id LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="searchCategory == 'main'">AND main_menu LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="searchCategory == 'sub'">AND sub_menu LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="searchCategory == 'type'">AND type LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
     </select>
 

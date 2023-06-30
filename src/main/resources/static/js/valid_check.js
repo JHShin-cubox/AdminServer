@@ -18,6 +18,7 @@ function changeModify(val){
     $('#email').val(parentDiv.eq(5).text());
     $('.modal_title').text('사용자 수정');
     $('.btn_save').text('수정');
+    $('.btn_save').attr('onclick',"insertActionLog('운영관리','사용자 관리','수정');validCheck()");
     $('#idCheckDiv').attr("class","");
     $('#idCheck').hide();
     $('.txt_st1').hide();
@@ -29,7 +30,8 @@ function modalReset(){
     $('#userId').attr("readonly",false)
     $('#name').attr("readonly",false)
     $('.modal_title').text('사용자 등록');
-    $('.btn_save').text('저장');
+    $('.btn_save').text('등록');
+    $('.btn_save').attr('onclick',"insertActionLog('운영관리','사용자 관리','등록');validCheck()");
     $('#idCheckDiv').attr("class","overlap_input");
     $('#idCheck').show();
     $('.txt_st1').show();
@@ -139,7 +141,16 @@ function emailReset(){
 }
 function deleteUser(val){
     if(confirm("정말 삭제하시겠습니까?\n\n복구가 불가능 합니다.")){
-      $('#del_userId').val(val)
-      $('#del_form').submit();
+        $.ajax({
+            url:"/record/action",
+            method:"POST",
+            data:{
+                'main':"운영관리",
+                'sub':"사용자 관리",
+                'type':"삭제"
+            },
+        });
+        $('#del_userId').val(val)
+        $('#del_form').submit();
     }
 }
