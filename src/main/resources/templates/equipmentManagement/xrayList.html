@@ -10,30 +10,23 @@
 
     <!--단말기관리 : 1.단말기 승인처리-->
     <!--검색박스-->
-    <form id="search_form" action="/equip/xray" method="get" th:object="${searchDto}">
-    <div class="srch_wrapper ">
-        <div class="srch_wrapper_grid">
-            <div class="srchCnt">
-                <div class="srchCnt_grid1">
-                    <div class="search_set"></div>
-                    <div class="search_set"></div>
-                    <div class="search_set">
-                        <div class="textfd_wrap ">
-                            <input type="hidden" id="searchCategory" value="Y">
-                            <input name="pageum" type="hidden" value="010201">
-                            <input type="text" id="searchText" name="searchText" placeholder="아이디를 입력해주세요" th:value="${searchDto.getSearchText()}">
-                        </div>
-                    </div>
+    <form id="search_form" th:object="${searchDto}">
+        <input type="hidden" id="srh_action" value="/equip/xray">
+        <input name="pageum" type="hidden" value="010201">
+        <input type="hidden" id="searchCategory" value="Y">
+        <div class="srh_container">
+            <div class="srh_wrapper">
+                <div>
+                    <label class="label_srh mr_35">검색어</label>
+                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="모델명을 입력해주세요.">
                 </div>
-                <!--구분선-->
-
+                <div class="">
+                    <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
+                    <button type="button" onclick="location.href='/equip/xray?pageum=010201'" class="redoBtn area_btn">초기화</button>
+                </div>
             </div>
-            <div class="searchBtn_grid">
-                <button type="button" onclick="search_valid('noType')" class="searchBtn area_btn">검색</button>
-                <button type="button" onclick="location.href='/equip/xray?pageum=010201'" class="redoBtn area_btn">초기화</button>
-            </div>
+            <div class="srh_status"></div>
         </div>
-    </div>
     </form>
     <!--//검색박스-->
 
@@ -44,46 +37,38 @@
 
         <!--테이블상단-->
         <div class="table_top_wrapper">
-            <!--            <div class="boardfd_wrap">-->
-            <!--                <select class="w_100p">-->
-            <!--                    <option>10</option>-->
-            <!--                    <option>20</option>-->
-            <!--                    <option>30</option>-->
-            <!--                </select>-->
-            <!--            </div>-->
             <!-- 전체 게시글 카운트-->
             <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>[[${nowPage}]]</em> / <em>[[${lists.totalPages}]]</em></span> </div>
             <!-- //전체 게시글 카운트-->
             <!--버튼-->
-
+            <div class="btnBox_num2">
+                <button type="button" class="btn_excel_save" onclick="excelDown()">엑셀</button>
+                <input type="hidden" id="excel_action" value="/excelDown/equipXray">
+            </div>
             <!--//버튼-->
         </div>
         <!--//테이블상단-->
 
         <!--테이블리스트-->
         <div class="tableList_wrap ">
-            <div class="table_com table_st4">
+            <div class="table_com table_st25">
                 <div class="tb_h">
-                    <div class="th">고유ID</div>
                     <div class="th">모델명</div>
                     <div class="th">위치</div>
                     <div class="th">상태</div>
                     <div class="th">운용시간</div>
-                    <div class="th">고유IP</div>
                 </div>
                 <!--구분선-->
 
                 <div class="tb_d_wrap img_wrap">
                     <th:block th:each="deviceList : ${lists}" th:if="${totalCount>0}">
                         <div class="tb_d">
-                            <div class="td"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${deviceList.deviceId}]]</a></div>
-                            <div class="td">[[${deviceList.name}]]</div>
+                            <div class="td"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${deviceList.name}]]</a></div>
                             <div class="td">[[${deviceList.location}]]</div>
                             <div class="td" th:if="${deviceList.isOn}=='true' and ${deviceList.status} == 'start'">가동</div>
                             <div class="td" th:if="${deviceList.isOn}=='true' and ${deviceList.status} == 'end'">일시정지</div>
                             <div class="td" th:if="${deviceList.isOn}=='false'">전원 꺼짐</div>
-                            <div class="td">운영시간 값</div>
-                            <div class="td">[[${deviceList.deviceIp}]]</div>
+                            <div class="td">운용시간 값</div>
                             <input type="hidden" th:value="${deviceList.id}">
                         </div>
                     </th:block>
@@ -102,13 +87,13 @@
         <!-- PC 일때 페이징 -->
         <div class="pc_view" th:with="start=${(lists.number/maxPage)*maxPage + 1}, end=(${(lists.totalPages == 0) ? 1 : (start + (maxPage -1) < lists.totalPages ? start + (maxPage -1) : lists.totalPages)})">
             <div class="common_pagination pc_view">
-                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
-                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
+                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
                 <div>
-                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
                 </div>
-                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
-                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
+                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
+                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
             </div>
         </div>
         <!-- //PC 일때 페이징 -->
@@ -137,23 +122,17 @@
                         <div class="cont_wrap">
                             <div class="tb_list_com tb_list_st1 mb_30">
                                 <div class="tr">
-                                    <div class="th">고유 ID</div>
+                                    <div class="th">모델명</div>
                                     <div class="td">
-                                        <span id="deviceId">고유 ID 값</span>
-                                        <input type="hidden" id="deId" name="id">
+                                        <span id="modelName">모델명값</span>
+                                        <input type="hidden" id="deId" name="name">
                                     </div>
                                 </div>
                                 <div class="tr">
                                     <div class="th">종류</div>
                                     <div class="td">
-                                        <span>Viewer</span>
+                                        <span>Xray</span>
                                         <input type="hidden" id="deviceType" name="type" value="xray">
-                                    </div>
-                                </div>
-                                <div class="tr">
-                                    <div class="th">모델명</div>
-                                    <div class="td">
-                                        <input id="modelName" name="name" type="text" placeholder="">
                                     </div>
                                 </div>
                                 <div class="tr">
@@ -172,12 +151,6 @@
                                     <div class="th">운용시간</div>
                                     <div class="td">
                                         <span id="runningTime">운용시간 값</span>
-                                    </div>
-                                </div>
-                                <div class="tr">
-                                    <div class="th">고유IP</div>
-                                    <div class="td">
-                                        <span id="deviceIp">고유IP 값</span>
                                     </div>
                                 </div>
                             </div>
@@ -215,15 +188,11 @@
         }
         function changeModify(val){
             const parentDiv = $(val).parent().parent().children();
-
-            $('#deviceId').text($(val).text());
-            $('#name').val(parentDiv.eq(1).text());
-            $('#modelName').val(parentDiv.eq(1).text());
-            $('#location').val(parentDiv.eq(2).text());
-            $('#status').text(parentDiv.eq(3).text());
-            $('#runningTime').text(parentDiv.eq(4).text());
-            $('#deviceIp').text(parentDiv.eq(5).text());
-            $('#deId').val(parentDiv.eq(6).val());
+            $('#modelName').text($(val).text());
+            $('#location').val(parentDiv.eq(1).text());
+            $('#status').text(parentDiv.eq(2).text());
+            $('#runningTime').text(parentDiv.eq(3).text());
+            $('#deId').val(parentDiv.eq(4).val());
         }
     </script>
 </div>

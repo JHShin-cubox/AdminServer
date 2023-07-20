@@ -2,9 +2,11 @@
 
 
 /*달력 공통*/
-.datepicker_box{width: 100%; float: left;  display: grid;  grid-template-columns: 1fr 1fr; column-gap: 10px;}
+.datepicker_box{display: flex;  /*display: grid;  grid-template-columns: 1fr 1fr; column-gap: 10px;*/}
 .datepicker_box>input{width: 100%; float: left; position: relative; background: url(../../images/svg_icon/calender.svg)no-repeat calc(100% - 10px) center!important;  background-size: 20px!important;}
 .datepicker_box>div{width: 100%;  line-height: var(--h-com); text-align: center!important }
+.datepicker_box>span {margin: 0 15px;}
+.datepicker_box>label{width: 58%;}
 
 
 /**** 서브타이틀 공통 ****/

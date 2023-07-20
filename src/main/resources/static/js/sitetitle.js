@@ -66,6 +66,7 @@ var Mtitle0202 = "X-Ray 전원 이력";
 var Mtitle0203 = "Viewer 전원 이력";
 var Mtitle0204 = "로그인 이력";
 var Mtitle0205 = "활동 이력";
+var Mtitle0206 = "활동 이력";
 
 
 var Mtitle0301 = "X-Ray 자동판독 통계";

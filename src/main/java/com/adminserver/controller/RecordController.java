@@ -33,13 +33,13 @@ public class RecordController {
 
     @GetMapping("xrayImage")
     public String xrayList(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
-        model.addAttribute("sideHL","이미지"); //사이드바 하이라이트
         int maxPage = 10;
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
         Page<XrayImageDTO> imageList =  recordManagementService.getXrayImages(pageable, searchDto);
         Integer totalCount = recordManagementService.getXrayImagesCount(searchDto);
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());
@@ -48,6 +48,23 @@ public class RecordController {
         model.addAttribute("totalCount",totalCount );
         model.addAttribute("searchDto",searchDto);
         return "recordManagement/xrayImage";
+    }
+
+    @GetMapping("threeImage")
+    public String threeList(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
+        int maxPage = 10;
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
+        Integer totalCount = 1;
+        if(page.isEmpty()) nowPage  = 0;
+        else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
+        model.addAttribute("nowPage", nowPage+1);
+        model.addAttribute("pageum",request.getParameter("pageum"));
+        model.addAttribute("uri",request.getRequestURI());
+        model.addAttribute("maxPage", maxPage);
+        model.addAttribute("totalCount",totalCount );
+        model.addAttribute("searchDto",searchDto);
+        return "recordManagement/threeImage";
     }
 
     @PostMapping("xraySubImage")
@@ -64,6 +81,7 @@ public class RecordController {
         Integer totalCount = recordManagementService.getXrayPowerCount(searchDto);
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());
@@ -82,6 +100,7 @@ public class RecordController {
         Integer totalCount = recordManagementService.getViewerPowerCount(searchDto);
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());
@@ -100,6 +119,7 @@ public class RecordController {
         Integer totalCount = recordManagementService.getLoginLogCount(searchDto);
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());
@@ -117,6 +137,7 @@ public class RecordController {
         Integer totalCount = recordManagementService.getActionLogCount(searchDto);
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());

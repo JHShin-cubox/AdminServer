@@ -2,172 +2,108 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!-- 왼쪽메뉴 스크립트 -->
-    <script src="/static/js/leftmenu/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/static/js/leftmenu/jquery.navgoco.js"></script>
-    <!-- //왼쪽메뉴 스크립트 -->
 </head>
 <body>
 <div th:fragment="sidebar">
-    <script>
-        //반응형 기준
-        var windowWidth = window.matchMedia("screen and (max-width: 1300px)");
-        if (windowWidth.matches) document.write("<div id='quick'> ");
-        else {
-            document.write("<div id='quick' ");
-            if(Bum == "01"){document.write("class='quick_open'");};
-            if(Bum == "02"){document.write("class='quick_open'");};
-            if(Bum == "03"){document.write("class='quick_open'");};
-            if(Bum == "04"){document.write("class='quick_open'");};
-            if(Bum == "05"){document.write("class='quick_open'");};
-            if(Bum == "06"){document.write("class='quick_open'");};
-            document.write(">");
-        }
-    </script>
-    <script>
-        //메인일때
-        if(Bum == "00"){document.write("<div  class='quick_vicon1 main  quick_close_btn'></div><div  class='quick_vicon2 main quick_open_btn'></div>");
-
-        } else {
-            //메인이 아닐때
-            document.write("<div  class='quick_vicon1  quick_close_btn'></div><div  class='quick_vicon2  quick_open_btn'></div>");
-        }
-    </script>
+    <div id='quick' class="quick_open">
     <div class="quickbg_box">
         <div class="bg1"></div>
     </div>
-    <div class="quick_top">
-        <a href="/" title="메인" class="quick_top1"><i class="uil uil-estate"></i></a>
-    </div>
     <div class="quick_menu">
         <div class="b_icon">
-            <div class="topicon ani1">
-                <div class="design_dot1"></div>
-                <div class="design_dot2"></div>
-                <div class="design_dot3"></div>
-                <div class="design_dot4"></div>
-                <div class="design_dot5"></div>
-                <div class="icon">
-                    <script>
-                        if(Bum == "00"){document.write("<img src='/static/images/svg_icon/menuicon00.svg' alt=''/>");};
-                        if(Bum == "01"){document.write("<img src='/static/images/svg_icon/menuicon01.svg' alt=''/>");};
-                        if(Bum == "02"){document.write("<img src='/static/images/svg_icon/menuicon02.svg' alt=''/>");};
-                        if(Bum == "03"){document.write("<img src='/static/images/svg_icon/menuicon03.svg' alt=''/>");};
-                        if(Bum == "04"){document.write("<img src='/static/images/svg_icon/menuicon04.svg' alt=''/>");};
-                        if(Bum == "05"){document.write("<img src='/static/images/svg_icon/menuicon05.svg' alt=''/>");};
-                    </script>
-                </div>
-            </div>
         </div>
-        <ul class="nav" id="demo1" >
+        <ul class="nav" id="demo1">
+            <li class="logo_container">
+                <img id="main_logo" onclick="homePage()" class="main_logo" src="/static/images/main/main_logo.png">
+            </li>
             <th:block th:if="${userRole}=='ADMIN'">
-            <script>if(Bum == "01"){document.write("<li class='open'>");}else { document.write("<li>");}</script>
-
-            <a href="#" class="icon_id1">
-                <div class="icon nav_icon ">
-                    <div class="imgbox"><img src="/static/images/svg_icon/menuicon01.svg" alt=""/></div>
-                </div>
-                장비 관리
-            </a>
-            <ul class="menu2">
-                </script>
-                <script>if(pageum == "010101"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('장비관리','Viewer 장비','조회') href=");
-                document.write(Pageum010101_link);
-                document.write(">");
-                document.write(Mtitle0101);
-                document.write("</a></li>");
-                </script>
-
-                <script>if(pageum == "010201"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('장비관리','X-Ray 장비','조회') href=");
-                document.write(Pageum010201_link);
-                document.write(">");
-                document.write(Mtitle0102);
-                document.write("</a></li>");
-                </script>
-            </ul>
+            <li th:classappend="${sideMain} == '01' ? 'open'">
+                <a class="icon_wrap">
+                    <div class="nav_wrap" onclick="sideMenu(this)" th:classappend="${sideMain}=='01' ? 'on'">
+                        <div class="icon nav_icon">
+                            <div class="imgbox"><img src="/static/images/svg_icon/menuicon01.png" alt=""/></div>
+                        </div>
+                        장비 관리
+                        <img th:classappend="${#strings.startsWith(pageum,'010')} == true ? 'on'" class="side_arrow" src="/static/images/main/menu_arrow.png">
+                    </div>
+                </a>
+                <ul class="menu2">
+                    <li th:classappend="${pageum} == '010101' ? 'on'">
+                        <a onclick=insertActionLog('장비관리','CheckPc_장비','조회') href="/equip/viewer?pageum=010101">• CheckPC</a>
+                    </li>
+                    <li th:classappend="${pageum} == '010201' ? 'on'">
+                        <a onclick=insertActionLog('장비관리','X-Ray_장비','조회') href="/equip/xray?pageum=010201">• Xray</a>
+                    </li>
+                </ul>
+            </li>
             </th:block>
+            <li th:classappend="${sideMain} == '02' ? 'open'">
+                <a class="icon_wrap">
+                    <div class="nav_wrap" onclick="sideMenu(this)" th:classappend="${sideMain}=='02' ? 'on'">
+                        <div class="icon nav_icon">
+                            <div class="imgbox"><img src="/static/images/svg_icon/menuicon02.png" alt=""/></div>
+                        </div>
+                        이력 관리
+                        <img th:classappend="${#strings.startsWith(pageum,'020')} == true ? 'on'" class="side_arrow" src="/static/images/main/menu_arrow.png">
+                    </div>
+                </a>
+                <ul class="menu2">
+                    <li th:classappend="${pageum} == '020101' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','X-Ray_이미지이력','조회') href="/record/xrayImage?pageum=020101">• X-Ray 이미지 이력</a>
+                    </li>
+                    <li th:classappend="${pageum} == '020601' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','3D_이미지이력','조회') href="/record/threeImage?pageum=020601">• 3D 이미지 이력</a>
+                    </li>
+                    <li th:classappend="${pageum} == '020201' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','X-Ray_전원이력','조회') href="/record/xrayPower?pageum=020201">• X-Ray 전원 이력</a>
+                    </li>
+                    <li th:classappend="${pageum} == '020301' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','CheckPC_전원이력','조회') href="/record/viewerPower?pageum=020301">• CheckPC 전원 이력</a>
+                    </li>
+                    <li th:classappend="${pageum} == '020401' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','로그인이력','조회') href="/record/login?pageum=020401">• 로그인 이력</a>
+                    </li>
+                    <li th:classappend="${pageum} == '020501' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','활동이력','조회') href="/record/action?pageum=020501">• 활동 이력</a>
+                    </li>
+                </ul>
             </li>
-            <script>if(Bum == "02"){document.write("<li class='open'>");}else { document.write("<li>");}</script>
-            <a href="#"  class="icon_id2">
-                <div class="icon nav_icon">
-                    <div class="imgbox"><img src="/static/images/svg_icon/menuicon02.svg" alt=""/></div>
-                </div>
-                이력 관리</a>
-            <ul class="menu2">
-                <script>if(pageum == "020101"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('이력관리','X-Ray 이미지 이력','조회') href=");
-                document.write(Pageum020101_link);
-                document.write(">");
-                document.write(Mtitle0201);
-                document.write("</a></li>");
-                </script>
-                <script>if(pageum == "020201"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('이력관리','X-Ray 전원 이력','조회') href=");
-                document.write(Pageum020201_link);
-                document.write(">");
-                document.write(Mtitle0202);
-                document.write("</a></li>");
-                </script>
-                <script>if(pageum == "020301"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('이력관리','Viewer 전원 이력','조회') href=");
-                document.write(Pageum020301_link);
-                document.write(">");
-                document.write(Mtitle0203);
-                document.write("</a></li>");
-                </script>
-                <script>if(pageum == "020401"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('이력관리','로그인 이력','조회') href=");;
-                document.write(Pageum020401_link);
-                document.write(">");
-                document.write(Mtitle0204);
-                document.write("</a></li>");
-                </script>
-                <script>if(pageum == "020501"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('이력관리','활동 이력','조회') href=");
-                document.write(Pageum020501_link);
-                document.write(">");
-                document.write(Mtitle0205);
-                document.write("</a></li>");
-                </script>
-            </ul>
+            <li th:classappend="${sideMain} == '03' ? 'open'">
+                <a class="icon_wrap">
+                    <div class="nav_wrap" onclick="sideMenu(this)" th:classappend="${sideMain}=='03' ? 'on'">
+                        <div class="icon nav_icon">
+                            <div class="imgbox"><img src="/static/images/svg_icon/menuicon03.png" alt=""/></div>
+                        </div>
+                        통계 관리
+                        <img th:classappend="${#strings.startsWith(pageum,'030')} == true ? 'on'" class="side_arrow" src="/static/images/main/menu_arrow.png">
+                    </div>
+                </a>
+                <ul class="menu2">
+                    <li th:classappend="${pageum} == '030101' ? 'on'">
+                        <a onclick=insertActionLog('통계관리','X-Ray_자동판독','조회') href="/statistics/xray?pageum=030101">• X-Ray 자동판독 통계</a>
+                    </li>
+                </ul>
             </li>
-            <script>if(Bum == "03"){document.write("<li class='open'>");}else { document.write("<li>");}</script><a href="#"  class="icon_id3">
-            <div class="icon nav_icon">
-                <div class="imgbox"><img src="/static/images/svg_icon/menuicon03.svg" alt=""/></div>
-            </div>
-            통계 관리</a>
-            <ul class="menu2">
-                <script>if(pageum == "030101"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('통계관리','X-Ray 자동판독 통계','조회') href=");
-                document.write(Pageum030101_link);
-                document.write(">");
-                document.write(Mtitle0301);
-                document.write("</a></li>");
-                </script>
-            </ul>
-            </li>
-
 
             </li>
             <th:block th:if="${userRole}=='ADMIN'">
-            <script>if(Bum == "05"){document.write("<li class='open'>");}else { document.write("<li>");}</script><a href="#"  class="icon_id5">
-            <div class="icon nav_icon">
-                <div class="imgbox"><img src="/static/images/svg_icon/menuicon05.svg" alt=""/></div>
-            </div>
-            운영 관리</a>
-            <ul class="menu2">
-                <script>if(pageum == "050101"){document.write("<li class='on'>");}else { document.write("<li>");}
-                document.write("<a onclick=insertActionLog('윤양관리','사용자 관리','조회') href=");
-                document.write(Pageum050101_link);
-                document.write(">");
-                document.write(Mtitle0501);
-                document.write("</a></li>");
-                </script>
-            </ul>
-            </th:block>
+            <li th:classappend="${sideMain} == '05' ? 'open'">
+                <a class="icon_wrap">
+                    <div class="nav_wrap" onclick="sideMenu(this)" th:classappend="${sideMain}=='05' ? 'on'">
+                        <div class="icon nav_icon">
+                            <div class="imgbox"><img src="/static/images/svg_icon/menuicon04.png" alt=""/></div>
+                        </div>
+                        운영 관리
+                        <img th:classappend="${#strings.startsWith(pageum,'050')} == true ? 'on'" class="side_arrow" src="/static/images/main/menu_arrow.png">
+                    </div>
+                </a>
+                <ul class="menu2">
+                    <li th:classappend="${pageum} == '050101' ? 'on'">
+                        <a onclick=insertActionLog('윤양관리','사용자관리','조회') href="/operation/userList?pageum=050101">• 사용자 관리</a>
+                    </li>
+                </ul>
             </li>
+            </th:block>
         </ul>
     </div>
 

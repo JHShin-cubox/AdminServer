@@ -10,18 +10,16 @@
     <div id="quick_btn_mobile2"><i class="uil uil-arrow-left"></i></div>
 
     <div id="header">
-        <div class="inner">  <script> document.write("<a  href=");
-        document.write(Pageum000000_link);
-        document.write(" class=logo><img src='/static/images/common/logo3.png' style='width: 252px;' alt='통합관리 시스템'/></a>");</script>
-            <div class="time title_time" th:text="${#calendars.format(#calendars.createNow(),'yyyy년 MM월 dd일 HH시 mm분 ss초')}"></div>
-            <div class="g_area">
-                <div class="memberinfobox">
-                    <div class="member_info">
-                        [[${userId}]]<br>
-                        <em>[[${userName}]]</em>
-                    </div>
-                    <div class="btn_logout" onclick="apiLogout()"><i class="uil uil-signout"></i></div>
+        <div class="inner">
+            <p class="header_title">통합관리 시스템</p>
+            <div class="user_wrap">
+                <img th:if="${userRole}=='ADMIN'" class="user_img" src="/static/images/main/user_photo_admin.png">
+                <img th:if="${userRole}=='USER'" class="user_img" src="/static/images/main/user_photo1.png">
+                <div class="user_info">
+                    <span class="user_id">[[${userId}]]</span>
+                    <span class="user_name">[[${userName}]] <span>님</span></span>
                 </div>
+                <button class="user_logout" type="button" onclick="apiLogout()">로그아웃</button>
             </div>
         </div>
     </div>

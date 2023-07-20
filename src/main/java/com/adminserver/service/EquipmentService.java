@@ -1,9 +1,6 @@
 package com.adminserver.service;
 
-import com.adminserver.dto.DeviceDTO;
-import com.adminserver.dto.EquipmentDTO;
-import com.adminserver.dto.SearchDto;
-import com.adminserver.dto.UserInfoDTO;
+import com.adminserver.dto.*;
 import com.adminserver.mapper.EquipmentMapper;
 import com.adminserver.mapper.OperationManagementMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EquipmentService {
     private final EquipmentMapper equipmentMapper;
+    Integer totalCount;
     public Integer getXrayCount(SearchDto searchDto){
         return equipmentMapper.getXrayCount(searchDto);
     }
@@ -27,17 +25,21 @@ public class EquipmentService {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<EquipmentDTO> list = equipmentMapper.getXrayList(searchDto);
-        return new PageImpl<>(list, pageable, list.size());
+        totalCount = equipmentMapper.getXrayCount(searchDto);
+        return new PageImpl<>(list, pageable, totalCount);
     }
 
-    public Integer getViewerCount(SearchDto searchDto){
-        return equipmentMapper.getViewerCount(searchDto);
-    }
 
     public Page<EquipmentDTO> getViewerList(Pageable pageable, SearchDto searchDto) {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<EquipmentDTO> list = equipmentMapper.getViewerList(searchDto);
-        return new PageImpl<>(list, pageable, list.size());
+        totalCount = equipmentMapper.getViewerCount(searchDto);
+        return new PageImpl<>(list, pageable, totalCount);
     }
+    public Integer getViewerCount(SearchDto searchDto){ return equipmentMapper.getViewerCount(searchDto); }
+
+    public List<EquipmentDTO> excelEquipXrayList(SearchDto searchDto){return equipmentMapper.getXrayList(searchDto);}
+    public List<EquipmentDTO> excelEquipViewerList(SearchDto searchDto){return equipmentMapper.getViewerList(searchDto);}
+
 }

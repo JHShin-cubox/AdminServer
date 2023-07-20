@@ -10,181 +10,53 @@
 </style>
 
 <div class="intro_allbg">
-  <!--
-  <div class="m_cnt01">
-    <div class="item_grid"> <img src="/static/images/main/ic_certi.png">
-      <div class="item_cnt">
-        <div class="item_title">X-Ray판독 이력</div>
-        <div class="item_num"><em>00</em>건</div>
+  <div class="m_cnt04">
+   <div>
+      <div class="mTitle_wrap">
+        <div class="m_title">일일 통계</div>
       </div>
-    </div>
-
-    <div class="item_grid"> <img src="/static/images/main/ic_approval.png">
-      <div class="item_cnt">
-        <div class="item_title">X-Ray판독 </div>
-        <div class="item_num"><em>1</em>건</div>
-      </div>
-    </div>
-
-    <div class="item_grid"> <img src="/static/images/main/ic_device.png">
-      <div class="item_cnt">
-        <div class="item_title">단말기 승인처리</div>
-        <div class="item_num"><em>1</em>건</div>
-      </div>
-    </div>
-
-    <div class="item_grid"> <img src="/static/images/main/ic_admin.png">
-      <div class="item_cnt">
-        <div class="item_title">관리 업데이트</div>
-        <div class="item_num"><em>1</em>건</div>
-      </div>
-    </div>
-
-    <div class="item_grid"> <img src="/static/images/main/ic_user.png">
-      <div class="item_cnt">
-        <div class="item_title">사용자</div>
-        <div class="item_num"><em>1</em>건</div>
+      <div class="mbox"> 
+        <table class="table_main">
+          <tr class="tb_h">
+            <th>수하물 촬영 횟수</th>
+            <th>탐지 물품 개수</th>
+            <th>개봉 횟수</th>
+            <th>비고</th>
+          </tr>
+          <tr class="tb_d">
+            <td>10</td>
+            <td>10</td>
+            <td>10</td>
+            <td>10</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
-  -->
-  <div class="m_cnt02">
-   <div>
-      <div class="mTitle_wrap">
-        <div class="m_title">X-Ray판독현황</div>
-        <div class="more_viewBtn"></div>
-      </div>
-      <div class="mbox"> 
-        
-        <!--테이블리스트-->
-        <div class="tableList_wrap">
-          <div class="table_main table_st20">
-            <div class="tb_h">
-              <div class="th">번호</div>
-              <div class="th">판독일</div>
-              <div class="th">Luggage ID</div>
-              <div class="th">판독결과</div>
-              <div class="th">매칭점수</div>
-              <div class="th">기준점수</div>
-            </div>
-            <!--구분선-->
-            
-            <div class="tb_d_wrap">
-              <div class="tb_d">
-                <div class="td">1</div>
-                <div class="td">2022-11-15 10:26:56</div>
-                <div class="td" >LUG001</div>
-                <div class="td">
-                  <div class="label_success">성공</div>
-                </div>
-                <div class="td txt_blue" >0.915</div>
-                <div class="td" >0.600</div>
-              </div>
-              <!--구분선-->
-              
-              <div class="tb_d">
-                <div class="td">1</div>
-                <div class="td">2022-11-15 10:26:56</div>
-                <div class="td" >LUG002</div>
-                <div class="td">
-                  <div class="label_fail">실패</div>
-                </div>
-                <div class="td txt_blue" >0.915</div>
-                <div class="td" >0.600</div>
-              </div>
-              <!--구분선-->
-              
-              <div class="tb_d">
-                <div class="td">1</div>
-                <div class="td">2022-11-15 10:26:56</div>
-                <div class="td" >LUG003</div>
-                <div class="td">
-                  <div class="label_success">성공</div>
-                </div>
-                <div class="td txt_blue" >0.915</div>
-                <div class="td" >0.600</div>
-              </div>
-              <!--구분선--> 
-              
-              <div class="tb_d">
-                <div class="td">1</div>
-                <div class="td">2022-11-15 10:26:56</div>
-                <div class="td" >LUG004</div>
-                <div class="td">
-                  <div class="label_success">성공</div>
-                </div>
-                <div class="td txt_blue" >0.915</div>
-                <div class="td" >0.600</div>
-              </div>
-              <!--구분선-->
-     
-              
-            </div>
-            <!--//테이블--> 
-          </div>
-        </div>
-        <!--//테이블리스트--> 
-        
-      </div>
-    </div>
+  <div class="m_cnt04">
     <div>
-      <div class="tab_wrap2"> 
-        <!--탭버튼-->
-        <div class="tab_category_box2">
-          <ul>
-            <li onclick="openCategory2(event, 'view11')" class="tablinks2 active ">금일 X-ray판독현황</li>
-            <li onclick="openCategory2(event, 'view12')" class="tablinks2 ">총 X-ray판독현황</li>
-          </ul>
-        </div>
-        <!--//탭버튼-->
-        <div class="tab_cnt"> 
-          <!-- 1. 전체 : start-->
-          <div id="view11" class="tabcontent2" style="display: block;">
-            <div class="cntGraph_box"> 
-              <div class="gmotion">
-                <div class="um">
-                  <em>
-                    <div class='numscroller' data-slno='1' data-min='0' data-max='15' data-delay='85' data-increment="1">85</div>
-                  </em>%
-                </div>
-                <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 250 250" style="enable-background:new 0 0 250 250;" xml:space="preserve" id="gr_01">
-                  <ellipse class="gmotion1_st0" cx="125.1" cy="128.2" rx="95.6" ry="94"/>
-                  <path class="gmotion1_st1" d="M125.1,34.3c52.8,0,95.6,42.1,95.6,94s-42.8,94-95.6,94s-95.6-42.1-95.6-94c0-50.9,41.2-92.4,92.6-93.9"/>
-                </svg>
-              </div>
-              <div class="g_txbox">
-                <div class="total">85</div>
-		        <div class="legend">
-		          <div class="tx1">성공건수</div>
-			      <div class="tx2">실폐건수</div>
-		        </div>
-              </div>
-            </div>
-          </div>
-          <!-- 2. 운영 : start-->
-          <div id="view12" class="tabcontent2" style="display: none;">
-            <div class="cntGraph_box">
-              <div class="gmotion">
-                <div class="um">
-                  <em>
-                    <div class='numscroller' data-slno='1' data-min='0' data-max='15' data-delay='85' data-increment="1">75</div>
-                  </em>%
-                </div>
-                <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"	 y="0px" viewBox="0 0 250 250" style="enable-background:new 0 0 250 250;" xml:space="preserve" id="gr_02">
-                  <ellipse class="gmotion1_st0" cx="125.1" cy="128.2" rx="95.6" ry="94"/>
-                  <path class="gmotion2_st1" d="M125.1,34.3c52.8,0,95.6,42.1,95.6,94s-42.8,94-95.6,94s-95.6-42.1-95.6-94c0-50.9,41.2-92.4,92.6-93.9"/>
-                </svg>
-              </div>
-              <div class="g_txbox">
-                <div class="total">75</div>
-		        <div class="legend">
-		          <div class="tx1">성공건수</div>
-			      <div class="tx2">실폐건수</div>
-		        </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="mTitle_wrap">
+        <div class="m_title">장비 통계</div>
+      </div>
+      <div class="mbox">
+        <table class="table_main">
+          <tr class="tb_h">
+            <th>X-Ray</th>
+            <th>TRS</th>
+            <th>Check PC</th>
+            <th>신발검색기</th>
+            <th>원형검색기</th>
+            <th>문형 금속탐지기</th>
+          </tr>
+          <tr class="tb_d">
+            <td>10대</td>
+            <td>10대</td>
+            <td>10대</td>
+            <td>10대</td>
+            <td>10대</td>
+            <td>10대</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

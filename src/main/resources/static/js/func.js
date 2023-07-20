@@ -78,35 +78,6 @@ function leftToggle(e){
     $(e).next().slideToggle();
 }
 
-function dashControl(type,id,status){
-    // $.ajax({
-    //     url : "http://172.16.153.85:5001/api/managementSystem/viewerControl_JSON",
-    //     type : "PUT",
-    //     data : {
-    //         "pc_idx" : 1,
-    //         "open" : true,
-    //         "pc_status" : "waiting"
-    //     },
-    //     success : function (){
-    //         if(type == 'onoff'){
-    //             if(status == true){
-    //                 $('#xrayline' + id).addClass('nonActive');
-    //             } else{
-    //                 $('#xrayline' + id).removeClass('nonActive');
-    //             }
-    //         }
-    //     } ,
-    //     error : function (request, status, error){
-    //         console.log(status)
-    //         if(status == true){
-    //             $('#xrayline' + id).addClass('nonActive');
-    //         } else{
-    //             $('#xrayline' + id).removeClass('nonActive');
-    //         }
-    //     }
-    // });
-}
-
 function healthCheck(){
     $('.healthCheck').toggleClass("bg-primary");
     $('.healthCheck').toggleClass("bg-dark");
@@ -115,16 +86,24 @@ function healthCheck(){
 }
 
 function search_valid(){
-    if($('#searchCategory').val()=="no" && $('#date_start').val()=="" && $('#date_end').val()==""){
+    if($('#searchCategory').val() =="no" && $('#date_start').val()=="" && $('#date_end').val()==""){
         alert("검색 종류를 선택해주세요.");
         $('#searchCategory').focus();
         return false;
     }
-    if($('#searchText').val()=="" && $('#searchCategory').val()!="Y"){
+    if($('#searchCategory').val()!="no" && $('#searchText').val()=="" && $('#searchCategory').val()!="Y"){
         alert("검색어를 입력해주세요.");
         $('#searchText').focus();
         return false;
     }
+    $('#search_form').attr('action',$('#srh_action').val());
+    $('#search_form').attr('method','GET');
+    $('#search_form').submit();
+}
+
+function excelDown(){
+    $('#search_form').attr('action',$('#excel_action').val());
+    $('#search_form').attr('method','POST');
     $('#search_form').submit();
 }
 
@@ -170,6 +149,26 @@ function insertActionLog(main,sub,type){
         }
 
     })
+}
+function sideMenu(val){
+    var checkClass = 'N';
+    if($(val).hasClass('on')==true){checkClass = 'Y'}
+    $('.nav_wrap').each(function(){
+        $(this).removeClass("on");
+        $(this).children().eq(1).css('rotate','0deg');
+    })
+    if(checkClass =='Y'){
+        $(val).removeClass('on');
+        $(val).children().eq(1).css('rotate','0deg');
+    }
+    else{
+        $(val).addClass('on');
+        $(val).children().eq(1).css('rotate','180deg');
+    }
+}
+function homePage(){
+    $('.open').each(function(){$(this).children().eq(0).click()});
+    location.href='/';
 }
 
 setInterval(function() {

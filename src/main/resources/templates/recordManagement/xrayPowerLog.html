@@ -8,49 +8,49 @@
 
     <link rel="stylesheet" type="text/css" href="/static/js/Calenda/dcalendar.picker.css" media="all">
 
-    <!--단말기관리 : 1.단말기 승인처리-->
     <!--검색박스-->
-    <form id="search_form" action="/record/xrayPower" method="get" th:object="${searchDto}">
-    <div class="srch_wrapper ">
-        <div class="srch_wrapper_grid">
-            <div class="srchCnt">
-                <div class="srchCnt_grid1">
-                    <div class="search_set">
-                        <input type="radio" onclick="$('#search_form').submit();" value="all" name="searchRadio" th:checked="${searchDto.getSearchRadio()!='false' || searchDto.getSearchRadio()!='true' }">
-                        <label>전체</label>
-                        <input type="radio" onclick="$('#search_form').submit();" value="true" name="searchRadio" th:checked="${searchDto.getSearchRadio()=='true'}">
-                        <label>On</label>
-                        <input type="radio" onclick="$('#search_form').submit();" value="false" name="searchRadio" th:checked="${searchDto.getSearchRadio()=='false'}">
-                        <label>Off</label>
-                    </div>
-                    <div class="search_set">
-                        <div class="datepicker_box">
-                            <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">
-                            <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">
-                        </div>
-                    </div>
-                    <script src="/static/js/Calenda/dcalendar.picker.js"></script>
-                    <script>
-                        $('#date_start').dcalendarpicker();
-                        $('#date_end').dcalendarpicker();
-                    </script>
-                    <div class="search_set">
-                        <div class="textfd_wrap ">
-                            <input type="hidden" id="searchCategory" value="Y">
-                            <input id="searchText" name="searchText" type="text" placeholder="아이디 or 이름을 입력해주세요" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid('noType')">
-                            <input name="pageum" type="hidden" value="020201">
-                        </div>
-                    </div>
+    <form id="search_form" th:object="${searchDto}">
+        <input type="hidden" id="srh_action" value="/record/xrayPower">
+        <input name="pageum" type="hidden" value="020201">
+        <input type="hidden" id="searchCategory" value="Y">
+        <div class="srh_container">
+            <div class="srh_wrapper">
+                <div class="mr_85">
+                    <label class="label_srh mr_35">기간설정</label>
+                    <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">
+                    <span>~</span>
+                    <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">
                 </div>
-                <!--구분선-->
-
+                <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+                <script>
+                    $('#date_start').dcalendarpicker();
+                    $('#date_end').dcalendarpicker();
+                </script>
+                <div>
+                    <label class="label_srh mr_35">검색어</label>
+                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="장비명을 입력해주세요.">
+                </div>
+                <div class="">
+                    <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
+                    <button type="button" onclick="location.href='/record/xrayPower?pageum=020201'" class="redoBtn area_btn">초기화</button>
+                </div>
             </div>
-            <div class="searchBtn_grid">
-                <button type="button" onclick="search_valid('noType')" class="searchBtn area_btn">검색</button>
-                <button type="button" onclick="location.href='/record/xrayPower?pageum=020201'" class="redoBtn area_btn">초기화</button>
+            <div class="srh_status">
+                <label>상태</label>
+                <div>
+                    <input type="radio" onclick="search_valid()" class="srh_radio" id="status1" value="all" name="searchRadio" th:checked="${searchDto.getSearchRadio() =='all' or searchDto.getSearchRadio() == ''}">
+                    <label for="status1">전체</label>
+                </div>
+                <div>
+                    <input type="radio" onclick="search_valid()" class="srh_radio" id="status2" value="on" name="searchRadio" th:checked="${searchDto.getSearchRadio()}=='on'">
+                    <label for="status2">ON</label>
+                </div>
+                <div>
+                    <input type="radio" onclick="search_valid()" class="srh_radio" id="status3" value="off" name="searchRadio" th:checked="${searchDto.getSearchRadio()}=='off'">
+                    <label for="status3">OFF</label>
+                </div>
             </div>
         </div>
-    </div>
     </form>
     <!--//검색박스-->
 
@@ -65,7 +65,10 @@
             <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>[[${nowPage}]]</em> / <em>[[${lists.totalPages}]]</em></span> </div>
             <!-- //전체 게시글 카운트-->
             <!--버튼-->
-
+            <div class="btnBox_num2">
+                <button type="button" class="btn_excel_save" onclick="excelDown()">엑셀</button>
+                <input type="hidden" id="excel_action" value="/excelDown/powerXray">
+            </div>
             <!--//버튼-->
         </div>
         <!--//테이블상단-->
@@ -104,13 +107,13 @@
         <!-- PC 일때 페이징 -->
         <div class="pc_view" th:with="start=${(lists.number/maxPage)*maxPage + 1}, end=(${(lists.totalPages == 0) ? 1 : (start + (maxPage -1) < lists.totalPages ? start + (maxPage -1) : lists.totalPages)})">
             <div class="common_pagination pc_view">
-                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
-                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
+                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
                 <div>
-                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
                 </div>
-                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
-                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
+                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
+                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
             </div>
         </div>
         <!-- //PC 일때 페이징 -->

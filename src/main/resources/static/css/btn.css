@@ -4,39 +4,22 @@
 /*Button - Style*/
 
 /*검색버튼*/
-.searchBtn { float:left; width:auto; height: 40px; border-radius: 4px;  box-sizing: border-box; padding: 0 45px 0px 20px;  color: #ffffff; cursor: pointer; transition: 0.3s ease all; font-size: 14px; font-family: 'Noto Sans KR'; position: relative  }
-.searchBtn {background:#333333;}
-.searchBtn:hover {background:#1a1a1a}
+.searchBtn {background:#008C9D; float:left; width:auto; height: 40px; border-radius: 4px;  box-sizing: border-box; padding: 10px 50px;  color: #ffffff; cursor: pointer; transition: 0.3s ease all; font-size: 14px; font-family: 'Noto Sans KR'; position: relative  }
+.searchBtn:hover {background:#257590;}
 .searchBtn.disabled,
 .searchBtn:disabled {background:#bfbfbf}
 
-.searchBtn:before{display:inline-block; width:20px; height:20px; padding:0; background:transparent url("../images/common/icon-search-color@2x.png")no-repeat 0 0; background-size:100% ; content: ""; font-family: unicons-line; position: absolute; right: 15px; top:50%; margin-top: -10px;}
+/*.searchBtn:before{display:inline-block; width:20px; height:20px; padding:0; background:transparent url("../images/common/icon-search-color@2x.png")no-repeat 0 0; background-size:100% ; content: ""; font-family: unicons-line; position: absolute; right: 15px; top:50%; margin-top: -10px;}*/
 
 
 
 
 
 /**** pc ****/
-@media only all and (min-width:1025px) {
-/*초기화버튼*/
-.redoBtn { float:left; width:auto; height: 40px; border-radius: 4px;  box-sizing: border-box; padding: 0 45px 0px 20px;  color: #ffffff; cursor: pointer; transition: 0.3s ease all; font-size: 14px; font-family: 'Noto Sans KR'; position: relative; }
-.redoBtn {background:#3186a3; }
-.redoBtn:hover {background:#257590}
-.redoBtn:before{display:inline-block; width:20px; height:20px; padding:0; content: "\e986"; font-size: 15px; font-family: unicons-line; color: #fff; position: absolute; right: 15px; top:50%; margin-top: -7px;}
-  
-}
-/**** pc2 ****/
-@media all and (max-width:1280px) and (min-width:1025px) {
-}
-/**** 모바일 ****/
-@media only all and (max-width:1024px) {
-/*초기화버튼*/
-.redoBtn { float:left; width:auto; height: 40px; border-radius: 4px;  box-sizing: border-box; padding: 0 45px 0px 20px;  color: #ffffff; cursor: pointer; transition: 0.3s ease all; font-size: 13px; font-family: 'Noto Sans KR'; position: relative; }
-.redoBtn {background:#3186a3; }
-.redoBtn:hover {background:#257590}
-.redoBtn:before{display:inline-block; width:20px; height:20px; padding:0; content: "\e986"; font-size: 15px; font-family: unicons-line; color: #fff; position: absolute; right: 15px; top:50%; margin-top: -7px;}
-}
-
+.redoBtn { float:left; width:auto; height: 40px; border-radius: 4px;  box-sizing: border-box; padding: 10px 50px;  color: #ffffff; cursor: pointer; transition: 0.3s ease all; font-size: 14px; font-family: 'Noto Sans KR'; position: relative; }
+.redoBtn {background:#A3A3A3; }
+.redoBtn:hover {background:#1a1a1a}
+/*.redoBtn:before{display:inline-block; width:20px; height:20px; padding:0; content: "\e986"; font-size: 15px; font-family: unicons-line; color: #fff; position: absolute; right: 15px; top:50%; margin-top: -7px;}*/
 
 .btn_upload {display:inline-flex; justify-content:center; height:40px; padding:0 10px 0 18px; color:#fff; font-size:13px; font-weight:400; line-height:40px; cursor:pointer; border-radius: 4px;  box-sizing:border-box; font-family: 'Noto Sans KR'; transition: 0.3s ease all;}
 .btn_upload { background-color: #1796B3; }
@@ -350,7 +333,7 @@ background-color: #fff;}
 @media only all and (min-width:1025px) {
   
 /*엑셀저장버튼*/
-.btn_excel_save {display:inline-flex; justify-content:center; height:40px; line-height:38px!important; padding:0 40px 0 18px; color:#fff; font-family: 'Noto Sans KR'; font-size:14px; font-weight:400; border-radius: 50px; box-sizing:border-box;  cursor:pointer; position: relative; transition: 0.3s ease all;
+.btn_excel_save {display:inline-flex; justify-content:center; height:40px; line-height:38px!important; padding:0 40px 0 18px; color:#fff; font-family: 'Noto Sans KR'; font-size:14px; font-weight:400; border-radius: 5px; box-sizing:border-box;  cursor:pointer; position: relative;
 background-color: #1e7145; 
 border: 1px solid rgba(55,128,172,0.00);
 box-shadow:3px 3px 10px rgba(38,100,110,0.10);
@@ -385,8 +368,8 @@ border: 1px solid rgba(55,128,172,0.00);
 @media only all and (min-width:1025px) {
   
 /*갤러리등록*/
-.btn_gallery {display:inline-flex; justify-content:center; height:40px; line-height:37px!important; padding:0 40px 0 18px; color:#fff; font-family: 'Noto Sans KR'; font-size:14px; font-weight:400; border-radius:50px;  box-sizing:border-box; cursor:pointer;position: relative; transition: 0.3s ease all; 
-background-color: #388da9;
+.btn_gallery {display:inline-flex; justify-content:center; height:40px; line-height:37px!important; padding:0 40px 0 18px; color:#fff; font-family: 'Noto Sans KR'; font-size:14px; font-weight:400; border-radius:5px;  box-sizing:border-box; cursor:pointer;position: relative; transition: 0.3s ease all;
+background-color: #008C9D;
 border: 1px solid rgba(55,128,172,0.00);  
 box-shadow:3px 3px 10px rgba(38,100,110,0.10);
 }
@@ -428,6 +411,7 @@ box-shadow:3px 3px 10px rgba(38,100,110,0.10);
 .btn_photo::before {display:inline-block; width:20px; height:20px; line-height: 39px; padding:0;  margin-right:6px; content: "\ea3d"; font-size: 17px; font-family: unicons-line; color: #fff;}
 
 .txt_st2 { display: block; font-size:12px; color:#d10442;}
-
+.btn_out{padding: 8px 20px; border-radius: 5px; background: #f88b8b; color: #ffffff; font-size: 12px; cursor: pointer; transition: 0.5s; font-family:"NanumSquare"; font-weight: 400;}
+.btn_out:hover{background: #dc6262;}
 
 

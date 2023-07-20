@@ -30,8 +30,11 @@ public class MainController {
     private final TokenProvider tokenProvider;
 
     @GetMapping("/")
-    public String main(){
+    public String main(Model model) {
+        model.addAttribute("sideMain","");
+        model.addAttribute("pageum","");
         return "index";
+
     }
 
     @GetMapping(value = "/dashBoard")

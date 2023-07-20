@@ -1,5 +1,6 @@
 package com.adminserver.service;
 
+import com.adminserver.dto.ActionHistoryDTO;
 import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.mapper.OperationManagementMapper;
@@ -17,12 +18,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OperationManagementService {
     private final OperationManagementMapper managementMapper;
-
+    Integer totalCount;
     public Page<UserInfoDTO> getUserList(Pageable pageable, SearchDto searchDto) {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
         List<UserInfoDTO> list = managementMapper.getUserList(searchDto);
-        return new PageImpl<>(list, pageable, list.size());
+        totalCount = managementMapper.getUserCount(searchDto);
+        return new PageImpl<>(list, pageable, totalCount);
     }
     public Integer getUserCount(SearchDto searchDto){
         return managementMapper.getUserCount(searchDto);
@@ -51,4 +53,6 @@ public class OperationManagementService {
     public void deleteUser(String userId){
         managementMapper.deleteUser(userId);
     }
+
+    public List<UserInfoDTO> excelUserList(SearchDto searchDto){return managementMapper.getUserList(searchDto);}
 }

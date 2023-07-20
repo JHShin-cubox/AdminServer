@@ -5,49 +5,43 @@
 <div layout:fragment="content" id="body_area_in">
     <!--달력 js-->
     <script src="/static/js/Calenda/dcalendar.picker.js" charset="utf-8"></script>
-
     <link rel="stylesheet" type="text/css" href="/static/js/Calenda/dcalendar.picker.css" media="all">
 
-    <!--단말기관리 : 1.단말기 승인처리-->
     <!--검색박스-->
-    <form id="search_form" action="/record/action" method="get" th:object="${searchDto}">
-    <div class="srch_wrapper ">
-        <div class="srch_wrapper_grid">
-            <div class="srchCnt">
-                <div class="srchCnt_grid1">
-                    <div class="search_set"></div>
-                    <div class="search_set">
-                        <div class="datepicker_box">
-                            <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">
-                            <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">
-                        </div>
-                    </div>
-                    <script src="/static/js/Calenda/dcalendar.picker.js"></script>
-                    <script>
-                        $('#date_start').dcalendarpicker();
-                        $('#date_end').dcalendarpicker();
-                    </script>
-                    <div class="search_set">
-                            <select id="searchCategory" name="searchCategory">
-                                <option value="no" hidden>선택</option>
-                                <option th:selected="${searchDto.getSearchCategory()=='id'}" value="id">아이디</option>
-                                <option th:selected="${searchDto.getSearchCategory()=='main'}" value="main">메인메뉴</option>
-                                <option th:selected="${searchDto.getSearchCategory()=='sub'}" value="sub">서브메뉴</option>
-                                <option th:selected="${searchDto.getSearchCategory()=='type'}" value="type">분류</option>
-                            </select>
-                            <input id="searchText" name="searchText" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()">
-                            <input name="pageum" type="hidden" value="020501">
-                    </div>
+    <form id="search_form" th:object="${searchDto}">
+        <input type="hidden" id="srh_action" value="/record/action">
+        <input name="pageum" type="hidden" value="020501">
+        <div class="srh_container">
+            <div class="srh_wrapper">
+                <div class="mr_85">
+                        <label class="label_srh mr_35">기간설정</label>
+                        <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">
+                        <span>~</span>
+                        <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">
                 </div>
-                <!--구분선-->
-
+                <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+                <script>
+                    $('#date_start').dcalendarpicker();
+                    $('#date_end').dcalendarpicker();
+                </script>
+                <div>
+                    <label class="label_srh mr_35">검색어</label>
+                    <select id="searchCategory" class="" name="searchCategory">
+                        <option value="no">선택</option>
+                        <option th:selected="${searchDto.getSearchCategory()=='id'}" value="id">아이디</option>
+                        <option th:selected="${searchDto.getSearchCategory()=='main'}" value="main">메인메뉴</option>
+                        <option th:selected="${searchDto.getSearchCategory()=='sub'}" value="sub">서브메뉴</option>
+                        <option th:selected="${searchDto.getSearchCategory()=='type'}" value="type">분류</option>
+                    </select>
+                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()">
+                </div>
+                <div class="">
+                    <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
+                    <button type="button" onclick="location.href='/record/action?pageum=020501'" class="redoBtn area_btn">초기화</button>
+                </div>
             </div>
-            <div class="searchBtn_grid">
-                <button type="button" onclick="search_valid()" class="searchBtn area_btn">검색</button>
-                <button type="button" onclick="location.href='/record/action?pageum=020501'" class="redoBtn area_btn">초기화</button>
-            </div>
+            <div class="srh_status"></div>
         </div>
-    </div>
     </form>
     <!--//검색박스-->
 
@@ -62,7 +56,10 @@
             <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>[[${nowPage}]]</em> / <em>[[${lists.totalPages}]]</em></span> </div>
             <!-- //전체 게시글 카운트-->
             <!--버튼-->
-
+            <div class="btnBox_num2">
+                <button type="button" class="btn_excel_save" onclick="excelDown()">엑셀</button>
+                <input type="hidden" id="excel_action" value="/excelDown/action">
+            </div>
             <!--//버튼-->
         </div>
         <!--//테이블상단-->
@@ -104,29 +101,15 @@
         <!-- PC 일때 페이징 -->
         <div class="pc_view" th:with="start=${(lists.number/maxPage)*maxPage + 1}, end=(${(lists.totalPages == 0) ? 1 : (start + (maxPage -1) < lists.totalPages ? start + (maxPage -1) : lists.totalPages)})">
             <div class="common_pagination pc_view">
-                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
-                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
+                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
                 <div>
-                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
                 </div>
-                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
-                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchQuery='+${searchDto.searchQuery}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
+                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
+                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
             </div>
         </div>
-        <!-- //PC 일때 페이징 -->
-
-        <!-- 모바일 일때 페이징 -->
-        <div class="mobile_view">
-            <div class="common_pagination">
-                <a href="#self" class="first disabled">FIRST</a>
-                <a href="#self" class="front disabled"></a>
-                <div> <a href="#self" class="active">11</a> <a href="#self">12</a> <a href="#self">13</a> </div>
-                <a href="#self" class="back"></a>
-                <a href="#self" class="last">LAST</a>
-            </div>
-        </div>
-        <!-- //모바일 일때 페이징 -->
-        <!-- //Pagination html -->
     </div>
 
     <!--중복 js - 레이아웃(layout.html) 하단에 선언되어있음. 페이지 적용시 삭제-->

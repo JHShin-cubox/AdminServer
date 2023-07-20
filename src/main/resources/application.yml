@@ -38,11 +38,15 @@ spring:
     remote:
       restart:
         enabled: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
 server:
   port : 8080
   forward-headers-strategy: native
 custom:
-#  upload-dir: C:\project\Pictures
+  #upload-dir: C:\project\Pictures
   upload-dir: /home/ubuntu/Pictures/
 
 

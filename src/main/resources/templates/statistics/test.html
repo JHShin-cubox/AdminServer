@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+
+
+  <!--단말기관리 : 1.단말기 승인처리-->
+  <!--검색박스-->
+
+  <div class="statics_wrapper">
+    <div class="statics_number">
+      <div>
+      </div>
+    </div>
+    <div class="statics_number statics_center">
+      <div></div>
+    </div>
+    <div class="statics_number">
+      <div></div>
+    </div>
+  </div>
+  <!--//검색박스-->
+
+  <div class="subbox d-flex">
+    <!--타이틀-->
+    <div class="com_titlebox2 line_b mb"> </div>
+    <!--//타이틀-->
+    <!--테이블리스트-->
+    <div class="statics_list ">
+      <div class="table_com table_st22">
+        <div class="tb_h">
+        </div>
+        <!--구분선-->
+
+        <div class="tb_d_wrap img_wrap statics_sub_list">
+          <canvas id="canvas3" width="300" height="300"></canvas>
+          <script type="importmap">
+              {
+              "imports": {
+                  "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+                   "GLTFLoader" : "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js"
+                }
+              }
+          </script>
+          <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+          <script type="module">
+            import {GLTFLoader} from 'GLTFLoader';
+            import * as THREE from 'three';
+            import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js"
+
+            let scene = new THREE.Scene();
+            let renderer = new THREE.WebGLRenderer({
+              canvas : document.querySelector('#canvas3'),
+              antialias : true
+            });
+            renderer.outputEncoding = THREE.sRGBEncoding;
+
+            let camera = new THREE.PerspectiveCamera(30,1);
+            const controls = new OrbitControls(camera, renderer.domElement)
+
+            camera.position.set( 0, 0, 5 );
+            controls.update();
+
+            scene.background = new THREE.Color('white');
+
+            let light = new THREE.DirectionalLight(0xffff00,10);
+            scene.add(light);
+
+            let loader = new GLTFLoader();
+            loader.load('/static/images/three/scene.gltf', function(gltf){
+              scene.add(gltf.scene);
+              function animate(){
+                requestAnimationFrame( animate );
+                controls.update();
+                renderer.render( scene, camera );
+              }
+              animate();
+            })
+          </script>
+        </div>
+
+      </div>
+      <div>
+        <canvas id="myCanvas" width="500" height="300"></canvas>
+        <input type="range" id="scaleSlider" min="0.1" max="2" step="0.1" value="1">
+
+        <script>
+          var canvas = document.getElementById('myCanvas');
+          var ctx = canvas.getContext('2d');
+
+          var image = new Image();
+          image.src = '/static/images/main/side_logo.png';
+
+          var isDragging = false; // 드래그 여부 확인 변수
+          var startOffsetX = 0; // 드래그 시작 시 마우스 X 좌표와 이미지 X 좌표의 차이
+          var startOffsetY = 0; // 드래그 시작 시 마우스 Y 좌표와 이미지 Y 좌표의 차이
+          var imageX = 0; // 이미지의 현재 X 좌표
+          var imageY = 0; // 이미지의 현재 Y 좌표
+          var scale = 1; // 이미지의 현재 스케일 값
+
+          image.onload = function() {
+            drawImage();
+          };
+
+          canvas.addEventListener('mousedown', function(event) {
+            var mouseX = event.clientX - canvas.offsetLeft;
+            var mouseY = event.clientY - canvas.offsetTop;
+
+            // 마우스가 이미지 위에 있는지 확인
+            if (mouseX >= imageX && mouseX < imageX + image.width && mouseY >= imageY && mouseY < imageY + image.height) {
+              isDragging = true;
+
+              // 드래그 시작 시 마우스와 이미지의 좌표 차이를 계산하여 offset 변수에 저장
+              startOffsetX = mouseX - imageX;
+              startOffsetY = mouseY - imageY;
+            }
+          });
+
+          canvas.addEventListener('mousemove', function(event) {
+            if (isDragging) {
+              var mouseX = event.clientX - canvas.offsetLeft;
+              var mouseY = event.clientY - canvas.offsetTop;
+
+              // 드래그 중인 경우, 마우스 위치에 따라 이미지의 좌표를 업데이트
+              imageX = mouseX - startOffsetX;
+              imageY = mouseY - startOffsetY;
+
+              drawImage();
+            }
+          });
+
+          canvas.addEventListener('mouseup', function(event) {
+            isDragging = false;
+          });
+
+          var scaleSlider = document.getElementById('scaleSlider');
+          scaleSlider.addEventListener('input', function() {
+            scale = parseFloat(scaleSlider.value);
+            drawImage();
+          });
+
+          function drawImage() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, imageX, imageY, image.width * scale, image.height * scale);
+          }
+        </script>
+
+      </div>
+    </div>
+    <!--//테이블리스트-->
+    <!-- //Pagination html -->
+  </div>
+</div>
+</html>

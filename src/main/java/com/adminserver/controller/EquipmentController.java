@@ -36,6 +36,8 @@ public class EquipmentController {
         Integer nowPage;
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","01"); // 사이드바 대메뉴
+        model.addAttribute("sideOn", "on"); // 사이드바 활성화 클래스 추가
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("deviceInfoDTO", new DeviceDTO());
         model.addAttribute("pageum",request.getParameter("pageum"));
@@ -55,6 +57,7 @@ public class EquipmentController {
         Integer nowPage;
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","01"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("deviceInfoDTO", new DeviceDTO());
         model.addAttribute("pageum",request.getParameter("pageum"));

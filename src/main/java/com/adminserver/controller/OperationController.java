@@ -44,6 +44,7 @@ public class OperationController {
         Integer nowPage;
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
+        model.addAttribute("sideMain","05"); // 사이드바 대메뉴
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());
         model.addAttribute("lists", list);

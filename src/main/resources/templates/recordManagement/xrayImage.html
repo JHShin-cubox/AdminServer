@@ -10,31 +10,34 @@
 
     <!--단말기관리 : 1.단말기 승인처리-->
     <!--검색박스-->
-    <form id="search_form" action="/record/xrayImage" method="get" th:object="${searchDto}">
-    <div class="srch_wrapper ">
-        <div class="srch_wrapper_grid">
-            <div class="srchCnt">
-                <div class="srchCnt_grid1">
-                    <div class="search_set"></div>
-                    <div class="search_set"></div>
-                    <div class="search_set">
-                        <div class="title">촬영일</div>
-                        <div class="datepicker_box">
-                            <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">
-                            <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">
-                            <input name="pageum" type="hidden" value="020101">
-                        </div>
-                    </div>
+    <form id="search_form" th:object="${searchDto}">
+        <input type="hidden" id="srh_action" value="/record/xrayImage">
+        <input name="pageum" type="hidden" value="020101">
+        <input type="hidden" id="searchCategory" value="Y">
+        <div class="srh_container">
+            <div class="srh_wrapper">
+                <div class="mr_85">
+                    <label class="label_srh mr_35">기간설정</label>
+                    <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">
+                    <span>~</span>
+                    <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">
                 </div>
-                <!--구분선-->
-
+                <script src="/static/js/Calenda/dcalendar.picker.js"></script>
+                <script>
+                    $('#date_start').dcalendarpicker();
+                    $('#date_end').dcalendarpicker();
+                </script>
+                <div>
+                    <label class="label_srh mr_35">검색어</label>
+                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="판독자를 입력해주세요.">
+                </div>
+                <div class="">
+                    <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
+                    <button type="button" onclick="location.href='/record/xrayImage?pageum=020101'" class="redoBtn area_btn">초기화</button>
+                </div>
             </div>
-            <div class="searchBtn_grid">
-                <button type="button" onclick="search_valid('noType')" class="searchBtn area_btn">검색</button>
-                <button type="button" onclick="location.href='/record/xrayImage?pageum=020101'" class="redoBtn area_btn">초기화</button>
-            </div>
+            <div class="srh_status"></div>
         </div>
-    </div>
     </form>
     <!--//검색박스-->
 
@@ -46,7 +49,7 @@
         <!--테이블상단-->
         <div class="table_top_wrapper">
             <!-- 전체 게시글 카운트-->
-            <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>9</em> / <em>30</em></span> </div>
+            <div class="page_num"> <span>전체 <em>[[${totalCount}]]</em> 건</span> <span>페이지 <em>[[${nowPage}]]</em> / <em>[[${lists.totalPages}]]</em></span> </div>
             <!-- //전체 게시글 카운트-->
             <!--버튼-->
             <div class="btnBox_num2">
@@ -56,66 +59,38 @@
         <!--//테이블상단-->
 
         <!--테이블리스트-->
-        <div class="tableList_wrap">
-            <div class="table_com table_st4">
-                <div class="tb_h">
-                    <div class="th">
-
-                    </div>
-                </div>
-                <!--구분선-->
-
-                <div class="tb_d_wrap img_wrap">
-                    <th:block th:each="imageList : ${lists}" th:if="${totalCount>0}">
-                        <div class="image_container">
-                            <li class="img_list" th:value="${imageList.luggageId}" onclick="modalChange(this); document.getElementById('user-Modal01').style.display='block'">
-                                <img src="/image/3d.png">
-                                <img id="vImg01" th:src="'/image/'+${imageList.name}">
-                            </li>
-                            <p class="text-center">촬영일시 : [[${#dates.format(imageList.regDate, 'yyyy년 MM월 dd일 HH:mm:ss')}]]</p>
-                        </div>
-                    </th:block>
-                    <th:block th:if="${totalCount==0}">
-                        <div class="tb_d no_data">
-                            <p>조회 목록이 없습니다.</p>
-                        </div>
-                    </th:block>
-                </div>
-                <!--//테이블-->
-                <!--<form action="/record/upload" method="post" enctype="multipart/form-data">
-                    <input type="file" name="image">
-                    <input type="submit" value="제출">
-                </form>-->
+        <ul class="image_wrap">
+        <th:block th:each="imageList : ${lists}" th:if="${totalCount>0}">
+            <li class="img_list" th:value="${imageList.luggageId}" onclick="modalChange(this); document.getElementById('user-Modal01').style.display='block'">
+                <img id="vImg01" th:src="'/image/'+${imageList.name}">
+                <p class="text-center">촬영일시 : [[${#dates.format(imageList.regDate, 'yyyy년 MM월 dd일 HH:mm:ss')}]]</p>
+            </li>
+        </th:block>
+        </ul>
+        <th:block th:if="${totalCount==0}">
+            <div class="tb_d no_data">
+                <p>조회 목록이 없습니다.</p>
             </div>
-        </div>
+        </th:block>
+        <!--//테이블-->
+        <!--<form action="/record/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="image">
+            <input type="submit" value="제출">
+        </form>-->
         <!--//테이블리스트-->
 
         <!-- Pagination html -->
-        <!-- PC 일때 페이징 -->
         <div class="pc_view" th:with="start=${(lists.number/maxPage)*maxPage + 1}, end=(${(lists.totalPages == 0) ? 1 : (start + (maxPage -1) < lists.totalPages ? start + (maxPage -1) : lists.totalPages)})">
             <div class="common_pagination pc_view">
-                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
-                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
+                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
                 <div>
-                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
                 </div>
-                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
-                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
+                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
+                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
             </div>
         </div>
-        <!-- //PC 일때 페이징 -->
-
-        <!-- 모바일 일때 페이징 -->
-        <div class="mobile_view">
-            <div class="common_pagination">
-                <a href="#self" class="first disabled">FIRST</a>
-                <a href="#self" class="front disabled"></a>
-                <div> <a href="#self" class="active">11</a> <a href="#self">12</a> <a href="#self">13</a> </div>
-                <a href="#self" class="back"></a>
-                <a href="#self" class="last">LAST</a>
-            </div>
-        </div>
-        <!-- //모바일 일때 페이징 -->
         <!-- //Pagination html -->
 
         <div id="user-Modal01" class="modal">
@@ -125,9 +100,9 @@
                     <div class="modal_close" onclick="document.getElementById('user-Modal01').style.display='none'"><i class="uil uil-multiply"></i></div>
                     <div class="modal_title">이미지 상세보기</div>
                     <div class="cont_wrap text-center mb_30">
-                            <img id="3dImage" class="modal_img02" src="/image/3d.png">
+                            <img id="3dImage" class="modal_img02 modal_three">
                         <div class="modal_img02" style="display: inline-block">
-                            <img id="2dImage" class="modal_img02" src="/image/123.png">
+                            <img id="2dImage" class="modal_img02">
                             <div class="swiper mySwiper">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide"><img src="image/123.png"></div>
@@ -140,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex modal_desc">
                         <div class="tb_list_com2 tbt tb_list_st1">
                             <div class="tr">
                                 <div class="th">촬영 일시</div>
@@ -162,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex modal_desc">
                         <div class="tb_list_com2 tb_list_st1">
                             <div class="tr">
                                 <div class="th">X-Ray ID</div>
@@ -184,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex modal_desc">
                         <div class="tb_list_com2 tb_list_st1">
                             <div class="tr">
                                 <div class="th">장비 모델명</div>
@@ -206,7 +181,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex modal_desc">
                         <div class="tb_list_com2 tb_list_st1">
                             <div class="tr">
                                 <div class="th">상태</div>
@@ -258,6 +233,57 @@
         $('#date_start').dcalendarpicker();
         $('#date_end').dcalendarpicker();
     </script>
+    <script>
+        $(function(){
+            $(document).keydown(function(e) {
+                let max_count = Number($('#2dImage').attr('name'));
+                let now_count =Number($('#2dImage').attr('value'));
+                switch(e.which) {
+                    case 37: // 왼쪽 방향키
+                        $('.swiper-button-prev').click()
+                        if(now_count>1){
+                            $('#2dImage').attr({src: $(".sImg[value="+(now_count-1)+"]").attr('src'),value:now_count-1})
+                            $('.sImg').css('border','none');
+                            $(".sImg[value="+(now_count-1)+"]").css('border','3px solid #73a7e9');
+                        }
+                        break;
+                    case 38: // 위쪽 방향키
+                        // 위쪽으로 이동하는 로직을 작성합니다.
+                        break;
+                    case 39: // 오른쪽 방향키
+                        $('.swiper-button-next').click()
+                        if(now_count<max_count){
+                            $('#2dImage').attr({src: $(".sImg[value="+(now_count+1)+"]").attr('src'),value:now_count+1})
+                            $('.sImg').css('border','none');
+                            $(".sImg[value="+(now_count+1)+"]").css('border','3px solid #73a7e9');
+                        }
+                        break;
+                    case 40: // 아래쪽 방향키
+                        // 아래쪽으로 이동하는 로직을 작성합니다.
+                        break;
+                }
+            });
+        })
+        $('.swiper-button-next').click(function(){
+            let max_count = Number($('#2dImage').attr('name'));
+            let now_count =Number($('#2dImage').attr('value'));
+            if(now_count<max_count){
+                $('#2dImage').attr({src: $(".sImg[value="+(now_count+1)+"]").attr('src'),value:now_count+1})
+                $('.sImg').css('border','none');
+                $(".sImg[value="+(now_count+1)+"]").css('border','3px solid #73a7e9');
+            }
+        })
+        $('.swiper-button-prev').click(function(){
+            let max_count = Number($('#2dImage').attr('name'));
+            let now_count =Number($('#2dImage').attr('value'));
+            if(now_count>1){
+                $('#2dImage').attr({src: $(".sImg[value="+(now_count-1)+"]").attr('src'),value:now_count-1})
+                $('.sImg').css('border','none');
+                $(".sImg[value="+(now_count-1)+"]").css('border','3px solid #73a7e9');
+            }
+        })
+
+    </script>
 
     <!--모달-->
     <script>
@@ -272,8 +298,8 @@
         }
 
         function modalChange(val){
-            const Image2D = $(val).children().eq(1).attr("src");
-            $('#2dImage').attr("src",Image2D)
+            const Image3D = $(val).children().eq(0).attr("src");
+            $('#3dImage').attr("src",Image3D)
             $('.swiper-wrapper').empty();
             $.ajax({
                 url: "/record/xraySubImage",
@@ -282,31 +308,36 @@
                 success: function (data){
                     let swiperWrap = $('.swiper-wrapper');
                     let image;
+                    let count = 0;
                     $.each(data, function(index, item){
-
+                        count ++
                         let imageUrl = '/image/' + item.name;
                         let imageDiv = $('<div>').addClass('swiper-slide');
-                        if(index == 0)
-                            image = $('<img>').addClass('sImg').attr('src', imageUrl).css('border', '3px solid #73a7e9').click(function() {
+                        //첫번째 swiper일때 border채우기 위한 조건문
+                        if(index == 0) {
+                            image = $('<img>').addClass('sImg').attr('src', imageUrl).css('border', '3px solid #73a7e9').click(function () {
                                 changeImg(this);
-                            });
+                            }).attr('value', count);
+                            $('#2dImage').attr("src",imageUrl)
+                        }
                         else image = $('<img>').addClass('sImg').attr('src', imageUrl).click(function() {
                             changeImg(this);
-                        });
+                        }).attr('value',count);
                         imageDiv.append(image);
                         swiperWrap.append(imageDiv);
                         swiper.update();
                     })
+                    $('#2dImage').attr({value:1,name:count})
                 },
                 error: function (err){
                     console.log("실패");
                 }
             })
-
         }
         function changeImg(val){
             const cImage = $(val).attr("src");
-            $('#2dImage').attr('src',cImage);
+            const cValue = $(val).attr("value");
+            $('#2dImage').attr({src:cImage,value:cValue});
             $('.sImg').css('border','none');
             $(val).css('border','3px solid #73a7e9');
         }

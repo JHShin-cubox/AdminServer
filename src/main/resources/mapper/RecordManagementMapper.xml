@@ -12,8 +12,8 @@
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+            AND type = 'R'
         </where>
-        GROUP BY luggage_id HAVING luggage_id IS NOT NULL
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
@@ -32,7 +32,10 @@
         SELECT
             id, name, luggage_id, reg_date
         FROM xray_images
-        WHERE luggage_id = #{luggageId}
+        <where>
+            AND luggage_id = #{luggageId}
+            AND type = 'N'
+        </where>
     </select>
 
     <select id="duplicateCheck" resultType="java.lang.String">
@@ -50,8 +53,8 @@
         FROM xray_power_state_log A
         JOIN xray_info B ON A.xray_id = B.id
         <where>
-            <if test="searchRadio == 'true'">AND A.is_on = true</if>
-            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchRadio == 'on'">AND A.is_on = true</if>
+            <if test="searchRadio == 'off'">AND A.is_on = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
@@ -63,8 +66,8 @@
     <select id="getXrayPowerLogCount" resultType="java.lang.Integer">
         SELECT count(*) FROM xray_power_state_log A JOIN xray_info B ON A.xray_id = B.id
         <where>
-            <if test="searchRadio == 'true'">AND A.is_on = true</if>
-            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchRadio == 'on'">AND A.is_on = true</if>
+            <if test="searchRadio == 'off'">AND A.is_on = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
@@ -79,8 +82,8 @@
         FROM viewer_power_state_log A
         JOIN viewer_info B ON A.viewer_id = B.id
         <where>
-            <if test="searchRadio == 'true'">AND A.is_on = true</if>
-            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchRadio == 'on'">AND A.is_on = true</if>
+            <if test="searchRadio == 'off'">AND A.is_on = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
@@ -92,8 +95,8 @@
     <select id="getViewerPowerLogCount" resultType="java.lang.Integer">
         SELECT count(*) FROM viewer_power_state_log A JOIN viewer_info B ON A.viewer_id = B.id
         <where>
-            <if test="searchRadio == 'true'">AND A.is_on = true</if>
-            <if test="searchRadio == 'false'">AND A.is_on = false</if>
+            <if test="searchRadio == 'on'">AND A.is_on = true</if>
+            <if test="searchRadio == 'off'">AND A.is_on = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
