@@ -68,8 +68,8 @@ public class RecordManagementService {
     public String duplicateCheck(String imageName){
         return recordManagementMapper.duplicateCheck(imageName);
     }
-    public Integer createImage(String imageName){
-        return recordManagementMapper.createImage(imageName);
+    public Integer createImage(String imageName, String luggageId){
+        return recordManagementMapper.createImage(imageName,luggageId);
     }
     public Integer insertLoginHistory(LoginHistoryDTO loginHistoryDTO){ return recordManagementMapper.insertLoginHistory(loginHistoryDTO);}
     public Integer insertActionHistory(ActionHistoryDTO actionHistoryDTO){ return recordManagementMapper.insertActionHistory(actionHistoryDTO);}

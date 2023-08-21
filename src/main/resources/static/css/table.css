@@ -220,7 +220,7 @@ color: #d1d1d1;pointer-events: none;}
 .common_pagination div a:hover,
 .common_pagination div a:focus,
 .common_pagination div a:active {color: #000;}
-.common_pagination div a.active {background-color:#388da9; color: #ffffff; text-decoration:none; width: 28px; height: 27px; line-height: 27px; display: flex; flex-direction: row; justify-content: center; border-radius: 4px; }
+.common_pagination div a.active {background-color:var(--main_color); color: #ffffff; text-decoration:none; width: 28px; height: 27px; line-height: 27px; display: flex; flex-direction: row; justify-content: center; border-radius: 4px; }
 
 /*테이블 리스트 공통*/
 .tb_list_com { width: 100%; float:left; border-top:2px solid #000; }

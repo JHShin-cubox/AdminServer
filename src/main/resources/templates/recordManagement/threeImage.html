@@ -44,8 +44,6 @@
     <div class="subbox">
         <!--타이틀-->
         <div class="com_titlebox2 line_b mb"> </div>
-        <!--//타이틀-->
-
         <!--테이블상단-->
         <div class="table_top_wrapper">
             <!-- 전체 게시글 카운트-->
@@ -59,8 +57,21 @@
         <!--//테이블상단-->
 
         <!--테이블리스트-->
+        <script>
+            function threeOpen(url, name){
+                const popupWidth = window.screen.width*0.75;
+                const popupHeight = window.screen.height*0.6;
+                console.log(popupWidth)
+                console.log(popupHeight)
+                const popupX = Math.round(window.screenX + (window.outerWidth/2) - (popupWidth/2));
+                const popupY = Math.round(window.screenY + (window.outerHeight/2) - (popupHeight/2));
+                const featureWindow = "width=" + popupWidth + ", height="+popupHeight+ ", left=" + popupX + ", top=" + popupY+", location=no";
+                return window.open(url, name, featureWindow);
+            }
+        </script>
         <ul class="image_wrap">
-            <li class="img_list" onclick="document.getElementById('user-Modal01').style.display='block'">
+<!--            <li class="img_list" onclick="document.getElementById('user-Modal01').style.display='block'">-->
+            <li class="img_list" onclick="threeOpen('/record/threeDetail','name(three)')">
                 <img id="vImg01" src="/static/images/three/three_test.png">
                 <p class="text-center">촬영일시 : 2023년 07월 11일 12:00:00</p>
                 <input id="t_test" type="hidden" value="/static/images/three/scene.gltf">

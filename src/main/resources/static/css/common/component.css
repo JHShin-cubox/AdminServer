@@ -268,7 +268,13 @@ textarea { width: 100%; float: left; padding: 10px; box-sizing: border-box; colo
 .srh_text{position: relative; bottom: 1px; margin-right: 25px;}
 .srh_radio{accent-color: #008C9D;}
 
+.setting_container{float:left; border: 1px solid #d4d4e3; background-color:#fff; padding: 22px; border-radius: 10px; font-size: 15px; font-weight: 600; font-family: 'Noto Sans KR'; margin-bottom: 20px; box-shadow:0px 0px 20px 0px rgba(0,0,0,0.08); position: relative; width:100%; height: 80vh;}
+.setting_input{width: 50%; margin: 4% 10% 4% 4%;}
+.setting_range{width: 100%;}
+.range_num{text-align: center}
+.range_num > .first {float: left;}
 
+.range_num > .last { float: right;}
 
 
 

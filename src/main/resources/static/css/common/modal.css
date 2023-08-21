@@ -27,13 +27,7 @@
   
 /* TitleBar */
 .modal_titlebar {width:100%; float:left; position: absolute; left: 0; top:0; height: 50px; color: #fff;
-background-color : #e9e9e9;
-
-/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#176780+0,4296b2+100 */
-background: #176780; /* Old browsers */
-background: -moz-linear-gradient(left,  #176780 0%, #4296b2 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(left,  #176780 0%,#4296b2 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right,  #176780 0%,#4296b2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+background-color : var(--main_color);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#176780', endColorstr='#4296b2',GradientType=1 ); /* IE6-9 */
 }
   

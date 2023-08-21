@@ -39,11 +39,11 @@
     </select>
 
     <select id="duplicateCheck" resultType="java.lang.String">
-        SELECT name from xray_images limit 1
+        SELECT name from xray_images where name = #{imageName} limit 1
     </select>
     
     <insert id="createImage" parameterType="java.lang.String">
-        INSERT INTO xray_images ( name, reg_date) VALUES (#{imageName}, now())
+        INSERT INTO xray_images ( name, luggage_id, type, reg_date) VALUES (#{imageName}, #{luggageId}, 'N', now())
     </insert>
 
     <select id="getXrayPowerLog" resultType="com.adminserver.dto.DevicePowerDTO">

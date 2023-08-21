@@ -21,6 +21,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     url: jdbc:mariadb://pdteam-dev-db.cvl9xeh1bwxz.ap-northeast-2.rds.amazonaws.com:3306/divisionserver
+#    url : jdbc:mariadb://172.16.150.32:3306/divisionserver
     driver-class-name: org.mariadb.jdbc.Driver
     username: admin
     password: cubox2022!
@@ -46,8 +47,9 @@ server:
   port : 8080
   forward-headers-strategy: native
 custom:
-  #upload-dir: C:\project\Pictures
+#  upload-dir: C:\project\Pictures
   upload-dir: /home/ubuntu/Pictures/
+#  upload-dir: /home/cubox/Pictures/
 
 
 

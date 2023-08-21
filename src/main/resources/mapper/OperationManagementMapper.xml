@@ -65,4 +65,9 @@
         DELETE FROM users WHERE user_id = #{userId}
     </delete>
 
+    <select id="getSetting" resultType="com.adminserver.dto.SettingDTO">
+        SELECT swiper_speed
+        FROM settings
+    </select>
+
 </mapper>

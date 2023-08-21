@@ -4,7 +4,7 @@
 /*Button - Style*/
 
 /*검색버튼*/
-.searchBtn {background:#008C9D; float:left; width:auto; height: 40px; border-radius: 4px;  box-sizing: border-box; padding: 10px 50px;  color: #ffffff; cursor: pointer; transition: 0.3s ease all; font-size: 14px; font-family: 'Noto Sans KR'; position: relative  }
+.searchBtn {background: var(--main_color); float:left; width:auto; height: 40px; border-radius: 4px;  box-sizing: border-box; padding: 10px 50px;  color: #ffffff; cursor: pointer; transition: 0.3s ease all; font-size: 14px; font-family: 'Noto Sans KR'; position: relative  }
 .searchBtn:hover {background:#257590;}
 .searchBtn.disabled,
 .searchBtn:disabled {background:#bfbfbf}
@@ -42,7 +42,7 @@
 
 
 .btn_save {display:inline-flex; justify-content:center; height:40px; padding:0 10px 0 18px; color:#fff; font-size:13px; font-weight:400; line-height:40px; cursor:pointer; border-radius: 4px;  box-sizing:border-box; font-family: 'Noto Sans KR'; transition: 0.3s ease all;}
-.btn_save { background-color: #1796B3; }
+.btn_save { background-color: var(--main_color); }
 .btn_save:hover { background-color: #097b95; }
 .btn_save::after {display:inline-block; width:20px; height:20px; line-height: 40px; padding:0;  margin-left:6px; content: "\ec5a"; font-size: 17px; font-family: unicons-line; color: #fff;}
 
@@ -369,7 +369,7 @@ border: 1px solid rgba(55,128,172,0.00);
   
 /*갤러리등록*/
 .btn_gallery {display:inline-flex; justify-content:center; height:40px; line-height:37px!important; padding:0 40px 0 18px; color:#fff; font-family: 'Noto Sans KR'; font-size:14px; font-weight:400; border-radius:5px;  box-sizing:border-box; cursor:pointer;position: relative; transition: 0.3s ease all;
-background-color: #008C9D;
+background-color: var(--main_color);
 border: 1px solid rgba(55,128,172,0.00);  
 box-shadow:3px 3px 10px rgba(38,100,110,0.10);
 }

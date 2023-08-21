@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div layout:fragment="content" id="body_area_in">
+    <div class="subbox">
+        <div class="setting_container">
+            <div class="setting_input">
+                <ul>
+                    <li style="display: flex">
+                        <input type="checkbox">
+                        <div>
+                            <span>자동 슬라이드</span>
+                            <p>관제사이트 자동 슬라이드 기능을 설정합니다.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="range_num">
+                            <span class="first">0</span>
+                            <span class="middle">20</span>
+                            <span class="last">60</span>
+                        </div>
+                        <input class="setting_range" type="range" max="60">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('input[type=range]').on('input', function (e) {
+            $('.middle').text(e.target.valueAsNumber);
+        });
+    </script>
+</div>
+</html>

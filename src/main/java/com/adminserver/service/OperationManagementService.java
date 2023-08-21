@@ -2,6 +2,7 @@ package com.adminserver.service;
 
 import com.adminserver.dto.ActionHistoryDTO;
 import com.adminserver.dto.SearchDto;
+import com.adminserver.dto.SettingDTO;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.mapper.OperationManagementMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,14 @@ public class OperationManagementService {
         totalCount = managementMapper.getUserCount(searchDto);
         return new PageImpl<>(list, pageable, totalCount);
     }
+
     public Integer getUserCount(SearchDto searchDto){
         return managementMapper.getUserCount(searchDto);
     }
 
     public String getUserName(String userId){ return managementMapper.getUserName(userId);}
     public String getUserRole(String userId){ return managementMapper.getUserRole(userId);}
+
     @Transactional
     public String createUser(UserInfoDTO userInfoDTO){
         Integer result = managementMapper.creteUser(userInfoDTO);
@@ -55,4 +58,6 @@ public class OperationManagementService {
     }
 
     public List<UserInfoDTO> excelUserList(SearchDto searchDto){return managementMapper.getUserList(searchDto);}
+
+    public SettingDTO getSetting(){ return managementMapper.getSetting(); }
 }

@@ -1,5 +1,5 @@
 @charset "utf-8";
-
+@import url(/static/css/base.css);
 @import url(/static/css/main.css);
 
 @import url(/static/css/common/font.css?v1);

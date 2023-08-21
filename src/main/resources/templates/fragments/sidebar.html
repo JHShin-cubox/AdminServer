@@ -13,8 +13,13 @@
         <div class="b_icon">
         </div>
         <ul class="nav" id="demo1">
-            <li class="logo_container">
-                <img id="main_logo" onclick="homePage()" class="main_logo" src="/static/images/main/main_logo.png">
+            <!--인천국제공항 이미지-->
+<!--            <li class="logo_container">-->
+<!--                <img id="main_logo" onclick="homePage()" class="main_logo" src="/static/images/main/main_logo.png">-->
+<!--            </li>-->
+            <!--CUBOX 이미지-->
+            <li class="logo_container cubox">
+                <img id="main_logo" onclick="homePage()" class="main_logo cubox" src="/static/images/main/main_logo_cubox.png">
             </li>
             <th:block th:if="${userRole}=='ADMIN'">
             <li th:classappend="${sideMain} == '01' ? 'open'">
@@ -100,6 +105,9 @@
                 <ul class="menu2">
                     <li th:classappend="${pageum} == '050101' ? 'on'">
                         <a onclick=insertActionLog('윤양관리','사용자관리','조회') href="/operation/userList?pageum=050101">• 사용자 관리</a>
+                    </li>
+                    <li th:classappend="${pageum} == '050201' ? 'on'">
+                        <a onclick=insertActionLog('윤양관리','관제설정','조회') href="/operation/setting?pageum=050201">• 관제 설정</a>
                     </li>
                 </ul>
             </li>

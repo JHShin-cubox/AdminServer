@@ -370,7 +370,9 @@ footer .inner .bt_menu a:hover{text-decoration: underline}
 .user_desc{background-color: #008C9D; width: 80%; border-radius: 30px; margin: 0 auto; padding: 6px; text-align: center; font-size: 12px; display: none;}
 .user_desc.name{margin:15px auto 5px auto;}
 .logo_container{padding: 10px 0 20px !important; text-align: center; }
+.logo_container.cubox{padding: 30px 0 60px !important;}
 .main_logo{position: relative; top: 15px; width: 195px; cursor: pointer;}
+.main_logo.cubox{width: 165px;}
 .good > img{width: 100px; margin-left: 60px;}
 .good > div{display:inherit;}
 .btn_hide{display: none;}
@@ -932,11 +934,11 @@ from {-webkit-transform: scale(0.1);
 .image_wrap{width:100%; float: left;}
 .img_list{width: 18%; margin:15px 10px 30px; position: relative; display: inline-block; }
 .img_list > img {position: relative; width: 100%; height: 26vh; object-fit: contain; background-color: #fefefe;}
-.img_list > p {font-size: 12px; width: 100%; background: #008C9D; color: white; padding: 10px 0; border-radius: 5px; }
+.img_list > p {font-size: 12px; width: 100%; background:  var(--main_color); color: white; padding: 10px 0; border-radius: 5px; }
 .img_list > img:after {content: ""; display: block; padding-bottom: 100%;}
 .nav_wrap{border-radius: 5px; cursor: pointer;}
-.nav_wrap.on{background-color: #008C9D;}
-.nav_wrap:hover{background-color: #008C9D;}
+.nav_wrap.on{background-color: var(--main_color);}
+.nav_wrap:hover{background-color:  var(--main_color);}
 .header_title{display: inline-block; margin: 30px 0 17px 320px; font-size: 16px; color: #595857; font-weight: 700;}
 .icon_wrap{padding: 7px 5px;}
 

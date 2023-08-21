@@ -67,6 +67,11 @@ public class RecordController {
         return "recordManagement/threeImage";
     }
 
+    @GetMapping("threeDetail")
+    public String threeDetail(){
+        return "recordManagement/threeImage_detail";
+    }
+
     @PostMapping("xraySubImage")
     @ResponseBody
     public List<XrayImageDTO> xraySubList(@RequestParam("luggageId") String luggageId){
@@ -175,11 +180,12 @@ public class RecordController {
         if (!image.isEmpty()) {
             try {
                 // 이미지 파일을 서버에 저장
+                String luggageId = "QWE";
                 byte[] bytes = image.getBytes();
                 Path path;
                 String imageName = image.getOriginalFilename();
                 String duplicateCheck = recordManagementService.duplicateCheck(imageName);
-                    recordManagementService.createImage(imageName);
+                    recordManagementService.createImage(imageName, luggageId);
                     path = Paths.get(uploadDir + "/" + image.getOriginalFilename());
                 Files.write(path, bytes);
                 return "uploadSuccess";

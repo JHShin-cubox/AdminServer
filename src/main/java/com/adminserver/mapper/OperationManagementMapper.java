@@ -1,6 +1,7 @@
 package com.adminserver.mapper;
 
 import com.adminserver.dto.SearchDto;
+import com.adminserver.dto.SettingDTO;
 import com.adminserver.dto.UserInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,6 @@ public interface OperationManagementMapper {
     String duplicateCheck(@Param("userId") String userId);
 
     Integer deleteUser(@Param("userId") String userId);
+
+    SettingDTO getSetting();
 }

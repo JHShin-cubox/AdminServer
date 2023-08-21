@@ -37,7 +37,7 @@ function apiLogin() {
             location.href="/"
         }
         else{
-            console.error("API 요청에 실패했습니다. 상태 코드: " + xhr.status);
+            console.error("API 요청에 실패했습니다. 상태 코드: " + xhr.status + xhr.responseText);
             $('#loginId').next().hide();
             $('#loginPwd').next().hide();
             $("#userCheck").show();

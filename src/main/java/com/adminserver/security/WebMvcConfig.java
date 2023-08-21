@@ -11,26 +11,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/image/**")
 //                .addResourceLocations("file:///C:/project/Pictures/");
-//                .addResourceLocations("file:///home/ubuntu/Pictures/");
-                .addResourceLocations("file:///home/cubox/Pictures/");
+                .addResourceLocations("file:///home/ubuntu/Pictures/");
+//                .addResourceLocations("file:///home/cubox/Pictures/");
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://xraydata.site:20400",
-                        "http://x-ray.cuboxservice.com",
-                        "http://x-ray.cuboxservice.com:5000",
-                        "http://x-ray.cuboxservice.com:8080",
-                        "http://x-ray.cuboxservice.com:8081",
-                        "http://kook-service.kro.kr:3000",
-                        "http://localhost:5000",
-                        "http://localhost:3000",
-                        "http://localhost:3001",
-                        "http://localhost:3002")
-
-                // GET, POST, PATCH, DELETE, OPTIONS 메서드 허용
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                .allowedOrigins("http://172.16.150.32",
+                        "http://172.16.150.34",
+                        "http://x-ray.cuboxservice.com/") // 허용하려는 IP 주소
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3600);

@@ -119,4 +119,12 @@ public class OperationController {
                         .build());
         return "redirect:/";
     }
+
+    @GetMapping("setting")
+    public String monitoringSetting(Model model, HttpServletRequest request){
+        model.addAttribute("setting",operationManagementService.getSetting());
+        model.addAttribute("sideMain","05"); // 사이드바 대메뉴
+        model.addAttribute("pageum",request.getParameter("pageum"));
+        return "operationManagement/monitoringSetting";
+    }
 }

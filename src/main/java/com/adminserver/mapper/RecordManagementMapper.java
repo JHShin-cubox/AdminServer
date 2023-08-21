@@ -26,7 +26,7 @@ public interface RecordManagementMapper {
 
     Integer getActionLogCount(SearchDto searchDto);
 
-    Integer createImage(@Param("imageName") String imageName);
+    Integer createImage(@Param("imageName") String imageName, @Param("luggageId") String luggageId);
     String duplicateCheck(@Param("imageName")String imageName);
 
     Integer insertLoginHistory(LoginHistoryDTO loginHistoryDTO);

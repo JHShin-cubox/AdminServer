@@ -18,10 +18,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Slf4j
 @Configuration
 @EnableWebSecurity
-@CrossOrigin(origins = "http://localhost:5000, " +
-                       "http://x-ray.cuboxservice.com, " +
-                       "http://xraydata.site:20400," +
-                       "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins =  "http://localhost:5000, " +
+                        "http://x-ray.cuboxservice.com, " +
+                        "172.16.150.32, " +
+                        "http://xraydata.site:20400," +
+                        "http://localhost:3000", allowCredentials = "true")
 public class WebSecurityConfig extends WebMvcConfigurationSupport {
 
     JwtAuthFilter jwtAuthFilter;
@@ -74,6 +75,7 @@ public class WebSecurityConfig extends WebMvcConfigurationSupport {
                 .allowCredentials(true)
                 .allowedOrigins("http://xraydata.site:20400",
                         "http://x-ray.cuboxservice.com",
+                        "http://172.16.150.32",
                         "http://localhost:5000",
                         "http://localhost:3000")
                 .allowedOriginPatterns("*")
