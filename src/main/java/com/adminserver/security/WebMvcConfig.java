@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "http://172.16.150.34",
                         "http://localhost:8080",
                         "http://192.168.0.57",
-                        "http://xraysite.kr",
+                        "http://xraysite.kr:20400",
                         "https://xraydata.site",
                         "http://x-ray.cuboxservice.com/") // 허용하려는 IP 주소
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
