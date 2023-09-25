@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adminserver.mapper.SchedulerMapper">
+
+    <insert id="InsertDailyStatistic">
+        INSERT INTO daily_statistic
+        (passenger_count, detection_count, total_luggage_count, pass_luggage_count, check_luggage_count, reg_date)
+        VALUES
+            (
+                (SELECT count(*) FROM passenger WHERE sdate BETWEEN date(now())-1 AND date(now())),
+		        (SELECT count(*) FROM xray_analyze_statistics WHERE reg_date BETWEEN date(now())-1 AND date(now())),
+                (SELECT count(*) FROM luggage WHERE reg_date BETWEEN date(now())-1 AND date(now())),
+                (SELECT count(*) FROM luggage WHERE type = 'P' AND reg_date BETWEEN date(now())-1 AND date(now())),
+                (SELECT count(*) FROM luggage WHERE type = 'C' AND reg_date BETWEEN date(now())-1 AND date(now())),now()
+            )
+    </insert>
+
+</mapper>

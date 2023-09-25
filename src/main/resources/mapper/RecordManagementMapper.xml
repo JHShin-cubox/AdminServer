@@ -48,13 +48,15 @@
 
     <select id="getXrayPowerLog" resultType="com.adminserver.dto.DevicePowerDTO">
         SELECT
-            A.id as id, A.xray_id as device_id, if(A.is_on,'true','false') as is_on,
+            A.id as id, A.device_id as device_id,
+            if(A.power,'true','false') as status,
             B.name as device_name, A.reg_date as reg_date
-        FROM xray_power_state_log A
-        JOIN xray_info B ON A.xray_id = B.id
+        FROM device_power_state_log A
+        JOIN device B ON A.device_id = B.id
         <where>
-            <if test="searchRadio == 'on'">AND A.is_on = true</if>
-            <if test="searchRadio == 'off'">AND A.is_on = false</if>
+            AND B.type = 'X'
+            <if test="searchRadio == 'on'">AND A.power = true</if>
+            <if test="searchRadio == 'off'">AND A.power = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
@@ -64,10 +66,11 @@
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
     <select id="getXrayPowerLogCount" resultType="java.lang.Integer">
-        SELECT count(*) FROM xray_power_state_log A JOIN xray_info B ON A.xray_id = B.id
+        SELECT count(*) FROM device_power_state_log A JOIN device B ON A.device_id = B.id
         <where>
-            <if test="searchRadio == 'on'">AND A.is_on = true</if>
-            <if test="searchRadio == 'off'">AND A.is_on = false</if>
+            AND B.type = 'X'
+            <if test="searchRadio == 'on'">AND A.power = true</if>
+            <if test="searchRadio == 'off'">AND A.power = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
@@ -77,13 +80,15 @@
 
     <select id="getViewerPowerLog" resultType="com.adminserver.dto.DevicePowerDTO">
         SELECT
-            A.id as id, A.viewer_id as device_id, if(A.is_on,'true','false') as is_on,
+            A.id as id, A.device_id as device_id,
+            if(A.power,'true','false') as status,
             B.name as device_name, A.reg_date as reg_date
-        FROM viewer_power_state_log A
-        JOIN viewer_info B ON A.viewer_id = B.id
+        FROM device_power_state_log A
+        JOIN device B ON A.device_id = B.id
         <where>
-            <if test="searchRadio == 'on'">AND A.is_on = true</if>
-            <if test="searchRadio == 'off'">AND A.is_on = false</if>
+            AND B.type = 'C'
+            <if test="searchRadio == 'on'">AND A.power = true</if>
+            <if test="searchRadio == 'off'">AND A.power = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
@@ -93,10 +98,11 @@
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
     <select id="getViewerPowerLogCount" resultType="java.lang.Integer">
-        SELECT count(*) FROM viewer_power_state_log A JOIN viewer_info B ON A.viewer_id = B.id
+        SELECT count(*) FROM device_power_state_log A JOIN device B ON A.device_id = B.id
         <where>
-            <if test="searchRadio == 'on'">AND A.is_on = true</if>
-            <if test="searchRadio == 'off'">AND A.is_on = false</if>
+            AND B.type = 'C'
+            <if test="searchRadio == 'on'">AND A.power = true</if>
+            <if test="searchRadio == 'off'">AND A.power = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
@@ -164,5 +170,37 @@
         </where>
     </select>
 
+    <select id="getLabelName" resultType="java.lang.String">
+        SELECT level2 FROM ai_detection
+        <where>
+            AND label_id = #{labelId}
+        </where>
+    </select>
+
+    <select id="getLuggageLog" resultType="com.adminserver.dto.LuggageLogDTO">
+        SELECT
+        (SELECT name FROM users WHERE id = A.user_id) AS user_name,
+        (SELECT name FROM device WHERE id = A.xray_id) AS xray_name,
+        (SELECT name FROM device WHERE id = A.check_id) AS check_name,
+        (SELECT passenger_code FROM passenger WHERE id = A.passenger_id) AS passenger_code,
+        reg_date,
+        CASE WHEN type = 'P' THEN '통과' WHEN type = 'C' THEN '개봉' END AS type
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+        </where>
+        from luggage A
+        ORDER BY reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+    <select id="getLuggageCount" resultType="java.lang.Integer">
+        SELECT count(*) from luggage;
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
+        </where>
+    </select>
 
 </mapper>

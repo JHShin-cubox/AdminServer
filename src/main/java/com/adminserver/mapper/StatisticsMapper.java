@@ -1,5 +1,6 @@
 package com.adminserver.mapper;
 
+import com.adminserver.dto.DailyStatisticDTO;
 import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.dto.XrayStatisticDTO;
@@ -14,4 +15,8 @@ public interface StatisticsMapper {
 
     List<XrayStatisticDTO> getXrayChart(SearchDto searchDto);
     Integer getXrayStatisticsCount(SearchDto searchDto);
+
+    List<DailyStatisticDTO> getDailyStatisticWeek();
+    List<DailyStatisticDTO> getDailyStatisticMonth();
+    List<DailyStatisticDTO> getDailyStatisticYear();
 }

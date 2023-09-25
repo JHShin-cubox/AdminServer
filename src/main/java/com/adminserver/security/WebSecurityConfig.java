@@ -76,6 +76,7 @@ public class WebSecurityConfig extends WebMvcConfigurationSupport {
                 .allowedOrigins("http://xraydata.site:20400",
                         "http://x-ray.cuboxservice.com",
                         "http://172.16.150.32",
+                        "http://172.16.150.34",
                         "http://localhost:5000",
                         "http://localhost:3000")
                 .allowedOriginPatterns("*")

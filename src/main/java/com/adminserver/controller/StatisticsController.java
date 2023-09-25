@@ -1,10 +1,7 @@
 package com.adminserver.controller;
 
 
-import com.adminserver.dto.ActionHistoryDTO;
-import com.adminserver.dto.SearchDto;
-import com.adminserver.dto.UserInfoDTO;
-import com.adminserver.dto.XrayStatisticDTO;
+import com.adminserver.dto.*;
 import com.adminserver.security.TokenProvider;
 import com.adminserver.service.OperationManagementService;
 import com.adminserver.service.RecordManagementService;
@@ -56,6 +53,22 @@ public class StatisticsController {
         model.addAttribute("sideTest","Y");
         return "statistics/xray";
     }
+
+    @GetMapping("daily")
+    public String dailyStatistic(HttpServletRequest request, Model model){
+        model.addAttribute("sideMain","03"); // 사이드바 대메뉴
+        model.addAttribute("sideOn", "on"); // 사이드바 활성화 클래스 추가
+        model.addAttribute("pageum",request.getParameter("pageum"));
+        List<DailyStatisticDTO> listWeek = statisticsService.getDailyStatisticWeek();
+        List<DailyStatisticDTO> listMonth = statisticsService.getDailyStatisticMonth();
+        List<DailyStatisticDTO> listYear = statisticsService.getDailyStatisticYear();
+        model.addAttribute("listWeek", listWeek);
+        model.addAttribute("listMonth", listMonth);
+        model.addAttribute("listYear", listYear);
+        return "statistics/dailyStatistic";
+    }
+
+
     @GetMapping("test")
     public String test3D(){
         return "statistics/test";

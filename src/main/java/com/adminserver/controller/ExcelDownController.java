@@ -59,7 +59,7 @@ public class ExcelDownController {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getName());
             row.createCell(1).setCellValue(data.getLocation());
-            row.createCell(2).setCellValue(data.getIsOn());
+            row.createCell(2).setCellValue(data.getPower());
         }
         try {
             workbook.write(outputStream);
@@ -95,7 +95,7 @@ public class ExcelDownController {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getName());
             row.createCell(1).setCellValue(data.getLocation());
-            row.createCell(2).setCellValue(data.getIsOn());
+            row.createCell(2).setCellValue(data.getPower());
         }
         try {
             workbook.write(outputStream);
@@ -130,7 +130,7 @@ public class ExcelDownController {
         for ( DevicePowerDTO data : lists) {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getDeviceName());
-            row.createCell(1).setCellValue(data.getIsOn());
+            row.createCell(1).setCellValue(data.getStatus());
             row.createCell(2).setCellValue(data.getRegDate());
         }
         try {
@@ -165,7 +165,7 @@ public class ExcelDownController {
         for ( DevicePowerDTO data : lists) {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getDeviceName());
-            row.createCell(1).setCellValue(data.getIsOn());
+            row.createCell(1).setCellValue(data.getStatus());
             row.createCell(2).setCellValue(data.getRegDate());
         }
         try {

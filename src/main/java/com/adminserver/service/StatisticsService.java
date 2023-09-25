@@ -1,5 +1,6 @@
 package com.adminserver.service;
 
+import com.adminserver.dto.DailyStatisticDTO;
 import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.UserInfoDTO;
 import com.adminserver.dto.XrayStatisticDTO;
@@ -32,5 +33,9 @@ public class StatisticsService {
     public Integer getXrayStatisticsCount(SearchDto searchDto){
         return statisticsMapper.getXrayStatisticsCount(searchDto);
     }
+
+    public List<DailyStatisticDTO> getDailyStatisticWeek(){return statisticsMapper.getDailyStatisticWeek();}
+    public List<DailyStatisticDTO> getDailyStatisticMonth(){return statisticsMapper.getDailyStatisticMonth();}
+    public List<DailyStatisticDTO> getDailyStatisticYear(){return statisticsMapper.getDailyStatisticYear();}
 
 }

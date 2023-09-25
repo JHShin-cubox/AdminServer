@@ -6,16 +6,16 @@
 
     <select id="getViewerInfo" resultType="com.adminserver.dto.DeviceDTO" >
         SELECT
-            id, name, is_on, status, reg_date,
-            modified_date, 'viewer' as type
-        FROM viewer_info
+            id, name, status, reg_date, modified_date, type
+        FROM device
+        WHERE type = 'C'
     </select>
 
     <select id="getXrayInfo" resultType="com.adminserver.dto.DeviceDTO" >
         SELECT
-            id, name, is_on, status, reg_date,
-            modified_date, 'xray' as type
-        FROM xray_info
+            id, name, status, reg_date, modified_date, type
+        FROM device
+        WHERE type = 'X'
     </select>
 
     <select id="getHistorySel" resultType="com.adminserver.dto.DeviceDTO" >

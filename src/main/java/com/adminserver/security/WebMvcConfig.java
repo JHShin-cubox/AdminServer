@@ -11,8 +11,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/image/**")
 //                .addResourceLocations("file:///C:/project/Pictures/");
-                .addResourceLocations("file:///home/ubuntu/Pictures/");
-//                .addResourceLocations("file:///home/cubox/Pictures/");
+//                .addResourceLocations("file:///home/ubuntu/Pictures/");
+                .addResourceLocations("file:///home/cubox/Pictures/");
     }
 
     @Override
@@ -20,6 +20,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://172.16.150.32",
                         "http://172.16.150.34",
+                        "http://localhost:8080",
+                        "http://192.168.0.57",
+                        "http://xraysite.kr",
+                        "https://xraydata.site",
                         "http://x-ray.cuboxservice.com/") // 허용하려는 IP 주소
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")

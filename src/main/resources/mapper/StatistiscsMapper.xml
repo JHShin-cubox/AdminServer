@@ -6,37 +6,35 @@
 
     <select id="getXrayStatistic" resultType="com.adminserver.dto.XrayStatisticDTO" >
         SELECT
-            xray_name,
-            label_id,
-            label_name ,
+        (select level2 from ai_detection where label_id = A.detection_id ) as labelName,
+            detection_id,
             count(*) AS amount,
             score,
             round(100. * count(*) / sum(count(*)) over (), 2) AS percentage
-        FROM xray_analyze_statistics
+        FROM xray_analyze_statistics A
         <where>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
-        GROUP BY label_id
+        GROUP BY detection_id
         ORDER BY percentage DESC;
     </select>
 
     <select id="getXrayChart" resultType="com.adminserver.dto.XrayStatisticDTO" >
         SELECT
-            xray_name,
-            label_id,
-            label_name ,
+            (select level2 from ai_detection where label_id = A.detection_id ) as labelName,
+            detection_id,
             count(*) AS amount,
             score,
             round(100. * count(*) / sum(count(*)) over (), 2) AS percentage
-        FROM xray_analyze_statistics
+        FROM xray_analyze_statistics A
         <where>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
-        GROUP BY label_id
+        GROUP BY detection_id
         ORDER BY percentage DESC limit 10;
     </select>
 
@@ -47,5 +45,24 @@
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
+    </select>
+
+    <select id="getDailyStatisticWeek" resultType="com.adminserver.dto.DailyStatisticDTO">
+        SELECT passenger_count, detection_count, pass_luggage_count, check_luggage_count,
+            right(left(reg_date,10),5) AS reg_date
+        FROM daily_statistic
+        WHERE reg_date >= DATE_SUB(CURDATE()+1, INTERVAL 1 WEEK)
+    </select>
+    <select id="getDailyStatisticMonth" resultType="com.adminserver.dto.DailyStatisticDTO">
+        SELECT passenger_count, detection_count, pass_luggage_count, check_luggage_count,
+            right(left(reg_date,10),5) AS reg_date
+        FROM daily_statistic
+        WHERE reg_date >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+    </select>
+    <select id="getDailyStatisticYear" resultType="com.adminserver.dto.DailyStatisticDTO">
+        SELECT passenger_count, detection_count, pass_luggage_count, check_luggage_count,
+            right(left(reg_date,10),5) AS reg_date
+        FROM daily_statistic
+        WHERE reg_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
     </select>
 </mapper>

@@ -19,12 +19,14 @@ public interface RecordManagementMapper {
 
     List<LoginHistoryDTO> getLoginLog(SearchDto searchDto);
     List<ActionHistoryDTO> getActionLog(SearchDto searchDto);
+    List<LuggageLogDTO> getLuggageLog(SearchDto searchDto);
     Integer getXrayPowerLogCount(SearchDto searchDto);
     Integer getViewerPowerLogCount(SearchDto searchDto);
 
     Integer getLoginLogCount(SearchDto searchDto);
 
     Integer getActionLogCount(SearchDto searchDto);
+    Integer getLuggageCount(SearchDto searchDto);
 
     Integer createImage(@Param("imageName") String imageName, @Param("luggageId") String luggageId);
     String duplicateCheck(@Param("imageName")String imageName);
@@ -32,4 +34,6 @@ public interface RecordManagementMapper {
     Integer insertLoginHistory(LoginHistoryDTO loginHistoryDTO);
 
     Integer insertActionHistory(ActionHistoryDTO actionHistoryDTO);
+
+    String getLabelName(@Param("labelId") Long labelId);
 }

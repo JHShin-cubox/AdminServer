@@ -65,9 +65,9 @@
                         <div class="tb_d">
                             <div class="td"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${deviceList.name}]]</a></div>
                             <div class="td">[[${deviceList.location}]]</div>
-                            <div class="td" th:if="${deviceList.isOn}=='true' and ${deviceList.status} == 'reading'">가동</div>
-                            <div class="td" th:if="${deviceList.isOn}=='true' and ${deviceList.status} == 'waiting'">일시정지</div>
-                            <div class="td" th:if="${deviceList.isOn}=='false'">전원 꺼짐</div>
+                            <div class="td" th:if="${deviceList.power}=='true' and ${deviceList.status} == 'reading'">가동</div>
+                            <div class="td" th:if="${deviceList.power}=='true' and ${deviceList.status} == 'waiting'">일시정지</div>
+                            <div class="td" th:if="${deviceList.power}=='false'">전원 꺼짐</div>
                             <div class="td">운용시간 값</div>
                             <input type="hidden" th:value="${deviceList.id}">
                         </div>

@@ -57,6 +57,15 @@ public class RecordManagementService {
         totalCount = recordManagementMapper.getActionLogCount(searchDto);
         return new PageImpl<>(list, pageable, totalCount);
     }
+
+    public Page<LuggageLogDTO> getLuggageLog(Pageable pageable, SearchDto searchDto) {
+        searchDto.setOffset(pageable.getOffset());
+        searchDto.setPageSize(pageable.getPageSize());
+        List<LuggageLogDTO> list = recordManagementMapper.getLuggageLog(searchDto);
+        totalCount = recordManagementMapper.getLuggageCount(searchDto);
+        return new PageImpl<>(list, pageable, totalCount);
+    }
+
     public List<XrayImageDTO> getXraySubList(String luggageId){
         return recordManagementMapper.getXraySubImages(luggageId);
     }
@@ -65,6 +74,7 @@ public class RecordManagementService {
     public Integer getViewerPowerCount(SearchDto searchDto){ return recordManagementMapper.getViewerPowerLogCount(searchDto); }
     public Integer getLoginLogCount(SearchDto searchDto){ return recordManagementMapper.getLoginLogCount(searchDto); }
     public Integer getActionLogCount(SearchDto searchDto){ return recordManagementMapper.getActionLogCount(searchDto); }
+    public Integer getLuggageLogCount(SearchDto searchDto){ return recordManagementMapper.getLuggageCount(searchDto); }
     public String duplicateCheck(String imageName){
         return recordManagementMapper.duplicateCheck(imageName);
     }
@@ -78,4 +88,6 @@ public class RecordManagementService {
     public List<DevicePowerDTO> excelPowerViewerList(SearchDto searchDto){return recordManagementMapper.getViewerPowerLog(searchDto);}
     public List<LoginHistoryDTO> excelLoginList(SearchDto searchDto){return recordManagementMapper.getLoginLog(searchDto);}
     public List<ActionHistoryDTO> excelActionList(SearchDto searchDto){return recordManagementMapper.getActionLog(searchDto);}
+
+    public String getLabelName(Long labelId){return recordManagementMapper.getLabelName(labelId);}
 }

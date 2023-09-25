@@ -59,6 +59,9 @@
                     <li th:classappend="${pageum} == '020601' ? 'on'">
                         <a onclick=insertActionLog('이력관리','3D_이미지이력','조회') href="/record/threeImage?pageum=020601">• 3D 이미지 이력</a>
                     </li>
+                    <li th:classappend="${pageum} == '020701' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','수하물이력','조회') href="/record/luggage?pageum=020701">• 수하물 이력</a>
+                    </li>
                     <li th:classappend="${pageum} == '020201' ? 'on'">
                         <a onclick=insertActionLog('이력관리','X-Ray_전원이력','조회') href="/record/xrayPower?pageum=020201">• X-Ray 전원 이력</a>
                     </li>
@@ -86,6 +89,11 @@
                 <ul class="menu2">
                     <li th:classappend="${pageum} == '030101' ? 'on'">
                         <a onclick=insertActionLog('통계관리','X-Ray_자동판독','조회') href="/statistics/xray?pageum=030101">• X-Ray 자동판독 통계</a>
+                    </li>
+                </ul>
+                <ul class="menu2">
+                    <li th:classappend="${pageum} == '030102' ? 'on'">
+                        <a onclick=insertActionLog('통계관리','일일통계','조회') href="/statistics/daily?pageum=030201">• 일일통계</a>
                     </li>
                 </ul>
             </li>

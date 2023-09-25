@@ -171,6 +171,9 @@ function homePage(){
     location.href='/';
 }
 
+
+
+
 setInterval(function() {
     var currentTime = moment().format('YYYY년 MM월 DD일 HH시 mm분 ss초');
     $('.title_time').children().html(currentTime);

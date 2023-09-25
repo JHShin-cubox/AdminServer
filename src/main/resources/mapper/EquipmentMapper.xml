@@ -6,9 +6,10 @@
 
     <select id="getXrayList" resultType="com.adminserver.dto.EquipmentDTO" >
         SELECT
-            id, device_id, name, device_ip, location, if(is_on,'true','false') as is_on, status, distribution_count, reg_date, modified_date
-        FROM xray_info
+            id, name, location, power, status, distribution_count, reg_date, modified_date
+        FROM device
         <where>
+            AND type = 'X'
             <if test="searchText != null and !searchText.isEmpty()">AND name LIKE CONCAT('%', #{searchText}, '%')</if>
         </where>
         ORDER BY reg_date DESC
@@ -16,17 +17,19 @@
     </select>
 
     <select id="getXrayCount" resultType="java.lang.Integer" >
-        SELECT count(*) as count  FROM xray_info
+        SELECT count(*) as count  FROM device
         <where>
+            AND type = 'X'
             <if test="searchText != null and !searchText.isEmpty()">AND name LIKE CONCAT('%', #{searchText}, '%')</if>
         </where>
     </select>
 
     <select id="getViewerList" resultType="com.adminserver.dto.EquipmentDTO" >
         SELECT
-            id, device_id, name, device_ip, location, if(is_on,'true','false') as is_on, status, distribution_count, reg_date, modified_date
-        FROM viewer_info
+            id, name, location, power, status, distribution_count, reg_date, modified_date
+        FROM device
         <where>
+            AND type = 'C'
             <if test="searchText != null and !searchText.isEmpty()">AND name LIKE CONCAT('%', #{searchText}, '%')</if>
         </where>
         ORDER BY reg_date DESC
@@ -34,10 +37,10 @@
     </select>
 
     <select id="getViewerCount" resultType="java.lang.Integer" >
-        SELECT count(*) as count  FROM viewer_info
+        SELECT count(*) as count  FROM device
         <where>
+            AND type = 'C'
             <if test="searchText != null and !searchText.isEmpty()">AND name LIKE CONCAT('%', #{searchText}, '%')</if>
         </where>
     </select>
-
 </mapper>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div layout:fragment="content" id="body_area_in">
+  <!--달력 js-->
+
+  <div class="subbox d-flex">
+    <!--타이틀-->
+    <div class="com_titlebox2 line_b mb"> </div>
+    <!--//타이틀-->
+    <!--테이블리스트-->
+    <div class="statics_list ">
+      <div class="table_com table_st22">
+        <div class="tb_h">
+          <div class="th">판독 물품</div>
+          <div class="th">판독 개수</div>
+        </div>
+        <label for="wRadio"></label>
+        <input type="radio" class="changeRotation" onclick="changeRotation()" name="changeRotation" id="wRadio" value="w" checked>
+        <label for="mRadio"></label>
+        <input type="radio" class="changeRotation" onclick="changeRotation()" name="changeRotation" id="mRadio" value="m">
+        <label for="yRadio"></label>
+        <input type="radio" class="changeRotation" onclick="changeRotation()" name="changeRotation" id="yRadio" value="y">
+        <canvas id="myChart" width="500" height="150"></canvas>
+        <div class="tb_d_wrap img_wrap statics_sub_list"></div>
+      </div>
+    </div>
+  </div>
+
+  <th:block th:each="list : ${listWeek}">
+    <input type="hidden" th:id="passengerW+${listStat.index}" th:value="${list.passengerCount}">
+    <input type="hidden"  th:id="dateW+${listStat.index}" th:value="${list.regDate}">
+  </th:block>
+
+  <th:block th:each="list : ${listMonth}">
+    <input type="hidden"  th:id="passengerM+${listStat.index}" th:value="${list.passengerCount}">
+    <input type="hidden"  th:id="dateM+${listStat.index}" th:value="${list.regDate}">
+  </th:block>
+  <input type="text"  id="mCount" th:value="${listMonth.size()}">
+
+  <th:block th:each="list : ${listYear}">
+    <input type="hidden"  th:id="passengerY+${listStat.index}" th:value="${list.passengerCount}">
+    <input type="hidden"  th:id="dateY+${listStat.index}" th:value="${list.regDate}">
+  </th:block>
+  <input type="text"  id="yCount" th:value="${listYear.size()}">
+
+  <script src="/static/js/chartJs.js"></script>
+  <script>
+    function changeRotation(){
+      monthList = [];
+      monthData = [];
+
+      if ($('#wRadio').prop('checked')) {
+        for (let i = 0; i < 7; i++) {
+          monthData.push($('#passengerW' + i).val())
+          monthList.push($('#dateW' + i).val())
+        }
+      } else if ($('#mRadio').prop('checked')) {
+        for (let i = 0; i < 25; i++) {
+          monthData.push($('#passengerM' + i).val())
+          monthList.push($('#dateM' + i).val())
+        }
+      } else if ($('#yRadio').prop('checked')) {
+        for (let i = 0; i < $('#yCount').val(); i++) {
+          monthData.push($('#passengerY' + i).val())
+          monthList.push($('#dateY' + i).val())
+        }
+      }
+
+      myChart.data.labels = monthList;
+      myChart.data.datasets[0].data = monthData;
+      myChart.update();
+    }
+
+    let monthList = [];
+    let monthData = [];
+
+    for(let i = 0; i<7; i++){
+      monthData.push($('#passengerW'+i).val())
+      monthList.push($('#dateW'+i).val())
+    }
+
+
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: monthList,
+        datasets: [{
+          data: monthData,
+          borderColor:'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+  </script>
+</div>
+</html>

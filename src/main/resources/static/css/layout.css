@@ -951,3 +951,9 @@ from {-webkit-transform: scale(0.1);
 .user_logout{ width: 90px; height: 30px; background-color: #22252E; border-radius: 30px; color: #ffff; font-weight: 700; font-size: 12px; margin: 18px 0 0 20px; cursor: pointer;}
 .float_right{float: right;}
 
+.sub_container{overflow-x: hidden;}
+.three_titlebar{width: 100%; float: left; position: relative; left: 0; top: 0; height: 50px; color: #fff; background-color: var(--main_color); margin-bottom: 30px;}
+.three_titlebar > p {font-size: 18px; font-weight: 600; font-family: 'Noto Sans KR'; color: #fff; padding-bottom: 24px; position: absolute; left: 30px; top: 18px;}
+.three_wrap, .desc_wrap{width: 93%; margin: 0 auto; justify-content: space-around;}
+.three_wrap{ padding: 30px 0 30px 0; margin-bottom: 30px; background-color: #f4f4f4}
+.three_wrap > img {width: 600px; height: 504px; background-color: #ffffff; object-fit: contain;}

@@ -3,13 +3,102 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout_sub}">
 <div layout:fragment="content_sub">
-    <div>
-        <div class="w_90vw">
-            <img id="3dImage" src="/static/images/three/three_test.png">
-            <div class="" style="display: inline-block">
-                <canvas id="canvas3" width="600" height="500"></canvas>
+    <div class="three_titlebar">
+        <p>이미지 상세보기</p>
+    </div>
+    <div class="three_wrap">
+        <img id="3dImage" src="/static/images/three/three_test.png">
+        <div class="" style="display: inline-block">
+            <canvas id="canvas3" width="600" height="500"></canvas>
+        </div>
+        <input id="t_test" type="hidden" value="/static/images/three/scene.gltf">
+    </div>
+    <div class="d-flex modal_desc">
+        <div class="tb_list_com2 tbt tb_list_st1">
+            <div class="tr">
+                <div class="th">촬영 일시</div>
+                <div class="td">
+                    <div>
+                        <span>항목1 value</span>
+                    </div>
+                </div>
             </div>
-            <input id="t_test" type="hidden" value="/static/images/three/scene.gltf">
+        </div>
+        <div class="tb_list_com2 tbt tb_list_st1">
+            <div class="tr">
+                <div class="th">판독자</div>
+                <div class="td">
+                    <div>
+                        <span>항목2 value</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex modal_desc">
+        <div class="tb_list_com2 tb_list_st1">
+            <div class="tr">
+                <div class="th">X-Ray ID</div>
+                <div class="td">
+                    <div>
+                        <span>항목3 value</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tb_list_com2 tb_list_st1">
+            <div class="tr">
+                <div class="th">수하물 통과여부</div>
+                <div class="td">
+                    <div>
+                        <span>항목4 value</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex modal_desc">
+        <div class="tb_list_com2 tb_list_st1">
+            <div class="tr">
+                <div class="th">장비 모델명</div>
+                <div class="td">
+                    <div>
+                        <span>항목5 value</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tb_list_com2 tb_list_st1">
+            <div class="tr">
+                <div class="th">탐지 물품</div>
+                <div class="td">
+                    <div>
+                        <span>항목6 value</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex modal_desc">
+        <div class="tb_list_com2 tb_list_st1">
+            <div class="tr">
+                <div class="th">상태</div>
+                <div class="td">
+                    <div>
+                        <span>항목7 value</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tb_list_com2 tb_list_st1">
+            <div class="tr">
+                <div class="th">자동판독 여부</div>
+                <div class="td">
+                    <div>
+                        <span>항목8 value</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script type="importmap">
@@ -45,8 +134,44 @@
 
         scene.background = new THREE.Color('white');
 
-        let light = new THREE.DirectionalLight(0xffff00,10);
+        let light = new THREE.DirectionalLight(0xFFFFFF,0.5);
+        light.position.set(0, 2, 0);
+
+        let light2 = new THREE.DirectionalLight(0xFFFFFF,0.5);
+        light2.position.set(0, 0, 2);
+
+        let light3 = new THREE.DirectionalLight(0xFFFFFF,0.5);
+        light3.position.set(0, 0, -2);
+
+        let light4 = new THREE.DirectionalLight(0xFFFFFF,0.5);
+        light4.position.set(0, -2, 0);
+
+        let light5 = new THREE.DirectionalLight(0xFFFFFF,0.5);
+        light5.position.set(2, 0, 0);
+
+        let light6 = new THREE.DirectionalLight(0xFFFFFF,0.5);
+        light6.position.set(-2, 0, 0);
+
+
+        // const helper1 = new THREE.DirectionalLightHelper( light, 1, 0x00084f );
+        // scene.add(helper1);
+        // const helper2 = new THREE.DirectionalLightHelper( light2, 1, 0x00ffff );
+        // scene.add(helper2);
+        // const helper3 = new THREE.DirectionalLightHelper( light3, 1, 0x0000ff );
+        // scene.add(helper3);
+        // const helper4 = new THREE.DirectionalLightHelper( light4, 1, 0x000000 );
+        // scene.add(helper4);
+        // const helper5 = new THREE.DirectionalLightHelper( light5, 1, 0x000004 );
+        // scene.add(helper5);
+        // const helper6 = new THREE.DirectionalLightHelper( light6, 1, 0x000001 );
+        // scene.add(helper6);
+
         scene.add(light);
+        scene.add(light2);
+        scene.add(light3);
+        scene.add(light4);
+        scene.add(light5);
+        scene.add(light6);
 
         let loader = new GLTFLoader();
         loader.load(source, function(gltf){

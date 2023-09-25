@@ -14,10 +14,6 @@ public interface XrayService {
     Integer getStatCount();
 
 
-    XrayStatDTO getOneByLabelId(String labelId);
 
-    List<XrayStatDTO> getAllStatistics2();
-
-    List<CountLabelIdDTO> countAllLabelId();
 
 }

@@ -11,6 +11,6 @@ public class DevicePowerDTO {
     private Long id;
     private String deviceId;
     private String deviceName;
-    private String isOn;
+    private String status;
     private String regDate;
 }
