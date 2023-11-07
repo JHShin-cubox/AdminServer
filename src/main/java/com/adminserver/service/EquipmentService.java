@@ -39,6 +39,17 @@ public class EquipmentService {
     }
     public Integer getViewerCount(SearchDto searchDto){ return equipmentMapper.getViewerCount(searchDto); }
 
+
+    public Page<EquipmentDTO> getTrsList(Pageable pageable, SearchDto searchDto) {
+        searchDto.setOffset(pageable.getOffset());
+        searchDto.setPageSize(pageable.getPageSize());
+        List<EquipmentDTO> list = equipmentMapper.getTrsList(searchDto);
+        totalCount = equipmentMapper.getTrsCount(searchDto);
+        return new PageImpl<>(list, pageable, totalCount);
+    }
+    public Integer getTrsCount(SearchDto searchDto){ return equipmentMapper.getTrsCount(searchDto); }
+
+
     public List<EquipmentDTO> excelEquipXrayList(SearchDto searchDto){return equipmentMapper.getXrayList(searchDto);}
     public List<EquipmentDTO> excelEquipViewerList(SearchDto searchDto){return equipmentMapper.getViewerList(searchDto);}
 

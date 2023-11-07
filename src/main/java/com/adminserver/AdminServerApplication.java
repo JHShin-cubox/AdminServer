@@ -27,11 +27,11 @@ public class AdminServerApplication {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    @Bean
-    RouterFunction<ServerResponse> routerFunction() {
-        return route(GET("/swagger"), req ->
-                ServerResponse.temporaryRedirect(URI.create("swagger-ui.html")).build());
-    }
+//    @Bean
+//    RouterFunction<ServerResponse> routerFunction() {
+//        return route(GET("/swagger"), req ->
+//                ServerResponse.temporaryRedirect(URI.create("swagger-ui.html")).build());
+//    }
 
 
 

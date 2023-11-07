@@ -16,12 +16,14 @@ public interface RecordManagementMapper {
 
     List<DevicePowerDTO> getXrayPowerLog(SearchDto searchDto);
     List<DevicePowerDTO> getViewerPowerLog(SearchDto searchDto);
+    List<DevicePowerDTO> getTrsPowerLog(SearchDto searchDto);
 
     List<LoginHistoryDTO> getLoginLog(SearchDto searchDto);
     List<ActionHistoryDTO> getActionLog(SearchDto searchDto);
     List<LuggageLogDTO> getLuggageLog(SearchDto searchDto);
     Integer getXrayPowerLogCount(SearchDto searchDto);
     Integer getViewerPowerLogCount(SearchDto searchDto);
+    Integer getTrsPowerLogCount(SearchDto searchDto);
 
     Integer getLoginLogCount(SearchDto searchDto);
 

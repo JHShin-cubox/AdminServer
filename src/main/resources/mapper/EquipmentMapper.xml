@@ -43,4 +43,25 @@
             <if test="searchText != null and !searchText.isEmpty()">AND name LIKE CONCAT('%', #{searchText}, '%')</if>
         </where>
     </select>
+
+    <select id="getTrsList" resultType="com.adminserver.dto.EquipmentDTO" >
+        SELECT
+        id, name, location, power, status, distribution_count, reg_date, modified_date
+        FROM device
+        <where>
+            AND type = 'T'
+            <if test="searchText != null and !searchText.isEmpty()">AND name LIKE CONCAT('%', #{searchText}, '%')</if>
+        </where>
+        ORDER BY reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="getTrsCount" resultType="java.lang.Integer" >
+        SELECT count(*) as count FROM device
+        <where>
+            AND type = 'T'
+            <if test="searchText != null and !searchText.isEmpty()">AND name LIKE CONCAT('%', #{searchText}, '%')</if>
+        </where>
+    </select>
+
 </mapper>

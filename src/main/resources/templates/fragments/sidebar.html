@@ -39,6 +39,9 @@
                     <li th:classappend="${pageum} == '010201' ? 'on'">
                         <a onclick=insertActionLog('장비관리','X-Ray_장비','조회') href="/equip/xray?pageum=010201">• Xray</a>
                     </li>
+                    <li th:classappend="${pageum} == '010201' ? 'on'">
+                        <a onclick=insertActionLog('장비관리','TRS_장비','조회') href="/equip/trs?pageum=010301">• TRS</a>
+                    </li>
                 </ul>
             </li>
             </th:block>
@@ -67,6 +70,9 @@
                     </li>
                     <li th:classappend="${pageum} == '020301' ? 'on'">
                         <a onclick=insertActionLog('이력관리','CheckPC_전원이력','조회') href="/record/viewerPower?pageum=020301">• CheckPC 전원 이력</a>
+                    </li>
+                    <li th:classappend="${pageum} == '020801' ? 'on'">
+                        <a onclick=insertActionLog('이력관리','CheckPC_전원이력','조회') href="/record/trsPower?pageum=020801">• TRS 전원 이력</a>
                     </li>
                     <li th:classappend="${pageum} == '020401' ? 'on'">
                         <a onclick=insertActionLog('이력관리','로그인이력','조회') href="/record/login?pageum=020401">• 로그인 이력</a>

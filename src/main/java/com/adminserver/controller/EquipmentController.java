@@ -68,4 +68,25 @@ public class EquipmentController {
         model.addAttribute("searchDto",searchDto);
         return "equipmentManagement/viewerList";
     }
+
+    @GetMapping("trs")
+    public String trsList(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
+        int maxPage = 10;
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
+        Page<EquipmentDTO> list =  equipmentService.getTrsList(pageable, searchDto);
+        Integer totalCount = equipmentService.getTrsCount(searchDto);
+        Integer nowPage;
+        if(page.isEmpty()) nowPage  = 0;
+        else nowPage = page.get();
+        model.addAttribute("sideMain","01"); // 사이드바 대메뉴
+        model.addAttribute("nowPage", nowPage+1);
+        model.addAttribute("deviceInfoDTO", new DeviceDTO());
+        model.addAttribute("pageum",request.getParameter("pageum"));
+        model.addAttribute("uri",request.getRequestURI());
+        model.addAttribute("lists", list);
+        model.addAttribute("maxPage", maxPage);
+        model.addAttribute("totalCount",totalCount);
+        model.addAttribute("searchDto",searchDto);
+        return "equipmentManagement/trsList";
+    }
 }

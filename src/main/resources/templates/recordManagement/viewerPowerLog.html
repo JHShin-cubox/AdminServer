@@ -86,8 +86,8 @@
                     <th:block th:each="list : ${lists}" th:if="${totalCount>0}">
                         <div class="tb_d">
                             <div class="td"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${list.deviceName}]]</a></div>
-                            <div class="td" th:if="${list.power}=='true'">On</div>
-                            <div class="td" th:if="${list.power}=='false'">Off</div>
+                            <div class="td" th:if="${list.status}=='true'">On</div>
+                            <div class="td" th:if="${list.status}=='false'">Off</div>
                             <div class="td">[[${list.regDate}]]</div>
                         </div>
                     </th:block>

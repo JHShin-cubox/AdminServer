@@ -159,7 +159,7 @@
                             <div class="tr">
                                 <div class="th">직급</div>
                                 <div class="td">
-                                    <input th:field="*{rank}" type="text" placeholder="">
+                                    <input th:field="*{rank}" type="text" placeholder="" >
                                 </div>
                             </div>
                             <div class="tr">
@@ -173,6 +173,15 @@
                                 <div class="td">
                                     <input onchange="emailReset()" th:field="*{email}" type="text" placeholder="">
                                     <p id="valid_email" class="valid_error">올바른 이메일 형식이 아닙니다</p>
+                                </div>
+                            </div>
+                            <div class="tr">
+                                <div class="th">권한</div>
+                                <div class="td">
+                                    <select th:field="*{role}" type="text" placeholder="">
+                                        <option value="ADMIN">관리자</option>
+                                        <option value="USER">사용자</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

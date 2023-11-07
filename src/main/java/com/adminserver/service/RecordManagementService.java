@@ -43,6 +43,14 @@ public class RecordManagementService {
         return new PageImpl<>(list, pageable, totalCount);
     }
 
+    public Page<DevicePowerDTO> getTrsPowerLog(Pageable pageable, SearchDto searchDto) {
+        searchDto.setOffset(pageable.getOffset());
+        searchDto.setPageSize(pageable.getPageSize());
+        List<DevicePowerDTO> list = recordManagementMapper.getTrsPowerLog(searchDto);
+        totalCount = recordManagementMapper.getTrsPowerLogCount(searchDto);
+        return new PageImpl<>(list, pageable, totalCount);
+    }
+
     public Page<LoginHistoryDTO> getLoginLog(Pageable pageable, SearchDto searchDto) {
         searchDto.setOffset(pageable.getOffset());
         searchDto.setPageSize(pageable.getPageSize());
@@ -72,6 +80,7 @@ public class RecordManagementService {
     public Integer getXrayImagesCount(SearchDto searchDto){ return recordManagementMapper.getXrayImagesCount(searchDto); }
     public Integer getXrayPowerCount(SearchDto searchDto){ return recordManagementMapper.getXrayPowerLogCount(searchDto); }
     public Integer getViewerPowerCount(SearchDto searchDto){ return recordManagementMapper.getViewerPowerLogCount(searchDto); }
+    public Integer getTrsPowerCount(SearchDto searchDto){ return recordManagementMapper.getTrsPowerLogCount(searchDto); }
     public Integer getLoginLogCount(SearchDto searchDto){ return recordManagementMapper.getLoginLogCount(searchDto); }
     public Integer getActionLogCount(SearchDto searchDto){ return recordManagementMapper.getActionLogCount(searchDto); }
     public Integer getLuggageLogCount(SearchDto searchDto){ return recordManagementMapper.getLuggageCount(searchDto); }

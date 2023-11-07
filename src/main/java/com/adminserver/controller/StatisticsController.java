@@ -43,6 +43,7 @@ public class StatisticsController {
         List<XrayStatisticDTO> lists =  statisticsService.getXrayStatisticsList(searchDto);
         List<XrayStatisticDTO> chartLists =  statisticsService.getXrayChart(searchDto);
         Integer totalCount = statisticsService.getXrayStatisticsCount(searchDto);
+        Integer luggageCount = recordManagementService.getLuggageLogCount(searchDto);
         model.addAttribute("sideMain","03"); // 사이드바 대메뉴
         model.addAttribute("sideOn", "on"); // 사이드바 활성화 클래스 추가
         model.addAttribute("pageum",request.getParameter("pageum"));
@@ -50,6 +51,7 @@ public class StatisticsController {
         model.addAttribute("statisticLists", lists);
         model.addAttribute("chartLists", chartLists);
         model.addAttribute("totalCount", totalCount);
+        model.addAttribute("luggageCount",luggageCount);
         model.addAttribute("sideTest","Y");
         return "statistics/xray";
     }

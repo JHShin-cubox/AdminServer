@@ -97,10 +97,44 @@
         ORDER BY A.reg_date DESC
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
+
     <select id="getViewerPowerLogCount" resultType="java.lang.Integer">
         SELECT count(*) FROM device_power_state_log A JOIN device B ON A.device_id = B.id
         <where>
             AND B.type = 'C'
+            <if test="searchRadio == 'on'">AND A.power = true</if>
+            <if test="searchRadio == 'off'">AND A.power = false</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
+        </where>
+    </select>
+
+    <select id="getTrsPowerLog" resultType="com.adminserver.dto.DevicePowerDTO">
+        SELECT
+        A.id as id, A.device_id as device_id,
+        if(A.power,'true','false') as status,
+        B.name as device_name, A.reg_date as reg_date
+        FROM device_power_state_log A
+        JOIN device B ON A.device_id = B.id
+        <where>
+            AND B.type = 'T'
+            <if test="searchRadio == 'on'">AND A.power = true</if>
+            <if test="searchRadio == 'off'">AND A.power = false</if>
+            <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
+        </where>
+        ORDER BY A.reg_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="getTrsPowerLogCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM device_power_state_log A JOIN device B ON A.device_id = B.id
+        <where>
+            AND B.type = 'T'
             <if test="searchRadio == 'on'">AND A.power = true</if>
             <if test="searchRadio == 'off'">AND A.power = false</if>
             <if test="searchText != null and !searchText.isEmpty()">AND B.name LIKE CONCAT('%', #{searchText}, '%')</if>

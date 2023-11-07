@@ -5,13 +5,12 @@
 <div layout:fragment="content" id="body_area_in">
     <!--달력 js-->
     <script src="/static/js/Calenda/dcalendar.picker.js" charset="utf-8"></script>
-
     <link rel="stylesheet" type="text/css" href="/static/js/Calenda/dcalendar.picker.css" media="all">
 
     <!--검색박스-->
     <form id="search_form" th:object="${searchDto}">
-        <input type="hidden" id="srh_action" value="/record/xrayPower">
-        <input name="pageum" type="hidden" value="020201">
+        <input type="hidden" id="srh_action" value="/record/trsPower">
+        <input name="pageum" type="hidden" value="020801">
         <input type="hidden" id="searchCategory" value="Y">
         <div class="srh_container">
             <div class="srh_wrapper">
@@ -32,7 +31,7 @@
                 </div>
                 <div class="">
                     <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
-                    <button type="button" onclick="location.href='/record/xrayPower?pageum=020201'" class="redoBtn area_btn">초기화</button>
+                    <button type="button" onclick="location.href='/record/trsPower?pageum=020801'" class="redoBtn area_btn">초기화</button>
                 </div>
             </div>
             <div class="srh_status">
@@ -67,7 +66,7 @@
             <!--버튼-->
             <div class="btnBox_num2">
                 <button type="button" class="btn_excel_save" onclick="excelDown()">엑셀</button>
-                <input type="hidden" id="excel_action" value="/excelDown/powerXray">
+                <input type="hidden" id="excel_action" value="/excelDown/powerTrs">
             </div>
             <!--//버튼-->
         </div>

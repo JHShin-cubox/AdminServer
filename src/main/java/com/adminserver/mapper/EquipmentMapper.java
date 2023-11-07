@@ -16,4 +16,7 @@ public interface EquipmentMapper {
 
     List<EquipmentDTO> getViewerList(SearchDto searchDto);
     Integer getViewerCount(SearchDto searchDto);
+
+    List<EquipmentDTO> getTrsList(SearchDto searchDto);
+    Integer getTrsCount(SearchDto searchDto);
 }

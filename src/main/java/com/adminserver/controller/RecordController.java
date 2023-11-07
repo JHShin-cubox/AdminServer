@@ -82,6 +82,26 @@ public class RecordController {
         return recordManagementService.getXraySubList(luggageId);
     }
 
+    @GetMapping("luggage")
+    public String LuggageLog(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
+        int maxPage = 10;
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
+        Page<LuggageLogDTO> list =  recordManagementService.getLuggageLog(pageable, searchDto);
+        Integer totalCount = recordManagementService.getLuggageLogCount(searchDto);
+        if(page.isEmpty()) nowPage  = 0;
+        else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
+        model.addAttribute("nowPage", nowPage+1);
+        model.addAttribute("pageum",request.getParameter("pageum"));
+        model.addAttribute("uri",request.getRequestURI());
+        model.addAttribute("lists", list);
+        model.addAttribute("maxPage", maxPage);
+        model.addAttribute("totalCount",totalCount );
+        model.addAttribute("searchDto",searchDto);
+        return "recordManagement/luggageLog";
+    }
+
+
     @GetMapping("xrayPower")
     public String xrayPowerLog(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
         int maxPage = 10;
@@ -118,6 +138,25 @@ public class RecordController {
         model.addAttribute("totalCount",totalCount );
         model.addAttribute("searchDto",searchDto);
         return "recordManagement/viewerPowerLog";
+    }
+
+    @GetMapping("trsPower")
+    public String trsPowerLog(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
+        int maxPage = 10;
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
+        Page<DevicePowerDTO> list =  recordManagementService.getTrsPowerLog(pageable, searchDto);
+        Integer totalCount = recordManagementService.getTrsPowerCount(searchDto);
+        if(page.isEmpty()) nowPage  = 0;
+        else nowPage = page.get();
+        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
+        model.addAttribute("nowPage", nowPage+1);
+        model.addAttribute("pageum",request.getParameter("pageum"));
+        model.addAttribute("uri",request.getRequestURI());
+        model.addAttribute("lists", list);
+        model.addAttribute("maxPage", maxPage);
+        model.addAttribute("totalCount",totalCount );
+        model.addAttribute("searchDto",searchDto);
+        return "recordManagement/trsPowerLog";
     }
 
     @GetMapping("login")
@@ -178,24 +217,6 @@ public class RecordController {
             }
     }
 
-    @GetMapping("/luggage")
-    public String LuggageLog(Optional<Integer> page, Model model, HttpServletRequest request, SearchDto searchDto){
-        int maxPage = 10;
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
-        Page<LuggageLogDTO> list =  recordManagementService.getLuggageLog(pageable, searchDto);
-        Integer totalCount = recordManagementService.getLuggageLogCount(searchDto);
-        if(page.isEmpty()) nowPage  = 0;
-        else nowPage = page.get();
-        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
-        model.addAttribute("nowPage", nowPage+1);
-        model.addAttribute("pageum",request.getParameter("pageum"));
-        model.addAttribute("uri",request.getRequestURI());
-        model.addAttribute("lists", list);
-        model.addAttribute("maxPage", maxPage);
-        model.addAttribute("totalCount",totalCount );
-        model.addAttribute("searchDto",searchDto);
-        return "/recordManagement/luggageLog";
-    }
 
     @ResponseBody
     @PostMapping("/upload")
