@@ -39,7 +39,7 @@
                     <li th:classappend="${pageum} == '010201' ? 'on'">
                         <a onclick=insertActionLog('장비관리','X-Ray_장비','조회') href="/equip/xray?pageum=010201">• Xray</a>
                     </li>
-                    <li th:classappend="${pageum} == '010201' ? 'on'">
+                    <li th:classappend="${pageum} == '010301' ? 'on'">
                         <a onclick=insertActionLog('장비관리','TRS_장비','조회') href="/equip/trs?pageum=010301">• TRS</a>
                     </li>
                 </ul>
@@ -51,34 +51,47 @@
                         <div class="icon nav_icon">
                             <div class="imgbox"><img src="/static/images/svg_icon/menuicon02.png" alt=""/></div>
                         </div>
-                        이력 관리
+                        장비 이력
                         <img th:classappend="${#strings.startsWith(pageum,'020')} == true ? 'on'" class="side_arrow" src="/static/images/main/menu_arrow.png">
                     </div>
                 </a>
                 <ul class="menu2">
                     <li th:classappend="${pageum} == '020101' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','X-Ray_이미지이력','조회') href="/record/xrayImage?pageum=020101">• X-Ray 이미지 이력</a>
+                        <a onclick=insertActionLog('장비이력','X-Ray_이미지이력','조회') href="/record/xrayImage?pageum=020101">• X-Ray 이미지 이력</a>
                     </li>
                     <li th:classappend="${pageum} == '020601' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','3D_이미지이력','조회') href="/record/threeImage?pageum=020601">• 3D 이미지 이력</a>
+                        <a onclick=insertActionLog('장비이력','3D_이미지이력','조회') href="/record/threeImage?pageum=020601">• 3D 이미지 이력</a>
                     </li>
                     <li th:classappend="${pageum} == '020701' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','수하물이력','조회') href="/record/luggage?pageum=020701">• 수하물 이력</a>
+                        <a onclick=insertActionLog('장비이력','수하물이력','조회') href="/record/luggage?pageum=020701">• 수하물 이력</a>
                     </li>
                     <li th:classappend="${pageum} == '020201' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','X-Ray_전원이력','조회') href="/record/xrayPower?pageum=020201">• X-Ray 전원 이력</a>
+                        <a onclick=insertActionLog('장비이력','X-Ray_전원이력','조회') href="/record/xrayPower?pageum=020201">• X-Ray 전원 이력</a>
                     </li>
                     <li th:classappend="${pageum} == '020301' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','CheckPC_전원이력','조회') href="/record/viewerPower?pageum=020301">• CheckPC 전원 이력</a>
+                        <a onclick=insertActionLog('장비이력','CheckPC_전원이력','조회') href="/record/viewerPower?pageum=020301">• CheckPC 전원 이력</a>
                     </li>
                     <li th:classappend="${pageum} == '020801' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','CheckPC_전원이력','조회') href="/record/trsPower?pageum=020801">• TRS 전원 이력</a>
+                        <a onclick=insertActionLog('장비이력','CheckPC_전원이력','조회') href="/record/trsPower?pageum=020801">• TRS 전원 이력</a>
                     </li>
-                    <li th:classappend="${pageum} == '020401' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','로그인이력','조회') href="/record/login?pageum=020401">• 로그인 이력</a>
+                </ul>
+            </li>
+            <li th:classappend="${sideMain} == '04' ? 'open'">
+                <a class="icon_wrap">
+                    <div class="nav_wrap" onclick="sideMenu(this)" th:classappend="${sideMain}=='04' ? 'on'">
+                        <div class="icon nav_icon">
+                            <div class="imgbox"><img src="/static/images/svg_icon/menuicon02.png" alt=""/></div>
+                        </div>
+                        사용자 이력
+                        <img th:classappend="${#strings.startsWith(pageum,'040')} == true ? 'on'" class="side_arrow user_arrow" src="/static/images/main/menu_arrow.png">
+                    </div>
+                </a>
+                <ul class="menu2">
+                    <li th:classappend="${pageum} == '040101' ? 'on'">
+                        <a onclick=insertActionLog('사용자이력','로그인이력','조회') href="/record/login?pageum=040101">• 로그인 이력</a>
                     </li>
-                    <li th:classappend="${pageum} == '020501' ? 'on'">
-                        <a onclick=insertActionLog('이력관리','활동이력','조회') href="/record/action?pageum=020501">• 활동 이력</a>
+                    <li th:classappend="${pageum} == '040201' ? 'on'">
+                        <a onclick=insertActionLog('사용자이력','활동이력','조회') href="/record/action?pageum=040201">• 활동 이력</a>
                     </li>
                 </ul>
             </li>

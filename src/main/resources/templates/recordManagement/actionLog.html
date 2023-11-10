@@ -10,7 +10,7 @@
     <!--검색박스-->
     <form id="search_form" th:object="${searchDto}">
         <input type="hidden" id="srh_action" value="/record/action">
-        <input name="pageum" type="hidden" value="020501">
+        <input name="pageum" type="hidden" value="040201">
         <div class="srh_container">
             <div class="srh_wrapper">
                 <div class="mr_85">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="">
                     <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
-                    <button type="button" onclick="location.href='/record/action?pageum=020501'" class="redoBtn area_btn">초기화</button>
+                    <button type="button" onclick="location.href='/record/action?pageum=040201'" class="redoBtn area_btn">초기화</button>
                 </div>
             </div>
             <div class="srh_status"></div>

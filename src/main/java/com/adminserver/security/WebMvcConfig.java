@@ -12,7 +12,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/image/**")
 //                .addResourceLocations("file:///C:/project/Pictures/");
 //                .addResourceLocations("file:///home/ubuntu/Pictures/");
-                .addResourceLocations("file:///home/cubox/Pictures/");
+//                .addResourceLocations("file:///home/cubox/Pictures/");
+                .addResourceLocations("file:///home/cubox/image/");
     }
 
     @Override

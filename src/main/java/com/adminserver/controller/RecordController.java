@@ -167,7 +167,7 @@ public class RecordController {
         Integer totalCount = recordManagementService.getLoginLogCount(searchDto);
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
-        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
+        model.addAttribute("sideMain","04"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());
@@ -185,7 +185,7 @@ public class RecordController {
         Integer totalCount = recordManagementService.getActionLogCount(searchDto);
         if(page.isEmpty()) nowPage  = 0;
         else nowPage = page.get();
-        model.addAttribute("sideMain","02"); // 사이드바 대메뉴
+        model.addAttribute("sideMain","04"); // 사이드바 대메뉴
         model.addAttribute("nowPage", nowPage+1);
         model.addAttribute("pageum",request.getParameter("pageum"));
         model.addAttribute("uri",request.getRequestURI());

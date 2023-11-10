@@ -5,21 +5,31 @@
 <mapper namespace="com.adminserver.mapper.RecordManagementMapper">
 
     <select id="getXrayImages" resultType="com.adminserver.dto.XrayImageDTO" >
+<!--        SELECT-->
+<!--            id, name, luggage_id, reg_date-->
+<!--        FROM xray_images-->
+<!--        <where>-->
+<!--            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>-->
+<!--            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>-->
+<!--            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>-->
+<!--            AND type = 'R'-->
+<!--        </where>-->
+<!--        LIMIT #{pageSize} OFFSET #{offset}-->
         SELECT
-            id, name, luggage_id, reg_date
-        FROM xray_images
+        id, name, luggage_id, reg_date
+        FROM adex_images
         <where>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
-            AND type = 'R'
+
         </where>
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
     <select id="getXrayImagesCount" resultType="java.lang.Integer" >
         SELECT COUNT(sub.bcount) AS count FROM(SELECT count(*) as bcount
-        FROM xray_images
+        FROM adex_images
         <where>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
@@ -31,15 +41,15 @@
     <select id="getXraySubImages" resultType="com.adminserver.dto.XrayImageDTO" >
         SELECT
             id, name, luggage_id, reg_date
-        FROM xray_images
+        FROM adex_images
         <where>
             AND luggage_id = #{luggageId}
-            AND type = 'N'
+--             AND type = 'N'
         </where>
     </select>
 
     <select id="duplicateCheck" resultType="java.lang.String">
-        SELECT name from xray_images where name = #{imageName} limit 1
+        SELECT name from adex_images where name = #{imageName} limit 1
     </select>
     
     <insert id="createImage" parameterType="java.lang.String">

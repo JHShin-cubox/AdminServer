@@ -50,7 +50,9 @@ function duplicateCheck(){
             success: function (data){
                 if(data == 'Y') {
                     alert("아이디 사용이 가능합니다");
-                    $('#valid_id').hide();
+                    $('#valid_no_id').hide();
+                    $('#valid_no_dup').hide();
+                    $('#valid_no_both').hide();
                     $('#valCheckYn').val('Y');
                 }
                 else alert("아이디가 존재합니다");
@@ -62,65 +64,77 @@ function duplicateCheck(){
     }
 }
 function validCheck(){
-    let valCheck = 'N';
+    let idCheck = 'N';
+    let pwdCheck = 'N';
+    let pwdReCheck = 'N';
+    let nameCheck = 'N';
+    let emailCheck = 'N';
+    let roleCheck = 'N';
     if($('#userId').val()=="" && $('#valCheckYn') != 'Y'){
         $('#valid_no_both').show();
-        valCheck = 'Y';
+        idCheck = 'Y';
         $('#userId').focus();
         $('#valid_no_dup').hide();
         $('#valid_no_id').hide();
     }
     else if($('#valCheckYn').val() == 'N'){
         $('#valid_no_dup').show();
-        valCheck = 'Y';
+        idCheck = 'Y';
         $('#userId').focus();
         $('#valid_no_id').hide();
         $('#valid_no_both').hide();
     }
     else if($('#userId').val() == ""){
         $('#valid_no_id').show();
-        valCheck = 'Y';
+        idCheck = 'Y';
         $('#userId').focus();
         $('#valid_no_dup').hide();
         $('#valid_no_both').hide();
     } else{
-        valCheck = 'N';
+        idCheck = 'N';
         $('#valid_no_id').hide();
         $('#valid_no_dup').hide();
         $('#valid_no_both').hide();
     }
     if($('#password').val()==""){
         $('#valid_password').show();
-        valCheck = 'Y';
-    } else{valCheck = 'N'; $('#valid_password').hide();}
+        pwdCheck = 'Y';
+    } else{pwdCheck = 'N'; $('#valid_password').hide();}
 
     if($('#password_check').val()==""){
         $('#valid_password_check_no').show();
         $('#valid_password_check_dep').hide();
-        valCheck = 'Y';
+        pwdReCheck = 'Y';
     }
     else if($('#password_check').val() != $('#password').val()){
         $('#valid_password_check_dep').show();
         $('#valid_password_check_no').hide();
-        valCheck = 'Y';
+        pwdReCheck = 'Y';
     } else{
-        valCheck = 'N';
+        pwdReCheck = 'N';
         $('#valid_password_check_dep').hide();
         $('#valid_password_check_no').hide();
     }
 
     if($('#name').val()==""){
         $('#valid_name').show();
-        valCheck = 'Y';
-    } else{valCheck = 'N'; $('#valid_name').hide();}
+        nameCheck = 'Y';
+    } else{nameCheck = 'N'; $('#valid_name').hide();}
+
     let e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if($('#email').val()!="" && !e_RegExp.test($('#email').val())){
         $('#valid_email').show();
-        valCheck = 'Y';
+        emailCheck = 'Y';
     }
 
-    if(valCheck == 'Y') return false;
-    $('#modalForm').submit()
+    if(idCheck == 'N' && pwdCheck == 'N' && pwdReCheck == 'N' && nameCheck == 'N') {
+        console.log("검사 통과")
+        insertActionLog('운영관리','사용자 관리','등록')
+        $('#modalForm').submit()
+
+    } else {
+        return false
+    }
 }
 function duplicateReset(){
     $('#valCheckYn').val('N');
