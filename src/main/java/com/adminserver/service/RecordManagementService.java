@@ -93,8 +93,10 @@ public class RecordManagementService {
     public Integer insertLoginHistory(LoginHistoryDTO loginHistoryDTO){ return recordManagementMapper.insertLoginHistory(loginHistoryDTO);}
     public Integer insertActionHistory(ActionHistoryDTO actionHistoryDTO){ return recordManagementMapper.insertActionHistory(actionHistoryDTO);}
 
-    public List<DevicePowerDTO> excelPowerXrayList(SearchDto searchDto){return recordManagementMapper.getViewerPowerLog(searchDto);}
+    public List<LuggageLogDTO> excelLuggageList(SearchDto searchDto){return recordManagementMapper.getLuggageLog(searchDto);}
+    public List<DevicePowerDTO> excelPowerXrayList(SearchDto searchDto){return recordManagementMapper.getXrayPowerLog(searchDto);}
     public List<DevicePowerDTO> excelPowerViewerList(SearchDto searchDto){return recordManagementMapper.getViewerPowerLog(searchDto);}
+    public List<DevicePowerDTO> excelPowerTrsList(SearchDto searchDto){return recordManagementMapper.getTrsPowerLog(searchDto);}
     public List<LoginHistoryDTO> excelLoginList(SearchDto searchDto){return recordManagementMapper.getLoginLog(searchDto);}
     public List<ActionHistoryDTO> excelActionList(SearchDto searchDto){return recordManagementMapper.getActionLog(searchDto);}
 

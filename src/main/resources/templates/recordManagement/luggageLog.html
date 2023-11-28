@@ -9,8 +9,8 @@
 
     <!--검색박스-->
     <form id="search_form" th:object="${searchDto}">
-        <input type="hidden" id="srh_action" value="/record/login">
-        <input name="pageum" type="hidden" value="020401">
+        <input type="hidden" id="srh_action" value="/record/luggage">
+        <input name="pageum" type="hidden" value="020701">
         <input type="hidden" id="searchCategory" value="Y">
         <div class="srh_container">
             <div class="srh_wrapper">
@@ -26,8 +26,8 @@
                     $('#date_end').dcalendarpicker();
                 </script>
                 <div>
-                    <label class="label_srh mr_35">검색어</label>
-                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="아이디를 입력해주세요.">
+<!--                    <label class="label_srh mr_35">검색어</label>-->
+<!--                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="아이디를 입력해주세요.">-->
                 </div>
                 <div class="">
                     <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
@@ -52,7 +52,7 @@
             <!--버튼-->
             <div class="btnBox_num2">
                 <button type="button" class="btn_excel_save" onclick="excelDown()">엑셀</button>
-                <input type="hidden" id="excel_action" value="/excelDown/login">
+                <input type="hidden" id="excel_action" value="/excelDown/luggage">
             </div>
             <!--//버튼-->
         </div>
@@ -64,7 +64,7 @@
                 <div class="tb_h">
                     <div class="th">판독자</div>
                     <div class="th">CheckPC</div>
-                    <div class="th">X-ray</div>
+                    <div class="th">X-Ray</div>
                     <div class="th">통과/개봉</div>
                     <div class="th">생성일</div>
                 </div>

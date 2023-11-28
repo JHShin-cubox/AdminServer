@@ -79,6 +79,7 @@ public class RecordController {
     @PostMapping("xraySubImage")
     @ResponseBody
     public List<XrayImageDTO> xraySubList(@RequestParam("luggageId") String luggageId){
+        System.out.println(luggageId);
         return recordManagementService.getXraySubList(luggageId);
     }
 

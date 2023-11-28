@@ -34,6 +34,10 @@ public class StatisticsService {
         return statisticsMapper.getXrayStatisticsCount(searchDto);
     }
 
+    public Integer getLuggageCount(SearchDto searchDto){
+        return statisticsMapper.getLuggageCount(searchDto);
+    }
+
     public List<DailyStatisticDTO> getDailyStatisticWeek(){return statisticsMapper.getDailyStatisticWeek();}
     public List<DailyStatisticDTO> getDailyStatisticMonth(){return statisticsMapper.getDailyStatisticMonth();}
     public List<DailyStatisticDTO> getDailyStatisticYear(){return statisticsMapper.getDailyStatisticYear();}

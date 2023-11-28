@@ -69,7 +69,8 @@ public class OperationController {
                 .role(userInfoDTO.getRole())
                 .build();
             operationManagementService.createUser(user);
-        return "redirect:userList?pageum=050101";
+        String redirectUrl = userInfoDTO.getNUrl();
+        return "redirect:" + redirectUrl;
     }
     @PostMapping("userModify")
     public String userModify(@Validated UserInfoDTO userInfoDTO, BindingResult bindingResult, Model model, HttpServletRequest request){
@@ -84,7 +85,8 @@ public class OperationController {
                 .role("USER")
                 .build();
         operationManagementService.updateUser(user);
-        return "redirect:userList?pageum=050101";
+        String redirectUrl = userInfoDTO.getNUrl();
+        return "redirect:" + redirectUrl;
     }
 
     @PostMapping("duplicateCheck")
@@ -97,9 +99,10 @@ public class OperationController {
     }
 
     @PostMapping("userDelete")
-    public String deleteUser(@RequestParam("userId") String userId, HttpServletRequest request){
+    public String deleteUser(@RequestParam("userId") String userId, @RequestParam("dUrl") String dUrl, HttpServletRequest request){
         operationManagementService.deleteUser(userId);
-        return "redirect:userList?pageum=050101";
+
+        return "redirect:" + dUrl;
     }
     @GetMapping("signout")
     public String signOutUser() {

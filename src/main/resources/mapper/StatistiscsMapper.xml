@@ -6,7 +6,7 @@
 
     <select id="getXrayStatistic" resultType="com.adminserver.dto.XrayStatisticDTO" >
         SELECT
-        (select level2 from ai_detection where label_id = A.detection_id ) as labelName,
+        (select level2 from ai_detection where id = A.detection_id ) as labelName,
             detection_id,
             count(*) AS amount,
             score,
@@ -17,14 +17,14 @@
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
-        GROUP BY detection_id
+        GROUP BY labelName
         HAVING labelName is not null
         ORDER BY percentage DESC;
     </select>
 
     <select id="getXrayChart" resultType="com.adminserver.dto.XrayStatisticDTO" >
         SELECT
-            (select level2 from ai_detection where label_id = A.detection_id ) as labelName,
+            (select level2 from ai_detection where id = A.detection_id ) as labelName,
             detection_id,
             count(*) AS amount,
             score,
@@ -35,7 +35,7 @@
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
-        GROUP BY detection_id
+        GROUP BY labelName
         HAVING labelName is not null
         ORDER BY percentage DESC limit 10;
     </select>
@@ -49,6 +49,16 @@
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
         </where>
+    </select>
+
+    <select id="getLuggageCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM luggage
+        <where>
+            <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
+            <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND A.reg_date >= #{dateStart}</if>
+            <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND A.reg_date &lt;= #{dateEnd}</if>
+        </where>
+        group by
     </select>
 
     <select id="getDailyStatisticWeek" resultType="com.adminserver.dto.DailyStatisticDTO">

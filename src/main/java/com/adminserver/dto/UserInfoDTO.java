@@ -21,4 +21,5 @@ public class UserInfoDTO {
     private String regDate;
     private String modifiedDate;
     private String actionType;
+    private String nUrl;
 }

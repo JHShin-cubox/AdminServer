@@ -24,6 +24,7 @@
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
 
         </where>
+        group by luggage_id order by reg_date desc
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
@@ -229,17 +230,17 @@
         (SELECT passenger_code FROM passenger WHERE id = A.passenger_id) AS passenger_code,
         reg_date,
         CASE WHEN type = 'P' THEN '통과' WHEN type = 'C' THEN '개봉' END AS type
+        from luggage A
         <where>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>
             <if test="dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date &lt;= #{dateEnd}</if>
         </where>
-        from luggage A
         ORDER BY reg_date DESC
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
     <select id="getLuggageCount" resultType="java.lang.Integer">
-        SELECT count(*) from luggage;
+        SELECT count(*) from luggage
         <where>
             <if test="!dateStart.isEmpty() and !dateEnd.isEmpty()">AND reg_date between date(#{dateStart}) and date(#{dateEnd})+1 </if>
             <if test="!dateStart.isEmpty() and dateEnd.isEmpty()">AND reg_date >= #{dateStart}</if>

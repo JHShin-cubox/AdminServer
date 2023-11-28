@@ -15,6 +15,7 @@ public interface StatisticsMapper {
 
     List<XrayStatisticDTO> getXrayChart(SearchDto searchDto);
     Integer getXrayStatisticsCount(SearchDto searchDto);
+    Integer getLuggageCount(SearchDto searchDto);
 
     List<DailyStatisticDTO> getDailyStatisticWeek();
     List<DailyStatisticDTO> getDailyStatisticMonth();

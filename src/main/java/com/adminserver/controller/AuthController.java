@@ -43,9 +43,10 @@ public class AuthController {
                     .name(userName)
                     .userPassword(userDTO.getUserPassword())
                     .build();
+            String clientIp = getClientIP(request);
             LoginHistoryDTO historyDTO = LoginHistoryDTO.builder()
                     .userId(userDTO.getUserId())
-                    .ip(request.getRemoteAddr())
+                    .ip(clientIp)
                     .build();
             TokenDTO tokens = userService.authenticate(user);
             recordManagementService.insertLoginHistory(historyDTO);
@@ -70,15 +71,26 @@ public class AuthController {
 
         } catch (Exception e) {
             // 실패하면 에러메시지를 리턴
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ResponseDTO.builder()
-                            .message(e.getMessage())
-                            .status(HttpStatus.NOT_FOUND.value())
-                            .data(List.of())
-                            .build());
+                    .message(e.getMessage().equals("Password is Wrong") ? "비밀번호를 확인 해주세요" : "아이디를 확인 해주세요")
+                    .status(HttpStatus.NOT_FOUND.value())
+                    .data(List.of())
+                    .build());
 
         }
     }
+    private String getClientIP(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null) ip = request.getHeader("Proxy-Client-IP");
+        if (ip == null) ip = request.getHeader("WL-Proxy-Client-IP");
+        if (ip == null) ip = request.getHeader("HTTP_CLIENT_IP");
+        if (ip == null) ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        if (ip == null) ip = request.getRemoteAddr();
+        return ip;
+    }
+
 
     /**
      * 로그아웃

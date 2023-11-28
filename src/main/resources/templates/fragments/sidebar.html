@@ -109,11 +109,9 @@
                     <li th:classappend="${pageum} == '030101' ? 'on'">
                         <a onclick=insertActionLog('통계관리','X-Ray_자동판독','조회') href="/statistics/xray?pageum=030101">• X-Ray 자동판독 통계</a>
                     </li>
-                </ul>
-                <ul class="menu2">
-                    <li th:classappend="${pageum} == '030102' ? 'on'">
-                        <a onclick=insertActionLog('통계관리','일일통계','조회') href="/statistics/daily?pageum=030201">• 일일통계</a>
-                    </li>
+<!--                    <li th:classappend="${pageum} == '030102' ? 'on'">-->
+<!--                        <a onclick=insertActionLog('통계관리','일일통계','조회') href="/statistics/daily?pageum=030201">• 일일통계</a>-->
+<!--                    </li>-->
                 </ul>
             </li>
 
@@ -133,9 +131,9 @@
                     <li th:classappend="${pageum} == '050101' ? 'on'">
                         <a onclick=insertActionLog('윤양관리','사용자관리','조회') href="/operation/userList?pageum=050101">• 사용자 관리</a>
                     </li>
-                    <li th:classappend="${pageum} == '050201' ? 'on'">
-                        <a onclick=insertActionLog('윤양관리','관제설정','조회') href="/operation/setting?pageum=050201">• 관제 설정</a>
-                    </li>
+<!--                    <li th:classappend="${pageum} == '050201' ? 'on'">-->
+<!--                        <a onclick=insertActionLog('윤양관리','관제설정','조회') href="/operation/setting?pageum=050201">• 관제 설정</a>-->
+<!--                    </li>-->
                 </ul>
             </li>
             </th:block>

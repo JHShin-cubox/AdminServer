@@ -28,8 +28,8 @@
                     $('#date_end').dcalendarpicker();
                 </script>
                 <div>
-                    <label class="label_srh mr_35">검색어</label>
-                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="판독자를 입력해주세요.">
+<!--                    <label class="label_srh mr_35">검색어</label>-->
+<!--                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="판독자를 입력해주세요.">-->
                 </div>
                 <div class="">
                     <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
@@ -61,7 +61,7 @@
         <!--테이블리스트-->
         <ul class="image_wrap">
         <th:block th:each="imageList : ${lists}" th:if="${totalCount>0}">
-            <li class="img_list" th:value="${imageList.luggageId}" onclick="modalChange(this); document.getElementById('user-Modal01').style.display='block'">
+            <li class="img_list" th:id="${imageList.luggageId}" onclick="modalChange(this); document.getElementById('user-Modal01').style.display='block'">
                 <img id="vImg01" th:src="'/image/'+${imageList.name}">
                 <p class="text-center">촬영일시 : [[${#dates.format(imageList.regDate, 'yyyy년 MM월 dd일 HH:mm:ss')}]]</p>
             </li>
@@ -304,7 +304,7 @@
             $.ajax({
                 url: "/record/xraySubImage",
                 method: "post",
-                data:{"luggageId" : $(val).val()},
+                data:{"luggageId" : $(val).attr('id')},
                 success: function (data){
                     let swiperWrap = $('.swiper-wrapper');
                     let image;

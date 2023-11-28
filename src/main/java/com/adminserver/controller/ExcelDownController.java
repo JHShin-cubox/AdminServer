@@ -54,12 +54,16 @@ public class ExcelDownController {
         headerRow.createCell(0).setCellValue("모델명");
         headerRow.createCell(1).setCellValue("위치");
         headerRow.createCell(2).setCellValue("상태값");
+        headerRow.createCell(3).setCellValue("설치일");
 
         for ( EquipmentDTO data : lists) {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getName());
             row.createCell(1).setCellValue(data.getLocation());
-            row.createCell(2).setCellValue(data.getPower());
+            if(data.getPower() == true && data.getStatus().equals("waiting")) row.createCell(2).setCellValue("일시정지");
+            else if(data.getPower() == true && data.getStatus().equals("working")) row.createCell(2).setCellValue("가동");
+            else row.createCell(2).setCellValue("정지");
+            row.createCell(3).setCellValue(data.getRegDate());
         }
         try {
             workbook.write(outputStream);
@@ -90,16 +94,61 @@ public class ExcelDownController {
         headerRow.createCell(0).setCellValue("모델명");
         headerRow.createCell(1).setCellValue("위치");
         headerRow.createCell(2).setCellValue("상태값");
+        headerRow.createCell(3).setCellValue("설치일");
 
         for ( EquipmentDTO data : lists) {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getName());
             row.createCell(1).setCellValue(data.getLocation());
-            row.createCell(2).setCellValue(data.getPower());
+            if(data.getPower() == true && data.getStatus().equals("waiting")) row.createCell(2).setCellValue("일시정지");
+            else if(data.getPower() == true && data.getStatus().equals("working")) row.createCell(2).setCellValue("가동");
+            else row.createCell(2).setCellValue("정지");
+            row.createCell(3).setCellValue(data.getRegDate());
         }
         try {
             workbook.write(outputStream);
             String fileName = "X-ray 장비.xlsx";
+            outputFileName = new String(fileName.getBytes("KSC5601"), "8859_1");
+            workbook.close();
+        } catch (IOException e) { throw new RuntimeException(e); }
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        headers.set("Content-Disposition", "attachment; fileName=\"" + outputFileName + "\"");
+        return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+    }
+
+    @PostMapping("equipTrs")
+    @ResponseBody
+    public ResponseEntity<byte[]> excelEquipTrsList(SearchDto searchDto){
+        String outputFileName;
+        int rowNumber = 1;
+        searchDto.setPageSize(1000000);
+        searchDto.setOffset(0L);
+        List<EquipmentDTO> lists =  equipmentService.excelEquipTrsList(searchDto);
+        Workbook workbook = new XSSFWorkbook();
+        HttpHeaders headers = new HttpHeaders();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        Sheet sheet = workbook.createSheet("TRS"); // 엑셀 sheet 이름
+        sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("모델명");
+        headerRow.createCell(1).setCellValue("위치");
+        headerRow.createCell(2).setCellValue("상태값");
+        headerRow.createCell(3).setCellValue("설치일");
+
+        for ( EquipmentDTO data : lists) {
+            Row row = sheet.createRow(rowNumber++);
+            row.createCell(0).setCellValue(data.getName());
+            row.createCell(1).setCellValue(data.getLocation());
+            if(data.getPower() == true && data.getStatus().equals("waiting")) row.createCell(2).setCellValue("일시정지");
+            else if(data.getPower() == true && data.getStatus().equals("working")) row.createCell(2).setCellValue("가동");
+            else row.createCell(2).setCellValue("정지");
+
+            row.createCell(3).setCellValue(data.getRegDate());
+        }
+        try {
+            workbook.write(outputStream);
+            String fileName = "TRS 장비.xlsx";
             outputFileName = new String(fileName.getBytes("KSC5601"), "8859_1");
             workbook.close();
         } catch (IOException e) { throw new RuntimeException(e); }
@@ -130,7 +179,8 @@ public class ExcelDownController {
         for ( DevicePowerDTO data : lists) {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getDeviceName());
-            row.createCell(1).setCellValue(data.getStatus());
+            if(data.getStatus().equals("true")) row.createCell(1).setCellValue("On");
+            else row.createCell(1).setCellValue("Off");
             row.createCell(2).setCellValue(data.getRegDate());
         }
         try {
@@ -165,12 +215,89 @@ public class ExcelDownController {
         for ( DevicePowerDTO data : lists) {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getDeviceName());
-            row.createCell(1).setCellValue(data.getStatus());
+            if(data.getStatus().equals("true")) row.createCell(1).setCellValue("On");
+            else row.createCell(1).setCellValue("Off");
             row.createCell(2).setCellValue(data.getRegDate());
         }
         try {
             workbook.write(outputStream);
             String fileName = "Check_PC 전원이력.xlsx";
+            outputFileName = new String(fileName.getBytes("KSC5601"), "8859_1");
+            workbook.close();
+        } catch (IOException e) { throw new RuntimeException(e); }
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        headers.set("Content-Disposition", "attachment; fileName=\"" + outputFileName + "\"");
+        return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+    }
+    @PostMapping("powerTrs")
+    @ResponseBody
+    public ResponseEntity<byte[]> excelPowerTrsist(SearchDto searchDto){
+        String outputFileName;
+        int rowNumber = 1;
+        searchDto.setPageSize(1000000);
+        searchDto.setOffset(0L);
+        List<DevicePowerDTO> lists =  recordManagementService.excelPowerTrsList(searchDto);
+        Workbook workbook = new XSSFWorkbook();
+        HttpHeaders headers = new HttpHeaders();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        Sheet sheet = workbook.createSheet("TRS"); // 엑셀 sheet 이름
+        sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("장비명");
+        headerRow.createCell(1).setCellValue("상태값");
+        headerRow.createCell(2).setCellValue("시간");
+
+        for ( DevicePowerDTO data : lists) {
+            Row row = sheet.createRow(rowNumber++);
+            row.createCell(0).setCellValue(data.getDeviceName());
+            if(data.getStatus().equals("true")) row.createCell(1).setCellValue("On");
+            else row.createCell(1).setCellValue("Off");
+            row.createCell(2).setCellValue(data.getRegDate());
+        }
+        try {
+            workbook.write(outputStream);
+            String fileName = "TRS 전원이력.xlsx";
+            outputFileName = new String(fileName.getBytes("KSC5601"), "8859_1");
+            workbook.close();
+        } catch (IOException e) { throw new RuntimeException(e); }
+        headers.set(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        headers.set("Content-Disposition", "attachment; fileName=\"" + outputFileName + "\"");
+        return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+    }
+
+    @PostMapping("luggage")
+    @ResponseBody
+    public ResponseEntity<byte[]> excelLuggageList(SearchDto searchDto){
+        String outputFileName;
+        int rowNumber = 1;
+        searchDto.setPageSize(1000000);
+        searchDto.setOffset(0L);
+        List<LuggageLogDTO> lists =  recordManagementService.excelLuggageList(searchDto);
+        Workbook workbook = new XSSFWorkbook();
+        HttpHeaders headers = new HttpHeaders();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        Sheet sheet = workbook.createSheet("수하물이력"); // 엑셀 sheet 이름
+        sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("판독자");
+        headerRow.createCell(1).setCellValue("CheckPc");
+        headerRow.createCell(2).setCellValue("X-Ray");
+        headerRow.createCell(3).setCellValue("통과/개봉");
+        headerRow.createCell(4).setCellValue("생성일");
+
+        for ( LuggageLogDTO data : lists) {
+            Row row = sheet.createRow(rowNumber++);
+            row.createCell(0).setCellValue(data.getUserName());
+            row.createCell(1).setCellValue(data.getCheckName());
+            row.createCell(3).setCellValue(data.getXrayName());
+            row.createCell(2).setCellValue(data.getType());
+            row.createCell(4).setCellValue(data.getRegDate());
+        }
+        try {
+            workbook.write(outputStream);
+            String fileName = "수하물이력.xlsx";
             outputFileName = new String(fileName.getBytes("KSC5601"), "8859_1");
             workbook.close();
         } catch (IOException e) { throw new RuntimeException(e); }
@@ -195,14 +322,12 @@ public class ExcelDownController {
         sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
         Row headerRow = sheet.createRow(0);
         headerRow.createCell(0).setCellValue("아이디");
-        headerRow.createCell(1).setCellValue("IP");
-        headerRow.createCell(2).setCellValue("시간");
+        headerRow.createCell(1).setCellValue("시간");
 
         for ( LoginHistoryDTO data : lists) {
             Row row = sheet.createRow(rowNumber++);
             row.createCell(0).setCellValue(data.getUserId());
-            row.createCell(1).setCellValue(data.getIp());
-            row.createCell(2).setCellValue(data.getRegDate());
+            row.createCell(1).setCellValue(data.getRegDate());
         }
         try {
             workbook.write(outputStream);

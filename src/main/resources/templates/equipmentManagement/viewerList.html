@@ -56,7 +56,7 @@
                     <div class="th">모델명</div>
                     <div class="th">위치</div>
                     <div class="th">상태</div>
-                    <div class="th">운용시간</div>
+                    <div class="th">설치일</div>
                 </div>
                 <!--구분선-->
 
@@ -65,10 +65,10 @@
                         <div class="tb_d">
                             <div class="td"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${deviceList.name}]]</a></div>
                             <div class="td">[[${deviceList.location}]]</div>
-                            <div class="td" th:if="${deviceList.power}=='true' and ${deviceList.status} == 'reading'">가동</div>
-                            <div class="td" th:if="${deviceList.power}=='true' and ${deviceList.status} == 'waiting'">일시정지</div>
-                            <div class="td" th:if="${deviceList.power}=='false'">전원 꺼짐</div>
-                            <div class="td">운용시간 값</div>
+                            <div class="td" th:if="${deviceList.power}==true and ${deviceList.status} == 'working'">가동</div>
+                            <div class="td" th:if="${deviceList.power}==true and ${deviceList.status} == 'waiting'">일시정지</div>
+                            <div class="td" th:if="${deviceList.power}==false">정지</div>
+                            <div class="td">[[${deviceList.regDate}]]</div>
                             <input type="hidden" th:value="${deviceList.id}">
                         </div>
                     </th:block>
@@ -118,7 +118,7 @@
                 <div class="modal-content_in w_520">
                     <div class="modal_titlebar"></div>
                     <div class="modal_close" onclick="document.getElementById('user-Modal01').style.display='none'"><i class="uil uil-multiply"></i></div>
-                    <div class="modal_title">장비 수정</div>
+                    <div class="modal_title">장비 상세</div>
                     <div class="cont_wrap">
                         <div class="tb_list_com tb_list_st1 mb_30">
                             <div class="tr">
@@ -138,7 +138,7 @@
                             <div class="tr">
                                 <div class="th">위치</div>
                                 <div class="td">
-                                    <input id="location" name="location" type="text" placeholder="">
+                                    <span id="location"></span>
                                 </div>
                             </div>
                             <div class="tr">
@@ -148,16 +148,16 @@
                                 </div>
                             </div>
                             <div class="tr">
-                                <div class="th">운용시간</div>
+                                <div class="th">설치일</div>
                                 <div class="td">
-                                    <span id="runningTime">운용시간 값</span>
+                                    <span id="runningTime">설치일 값</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="bottom_btn_wrap_type1">
-                        <button type="button" onclick="insertActionLog('장비관리','CheckPC 장비','수정');apiEquipModify()" class="btn_save">수정</button>
-                        <button type="button" onclick="document.getElementById('user-Modal01').style.display='none'" class="btn_cancel">취소</button>
+<!--                        <button type="button" onclick="insertActionLog('장비관리','CheckPC 장비','수정');apiEquipModify()" class="btn_save">수정</button>-->
+<!--                        <button type="button" onclick="document.getElementById('user-Modal01').style.display='none'" class="btn_cancel">취소</button>-->
                     </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@
         function changeModify(val){
             const parentDiv = $(val).parent().parent().children();
             $('#modelName').text($(val).text());
-            $('#location').val(parentDiv.eq(1).text());
+            $('#location').text(parentDiv.eq(1).text());
             $('#status').text(parentDiv.eq(2).text());
             $('#runningTime').text(parentDiv.eq(3).text());
             $('#deId').val(parentDiv.eq(4).val());

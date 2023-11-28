@@ -106,13 +106,13 @@
         <!-- PC 일때 페이징 -->
         <div class="pc_view" th:with="start=${(lists.number/maxPage)*maxPage + 1}, end=(${(lists.totalPages == 0) ? 1 : (start + (maxPage -1) < lists.totalPages ? start + (maxPage -1) : lists.totalPages)})">
             <div class="common_pagination pc_view">
-                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
-                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
+                <a th:href="${uri}+'?page='+${start-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}+'&searchRadio='+${searchDto.searchRadio}" th:classappend="${lists.first}? 'disabled'" class="first">PREV</a>
+                <a th:href="${uri}+'?page=' + ${lists.number-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}+'&searchRadio='+${searchDto.searchRadio}" th:classappend="${lists.first}? 'disabled'"  class="front"></a>
                 <div>
-                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
+                    <a th:href="${uri}+'?page=' + ${page-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}+'&searchRadio='+${searchDto.searchRadio}" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${lists.number eq page-1}?'active':''" class="um">[[${page}]]</a>
                 </div>
-                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
-                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
+                <a th:href="${uri}+'?page=' + ${lists.number+1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}+'&searchRadio='+${searchDto.searchRadio}" th:classappend="${lists.last}? 'disabled'" class="back"></a>
+                <a th:href="${uri}+'?page='+${end-1}+'&pageum='+${pageum}+'&searchCategory='+${searchDto.searchCategory}+'&searchText='+${searchDto.searchText}+'&dateStart='+${searchDto.dateStart}+'&dateEnd='+${searchDto.dateEnd}+'&searchRadio='+${searchDto.searchRadio}" th:classappend="${lists.last}? 'disabled'" class="last">NEXT</a>
             </div>
         </div>
         <!-- //PC 일때 페이징 -->

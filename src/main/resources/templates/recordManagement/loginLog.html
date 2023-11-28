@@ -60,10 +60,9 @@
 
         <!--테이블리스트-->
         <div class="tableList_wrap ">
-            <div class="table_com table_st23">
+            <div class="table_com table_st22">
                 <div class="tb_h">
                     <div class="th">아이디</div>
-                    <div class="th">IP</div>
                     <div class="th">로그인 시간</div>
                 </div>
                 <!--구분선-->
@@ -72,7 +71,6 @@
                     <th:block th:each="list : ${lists}" th:if="${totalCount>0}">
                         <div class="tb_d">
                             <div class="td">[[${list.userId}]]</div>
-                            <div class="td">[[${list.ip}]]</div>
                             <div class="td">[[${list.regDate}]]</div>
                         </div>
                     </th:block>

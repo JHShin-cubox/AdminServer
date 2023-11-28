@@ -52,5 +52,6 @@ public class EquipmentService {
 
     public List<EquipmentDTO> excelEquipXrayList(SearchDto searchDto){return equipmentMapper.getXrayList(searchDto);}
     public List<EquipmentDTO> excelEquipViewerList(SearchDto searchDto){return equipmentMapper.getViewerList(searchDto);}
+    public List<EquipmentDTO> excelEquipTrsList(SearchDto searchDto){return equipmentMapper.getTrsList(searchDto);}
 
 }

@@ -12,7 +12,7 @@ public class EquipmentDTO {
     private String deviceId;
     private String deviceIp;
     private String name;
-    private String power;
+    private Boolean power;
     private String status;
     private String type;
     private String distributionCount;

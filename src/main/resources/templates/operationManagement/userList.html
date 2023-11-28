@@ -68,14 +68,16 @@
                 <div class="tb_d_wrap img_wrap">
                     <th:block th:each="userList : ${lists}" th:if="${totalCount>0}">
                         <div class="tb_d">
-                            <div class="td"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${userList.userId}]]</a></div>
+                            <div class="td" th:if="${userList.userId=='admin'}">[[${userList.userId}]]</div>
+                            <div class="td" th:if="${userList.userId!='admin'}"><a href="#" onclick="changeModify(this);document.getElementById('user-Modal01').style.display='block'">[[${userList.userId}]]</a></div>
                             <div class="td">[[${userList.name}]]</div>
                             <div class="td">[[${userList.department}]]</div>
                             <div class="td">[[${userList.rank}]]</div>
                             <div class="td">[[${userList.phone}]]</div>
                             <div class="td">[[${userList.email}]]</div>
-                            <div class="td">[[${userList.role}]]</div>
-                            <div class="td_btn"><button th:onclick="deleteUser([[${userList.userId}]])" class="btn_out" type="button">탈퇴</button></div>
+                            <div class="td" th:if="${userList.userId!='admin'}">[[${userList.role}]]</div>
+                            <div class="td" th:if="${userList.userId=='admin'}">SUPER_ADMIN</div>
+                            <div class="td_btn"><button th:onclick="deleteUser([[${userList.userId}]])" th:if="${userList.userId!='admin'}" class="btn_out" type="button">탈퇴</button></div>
                         </div>
                     </th:block>
                     <th:block th:if="${totalCount==0}">
@@ -108,6 +110,7 @@
         <!--모달- 삭제사유입력-->
         <form id="modalForm" action="/operation/userSignUp" method="post" th:object="${userInfoDTO}">
         <div id="user-Modal01" class="modal">
+            <input id="nUrl" name="nUrl" type="hidden">
             <div class="modal-content" >
                 <div class="modal-content_in w_520">
                     <div class="modal_titlebar"></div>
@@ -196,6 +199,7 @@
         </form>
         <form id="del_form" action="/operation/userDelete" method="post">
             <input id="del_userId" type="hidden" name="userId">
+            <input id="del_url" type="hidden" name="dUrl">
         </form>
         <!--//모달-->
 
@@ -207,6 +211,8 @@
     <script>
         $('#date_start').dcalendarpicker();
         $('#date_end').dcalendarpicker();
+        $('#nUrl').val($(location).attr('href'))
+        $('#del_url').val($(location).attr('href'))
     </script>
 
     <!--모달-->

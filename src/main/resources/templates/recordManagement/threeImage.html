@@ -14,30 +14,30 @@
         <input type="hidden" id="srh_action" value="/record/threeImage">
         <input name="pageum" type="hidden" value="020601">
         <input type="hidden" id="searchCategory" value="Y">
-        <div class="srh_container">
-            <div class="srh_wrapper">
-                <div class="mr_85">
-                    <label class="label_srh mr_35">기간설정</label>
-                    <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">
-                    <span>~</span>
-                    <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">
-                </div>
-                <script src="/static/js/Calenda/dcalendar.picker.js"></script>
-                <script>
-                    $('#date_start').dcalendarpicker();
-                    $('#date_end').dcalendarpicker();
-                </script>
-                <div>
-                    <label class="label_srh mr_35">검색어</label>
-                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="판독자를 입력해주세요.">
-                </div>
-                <div class="">
-                    <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>
-                    <button type="button" onclick="location.href='/record/threeImage?pageum=020601'" class="redoBtn area_btn">초기화</button>
-                </div>
-            </div>
-            <div class="srh_status"></div>
-        </div>
+<!--        <div class="srh_container">-->
+<!--            <div class="srh_wrapper">-->
+<!--                <div class="mr_85">-->
+<!--                    <label class="label_srh mr_35">기간설정</label>-->
+<!--                    <input type="text" name="dateStart" placeholder="시작일" id="date_start" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateStart()}" autocomplete="off">-->
+<!--                    <span>~</span>-->
+<!--                    <input type="text" name="dateEnd" placeholder="종료일" id="date_end" class="form-control srh_date" onclick="this.value=''" th:value="${searchDto.getDateEnd()}" autocomplete="off">-->
+<!--                </div>-->
+<!--                <script src="/static/js/Calenda/dcalendar.picker.js"></script>-->
+<!--                <script>-->
+<!--                    $('#date_start').dcalendarpicker();-->
+<!--                    $('#date_end').dcalendarpicker();-->
+<!--                </script>-->
+<!--                <div>-->
+<!--                    <label class="label_srh mr_35">검색어</label>-->
+<!--                    <input id="searchText" name="searchText" class="srh_text" type="text" th:value="${searchDto.getSearchText()}" onkeyup="if(window.event.keyCode==13)search_valid()" placeholder="판독자를 입력해주세요.">-->
+<!--                </div>-->
+<!--                <div class="">-->
+<!--                    <button type="button" onclick="search_valid()" class="searchBtn area_btn mr_10">검색</button>-->
+<!--                    <button type="button" onclick="location.href='/record/threeImage?pageum=020601'" class="redoBtn area_btn">초기화</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="srh_status"></div>-->
+<!--        </div>-->
     </form>
     <!--//검색박스-->
 
