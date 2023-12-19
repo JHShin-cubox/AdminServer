@@ -1,5 +1,6 @@
 package com.adminserver.mapper;
 
+import com.adminserver.dto.LabelDTO;
 import com.adminserver.dto.SearchDto;
 import com.adminserver.dto.SettingDTO;
 import com.adminserver.dto.UserInfoDTO;
@@ -27,4 +28,10 @@ public interface OperationManagementMapper {
     Integer deleteUser(@Param("userId") String userId);
 
     SettingDTO getSetting();
+
+    String getLabelId(@Param("labelId") Integer labelId);
+
+    void insertLabelClass(LabelDTO labelDto);
+
+    void classFlagChange();
 }

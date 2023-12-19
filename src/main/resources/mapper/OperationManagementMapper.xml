@@ -70,4 +70,16 @@
         FROM settings
     </select>
 
+    <select id="getLabelId" resultType="java.lang.String">
+        SELECT label_id FROM ai_detection WHERE label_id = #{labelId}
+    </select>
+
+    <insert id="insertLabelClass" parameterType="com.adminserver.dto.LabelDTO">
+        INSERT INTO ai_detection (label_id, level1, level2, flag) VALUES (#{labelId}, #{labelEng}, #{labelKor}, 'Y')
+    </insert>
+
+    <update id="classFlagChange" parameterType="com.adminserver.dto.LabelDTO">
+        UPDATE ai_detection SET flag = 'N'
+    </update>
+
 </mapper>

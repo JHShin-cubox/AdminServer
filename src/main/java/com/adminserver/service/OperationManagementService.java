@@ -1,9 +1,14 @@
+/*==================================================================
+프로젝트명 : 통합 관리시스템
+작성지 : 신정호
+작성일 : 2023년 11월 22일
+용도 : 운영 관리 서비스
+==================================================================*/
+
+
 package com.adminserver.service;
 
-import com.adminserver.dto.ActionHistoryDTO;
-import com.adminserver.dto.SearchDto;
-import com.adminserver.dto.SettingDTO;
-import com.adminserver.dto.UserInfoDTO;
+import com.adminserver.dto.*;
 import com.adminserver.mapper.OperationManagementMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -60,4 +65,14 @@ public class OperationManagementService {
     public List<UserInfoDTO> excelUserList(SearchDto searchDto){return managementMapper.getUserList(searchDto);}
 
     public SettingDTO getSetting(){ return managementMapper.getSetting(); }
+
+    @Transactional
+    public String getLabelId(Integer labelId){ return managementMapper.getLabelId(labelId);}
+
+    @Transactional
+    public void insertLabelClass(LabelDTO labelDto){managementMapper.insertLabelClass(labelDto);}
+
+    @Transactional
+    public void classFlagChange(){managementMapper.classFlagChange();}
+
 }

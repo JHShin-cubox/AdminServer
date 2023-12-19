@@ -1,3 +1,10 @@
+/*==================================================================
+프로젝트명 : 통합 관리시스템
+작성지 : 신정호
+작성일 : 2023년 11월 22일
+용도 : 사용자 관리 서비스
+==================================================================*/
+
 package com.adminserver.service;
 
 import com.adminserver.dto.TokenDTO;
@@ -30,7 +37,6 @@ public class UserServiceImpl implements UserService{
     public UserEntity createUser(final UserEntity userEntity) {
 
         final String userId = userEntity.getUserId();
-        log.error("여기냐?");
         if(userRepository.existsByUserId(userId)){
             log.warn("User ID Already Exists");
             throw new RuntimeException("User Id Already Exists");

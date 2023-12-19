@@ -1,3 +1,10 @@
+/*==================================================================
+프로젝트명 : 통합 관리시스템
+작성지 : 신정호
+작성일 : 2023년 11월 22일
+용도 : 통합관리 시스템 엑셀 다운로드 칸트롤러
+==================================================================*/
+
 package com.adminserver.controller;
 
 
@@ -51,7 +58,7 @@ public class ExcelDownController {
         Sheet sheet = workbook.createSheet("Check PC"); // 엑셀 sheet 이름
         sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
         Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("모델명");
+        headerRow.createCell(0).setCellValue("장비IP");
         headerRow.createCell(1).setCellValue("위치");
         headerRow.createCell(2).setCellValue("상태값");
         headerRow.createCell(3).setCellValue("설치일");
@@ -91,7 +98,7 @@ public class ExcelDownController {
         Sheet sheet = workbook.createSheet("X-Ray"); // 엑셀 sheet 이름
         sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
         Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("모델명");
+        headerRow.createCell(0).setCellValue("장비IP");
         headerRow.createCell(1).setCellValue("위치");
         headerRow.createCell(2).setCellValue("상태값");
         headerRow.createCell(3).setCellValue("설치일");
@@ -131,7 +138,7 @@ public class ExcelDownController {
         Sheet sheet = workbook.createSheet("TRS"); // 엑셀 sheet 이름
         sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
         Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("모델명");
+        headerRow.createCell(0).setCellValue("장비IP");
         headerRow.createCell(1).setCellValue("위치");
         headerRow.createCell(2).setCellValue("상태값");
         headerRow.createCell(3).setCellValue("설치일");
@@ -172,7 +179,7 @@ public class ExcelDownController {
         Sheet sheet = workbook.createSheet("X-Ray"); // 엑셀 sheet 이름
         sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
         Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("장비명");
+        headerRow.createCell(0).setCellValue("장비IP");
         headerRow.createCell(1).setCellValue("상태값");
         headerRow.createCell(2).setCellValue("시간");
 
@@ -208,7 +215,7 @@ public class ExcelDownController {
         Sheet sheet = workbook.createSheet("Check_PC"); // 엑셀 sheet 이름
         sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
         Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("장비명");
+        headerRow.createCell(0).setCellValue("장비IP");
         headerRow.createCell(1).setCellValue("상태값");
         headerRow.createCell(2).setCellValue("시간");
 
@@ -244,7 +251,7 @@ public class ExcelDownController {
         Sheet sheet = workbook.createSheet("TRS"); // 엑셀 sheet 이름
         sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
         Row headerRow = sheet.createRow(0);
-        headerRow.createCell(0).setCellValue("장비명");
+        headerRow.createCell(0).setCellValue("장비IP");
         headerRow.createCell(1).setCellValue("상태값");
         headerRow.createCell(2).setCellValue("시간");
 
