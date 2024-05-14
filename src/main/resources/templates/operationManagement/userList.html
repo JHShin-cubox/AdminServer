@@ -10,9 +10,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <div layout:fragment="content" id="body_area_in">
+    <script type="text/javascript" src="/static/js/valid_check.js"></script>
     <!--달력 js-->
     <script src="/static/js/Calenda/dcalendar.picker.js" charset="utf-8"></script>
-
     <link rel="stylesheet" type="text/css" href="/static/js/Calenda/dcalendar.picker.css" media="all">
 
     <!--단말기관리 : 1.단말기 승인처리-->
@@ -211,10 +211,10 @@
         <!--//모달-->
 
     </div>
-    <form method="post" action="labelUpload" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="제출">
-    </form>
+<!--    <form method="post" action="labelUpload" enctype="multipart/form-data">-->
+<!--        <input type="file" name="file">-->
+<!--        <input type="submit" value="제출">-->
+<!--    </form>-->
 
     <!--중복 js - 레이아웃(layout.html) 하단에 선언되어있음. 페이지 적용시 삭제-->
     <!--달력 -->
@@ -226,7 +226,5 @@
         $('#del_url').val($(location).attr('href'))
     </script>
 
-    <!--모달-->
-    <script type="text/javascript" src="/static/js/valid_check.js"></script>
 </div>
 </html>

@@ -1,10 +1,3 @@
-<!--==================================================================
-프로젝트명 : 통합관리시스템
-작성지 : 신정호
-작성일 : 2023년 11월 22일
-용도 : 회원가입 인증 함수
-==================================================================-->
-
 var modal = document.getElementById("delete-Modal01");
 
 // When the user clicks anywhere outside of the modal, close it
@@ -23,6 +16,11 @@ function changeModify(val){
     $('#rank').val(parentDiv.eq(3).text());
     $('#phone').val(parentDiv.eq(4).text());
     $('#email').val(parentDiv.eq(5).text());
+    if(parentDiv.eq(6).text()=='USER'){
+        $('#role option:eq(1)').prop('selected',true)
+    } else{
+        $('#role option:eq(0)').prop('selected',true)
+    }
     $('.modal_title').text('사용자 수정');
     $('.btn_save').text('수정');
     $('.btn_save').attr('onclick',"insertActionLog('운영관리','사용자 관리','수정');validCheck()");
@@ -43,6 +41,7 @@ function modalReset(){
     $('#idCheck').show();
     $('.txt_st1').show();
     $('.valid_error').hide();
+    $('#role option:eq(0)').prop('selected',true)
     $('#modalForm').attr("action","/operation/userSignUp");
 }
 function duplicateCheck(){
@@ -71,6 +70,7 @@ function duplicateCheck(){
     }
 }
 function validCheck(){
+
     let idCheck = 'N';
     let pwdCheck = 'N';
     let pwdReCheck = 'N';
@@ -103,24 +103,31 @@ function validCheck(){
         $('#valid_no_dup').hide();
         $('#valid_no_both').hide();
     }
-    if($('#password').val()==""){
-        $('#valid_password').show();
-        pwdCheck = 'Y';
-    } else{pwdCheck = 'N'; $('#valid_password').hide();}
+    if($('.btn_save').text()=='등록'){
+        console.log("등록")
+        if($('#password').val()==""){
+            $('#valid_password').show();
+            pwdCheck = 'Y';
+        } else{pwdCheck = 'N'; $('#valid_password').hide();}
 
-    if($('#password_check').val()==""){
-        $('#valid_password_check_no').show();
-        $('#valid_password_check_dep').hide();
-        pwdReCheck = 'Y';
-    }
-    else if($('#password_check').val() != $('#password').val()){
-        $('#valid_password_check_dep').show();
-        $('#valid_password_check_no').hide();
-        pwdReCheck = 'Y';
+        if($('#password_check').val()==""){
+            $('#valid_password_check_no').show();
+            $('#valid_password_check_dep').hide();
+            pwdReCheck = 'Y';
+        }
+        else if($('#password_check').val() != $('#password').val()){
+            $('#valid_password_check_dep').show();
+            $('#valid_password_check_no').hide();
+            pwdReCheck = 'Y';
+        } else{
+            pwdReCheck = 'N';
+            $('#valid_password_check_dep').hide();
+            $('#valid_password_check_no').hide();
+        }
     } else{
+        console.log("수정")
+        pwdCheck = 'N';
         pwdReCheck = 'N';
-        $('#valid_password_check_dep').hide();
-        $('#valid_password_check_no').hide();
     }
 
     if($('#name').val()==""){
@@ -138,7 +145,6 @@ function validCheck(){
         console.log("검사 통과")
         insertActionLog('운영관리','사용자 관리','등록')
         $('#modalForm').submit()
-
     } else {
         return false
     }

@@ -82,7 +82,7 @@ public class OperationController {
                 .build();
             operationManagementService.createUser(user);
         String redirectUrl = userInfoDTO.getNUrl();
-        return "redirect:" + redirectUrl;
+        return "redirect:" + "http://localhost:8080/operation/userList?pageum=050101";
     }
     @PostMapping("userModify")
     public String userModify(@Validated UserInfoDTO userInfoDTO, BindingResult bindingResult, Model model, HttpServletRequest request){
